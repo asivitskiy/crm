@@ -1,0 +1,2 @@
+<div style="font-weight: 450; font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, 'sans-serif'; font-size: 12px; display: inline; border-right: 0px dotted #373737; margin: 4px; margin-right: 1px; display: inline-block; height: 22px; width: 34px; vertical-align:text-bottom; background-color: white;text-align: center; border-radius: 3px; border: 2px solid black"><? 
+				echo($row['paymethod']);?></div>

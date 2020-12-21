@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Документ без названия</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script>
+	$(document).ready(function(){
+	  $( "#div_click" ).click(function( ){
+	  	$( "#modal_close" ).click();
+	  });
+	  $( "#modal_close" ).click(function(){
+	  	$( "#modal_close" ).toggle();
+	  });
+	});
+</script>
+</head>
+
+<body>
+
+<div id="div_click">Клик</div>
+	<div id="modal_close" style="border:1px solid red">Элемент div</div>
+	
+</body>
+</html>

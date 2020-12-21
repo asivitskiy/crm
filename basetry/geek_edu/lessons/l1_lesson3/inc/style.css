@@ -1,0 +1,146 @@
+body {
+    font-family: Verdana;
+    background-color: #f8f8f8;
+}
+ul {
+    list-style: none;
+}
+body a,a:hover,a:active,a:after{
+    color: black;
+    text-decoration: none;
+}
+
+.content {
+    width: 70%;
+    margin-left: 15%;
+}
+.top_menu {
+    padding: 0;
+    font-weight: bold;
+    list-style-type: none;
+
+/*    background-color: #cfcfcf;*/
+}
+
+.top_menu li {
+    margin-left: 10px;
+    color: red;
+    display: inline-block;
+}
+.top_menu li:first-child {
+    margin-left: 0px;
+}
+
+.top_menu li a  {
+    color: #030303;
+    padding: 8px;
+    text-decoration: none;
+    width: 70px;
+    height: 18px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+.top_menu li a:hover{
+
+    background-color: gray;
+    font-weight: bold;
+    color: white;
+}
+
+.cat_item_preview {
+    border-radius: 4px;
+    height: 165px;
+    border: 2px solid gray;
+    text-align: center;
+    width: 300px;
+    display: inline-block;
+}
+.img_whrapper {
+    display: inline-block;
+    /*height: 110px;*/
+    margin: 10px auto;
+    /*width: 110px;*/
+    padding: 4px;
+    background-color: green;
+    border-radius: 7px;
+    margin-bottom: 0px!important;
+}
+.cat_item_preview a {
+    display: block;
+}
+.cat_item_preview img {
+    margin-top: 1px;
+    margin-bottom: 0px;
+    width: 100px;
+    height: 100px;
+    /*margin: 5px auto;*/
+    border-radius: 7px;
+  /*  overflow: hidden;*/
+    display: inline-block;
+}
+
+.cat_row h2 {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+.item_allinfo h1 h2 h3 {
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #eaeaea;
+}
+/*.item_allinfo h2{
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #eaeaea;
+}
+.item_allinfo h3{
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #eaeaea;
+}*/
+
+.short_description p{
+    font-size: 14px;
+    color: #707070;
+    font-style: italic;
+    line-height: 16px;
+}
+
+.full_description p{
+    color: #484343;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: left;
+}
+
+.item_allinfo ul {
+
+    padding-left: 10px;
+    list-style: none;
+    margin-left: 25px;
+
+}
+.item_allinfo ul li{
+    width: 400px;
+    margin: 5px;
+    padding: 4px;
+    border: 1px solid gray;
+    border-left: 8px solid gray;
+    border-radius: 4px;
+
+ }
+
+.item_allinfo ul li:hover{
+    width: 400px;
+    margin: 5px;
+    padding: 4px;
+    border: 1px solid gray;
+    border-left: 8px solid gray;
+    border-radius: 4px;
+    background-color: gray;
+    cursor: pointer;
+
+}

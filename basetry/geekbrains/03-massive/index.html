@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Массивы/функции</title>
+</head>
+<body>
+    <script type="text/javascript">
+alert('Внимание! Все задания выполнены в одном файле и идут по порядку');
+//////////Генерация случайного целого положительного числа
+        function get_random_number(top_number) {
+            return Math.round(Math.random()*top_number);
+        }
+
+
+//////////генерация случайного массива из 10 целых неотрицательных чисел от 1 до 100
+        function random_test_array() {
+            var testarray = [];
+            for (var i=1; i<=10; i++) {
+               testarray.push(parseInt(Math.random()*100));
+            }
+            return testarray;
+        }
+
+////////// 1-a
+        function array_by_number(quantity) {
+            var curent_array = [];
+            for (var i=1; i<=quantity; i++) {
+                curent_array.push(i);
+            }
+            return curent_array;
+        }
+
+////////// 1-b
+        function array_summ(input_array) {
+            var summ_of_array_parts=0;
+            for (var i=1; i<=input_array.length; i++) {
+                summ_of_array_parts = summ_of_array_parts + input_array[i-1]
+            }
+            return summ_of_array_parts;
+        }
+////////// 1-c
+        test_array = random_test_array();
+        function array_min(test_array) {
+            var min=test_array[0];
+            for (var i=1; i<=test_array.length-1; i++) {
+                if (test_array[i]<min) {min=test_array[i]}
+            }
+            return min;
+        }
+
+////////// 1d
+        function odd_array(test_array) {
+            var odd_array = [];
+            for (var i=0; i<test_array.length;i++) {
+                if (test_array[i]%2==0) {odd_array.push(test_array[i])}
+            }
+        return odd_array;
+        }
+
+
+
+        number_of_digits = prompt('Введите количество чисел массива');
+        array_a=array_by_number(number_of_digits);
+        alert('Сформированный массив:\n' + array_a);
+
+
+        array_summ_result=array_summ(array_a);
+        alert('Сумма значений предыдущего массива\n' + array_summ_result);
+
+
+        array_min_result=array_min(test_array);
+        alert('Сформированный случайный массив:\n'+ test_array +'\nМинимальное значение в массиве\n' + array_min_result);
+
+
+        odd_array_result = odd_array(test_array);
+        alert('Сформированный случайный массив:\n'+ test_array +'\nМассив из четных значений\n' + odd_array_result);
+
+
+
+////////////////// Загадки
+        var questions_with_answers = [
+            ["Солнце печёт, липа цветёт.Рожь поспевает, когда это бывает?",["лето","leto"]],
+            ["Тает снежок, ожил лужок. День прибывает. Когда это бывает?",["весна","vesna"]],
+            ["Утром мы во двор идём - Листья сыплются дождём, Под ногами шелестят И летят, летят, летят.",["осень","osen"]],
+            ["Запорошила дорожки, Разукрасила окошки. Радость детям подарила И на санках прокатила.",["зима","zima"]]
+        ]
+
+        var right_phrase = 'Верно!';
+        var wrong_phrase = 'Ответ не верный.';
+
+        number_of_querstions = questions_with_answers.length;
+        alert('Доброго времени суток, дорогой друг. ' +
+            '\nЯ хочу сыграть с тобой в игру :)' +
+            '\nОтветы могут быть на русском, могут быть на транслите. ' +
+            '\nКоличество загадок - ' + number_of_querstions);
+
+        for (var i=0; i<number_of_querstions;i++) {
+            var right_flag = 0;
+            var user_answer = prompt('Отгадай первую загадку: ' + questions_with_answers[i][0]);
+            for (var k = 0; k < questions_with_answers[i][1].length; k++)
+                if (user_answer == questions_with_answers[i][1][k]) {
+                    right_flag = 1;
+                }
+            if (right_flag > 0) {
+                alert(right_phrase)
+            } else {
+                alert(wrong_phrase)
+            }
+        }
+
+
+
+
+///////////Тренажер текста
+    function generate_text(letters,length) {
+      var text = '';
+      for (var i=0;i<length;i++) {
+        var n=get_random_number(letters.length-1);
+        text  =text+letters[n];
+      }
+      return text;
+    }
+
+    level_swither_array = [
+        ["Уровень 1",["ф","а"],"Положите 4 пальца левой руки на ФЫВА"],
+        ["Уровень 2",["ы","в"],"Положите 4 пальца левой руки на ФЫВА и 4 пальца правой руки на ОЛДЖ"],
+        ["Уровень 3",["о","ж"],"Положите 4 пальца левой руки на ФЫВА и 4 пальца правой руки на ОЛДЖ"]
+    ]
+    alert("Вас приветствует тренажер слепой печати. \nДля выхода введите \"выход\" либо отправьте пустое значение");
+        var l_switch_counter = 0;
+        while((l_switch_counter <= 2)) {
+            var text = generate_text(level_swither_array[l_switch_counter][1], 3);
+            var usertext = prompt(level_swither_array[l_switch_counter][2] + "\nТеперь набирайте предложенный ниже текст, не глядя на буквы\n" + text);
+            if (usertext == 'выход') {break;}
+            if (usertext == text) {alert("ВЕРНО!"+ level_swither_array[l_switch_counter][0] + " пройден"); l_switch_counter += 1;}
+            else {alert("ОШИБКА! Пробуем еще раз")}
+
+
+        }
+
+        if (l_switch_counter > 2) {alert('Тест пройден');}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Загадки</title>
+</head>
+
+<body>
+<script type="text/javascript">
+	var tryt = 'asds adsaadsdDDD';
+	alert('паровоз'.toUpperCase().trim());
+	var first_querstion_text ='Солнце печёт, липа цветёт.Рожь поспевает, когда это бывает?';
+	var first_querstion_answer ='лето';
+	var second_querstion_text ='Тает снежок, ожил лужок. День прибывает. Когда это бывает?';
+	var second_querstion_answer ='весна';
+	var third_querstion_text ='Утром мы во двор идём - Листья сыплются дождём, Под ногами шелестят И летят, летят, летят.';
+	var third_querstion_answer ='осень';
+	var fourth_querstion_text ='Запорошила дорожки, Разукрасила окошки. Радость детям подарила И на санках прокатила.';
+	var fourth_querstion_answer ='зима';
+	
+	var user_mistakes = 0;
+	
+	var right_phrase = 'Верно! Идём дальше';
+	
+	alert('Доброго времени суток, дорогой друг. \nЯ хочу сыграть с тобой в игру :)\nПотом мы посчитаем процент, \nа после этого поиграем в угадайку');
+	
+	////////////////// ПЕРВАЯ ЗАГАДКА
+	var first_user_answer = prompt('Отгадай первую загадку: ' + first_querstion_text);
+	if (first_user_answer.toUpperCase() == first_querstion_answer.toUpperCase()) {
+			if (user_mistakes == 0) 
+			  {alert(right_phrase + '\nПока без ошибок!'); } 
+			else 
+			  {alert(right_phrase);}
+		} 
+	else {
+		alert('Ответ не верный, переходим к следующей загадке.');
+		++user_mistakes;
+		}
+	
+	
+	
+	////////////////// ВТОРАЯ ЗАГАДКА
+	var second_user_answer = prompt('Ошибок: '+ user_mistakes +'\nОтгадай вторую загадку: ' + second_querstion_text);
+	if (second_user_answer.toUpperCase() == second_querstion_answer.toUpperCase()) {
+			if (user_mistakes == 0) 
+			  {alert(right_phrase + '\nПока без ошибок!'); } 
+			else 
+			  {alert(right_phrase);}
+		} 
+	else {
+		alert('Ответ не верный, переходим к следующей загадке.');
+		++user_mistakes;
+		}
+	
+	////////////////// ТРЕТЬЯ ЗАГАДКА
+	var 7third_user_answer = prompt('Ошибок: '+ user_mistakes +'\nОтгадай вторую загадку: ' + third_querstion_text);
+	if (third_user_answer.toUpperCase() == third_querstion_answer.toUpperCase()) {
+			if (user_mistakes == 0) 
+			  {alert(right_phrase + '\nПока без ошибок!'); } 
+			else 
+			  {alert(right_phrase);}
+		} 
+	else {
+		alert('Ответ не верный, переходим к следующей загадке.');
+		++user_mistakes;
+		}
+	
+	////////////////// ЧЕТВЕРТАЯ ЗАГАДКА
+	var fourth_user_answer = prompt('Ошибок: '+ user_mistakes +'\nОтгадай вторую загадку: ' + fourth_querstion_text);
+	if (fourth_user_answer.toUpperCase() == fourth_querstion_answer.toUpperCase()) {
+			if (user_mistakes == 0) 
+			  {alert(right_phrase + '\nПока без ошибок!'); } 
+			else 
+			  {alert(right_phrase);}
+		} 
+	else {
+		alert('Ответ не верный, переходим к следующей загадке.');
+		++user_mistakes;
+		}
+	
+	if (user_mistakes == 0) 
+	  {alert('Тест на знание сезонов пройден безошибочно');} 
+	else
+	  {alert('Нужно быть чуть повнимателельнее. Количество ошибок -> ' + user_mistakes);}
+
+	
+	
+	//БАНК
+	alert('Считаем проценты');
+	
+	var bank_deposit = prompt('Введи сумму вклада');
+	var bank_percent = prompt('Введи процент по вкладу');
+	var num_of_years = 5;
+	var textcontent = '';
+	
+	for (var i = 1; i<=5; i++) {
+		bank_deposit = bank_deposit*(1+bank_percent/100);
+		textcontent = textcontent + (i + 'год -> ')
+		textcontent = textcontent + (bank_deposit.toFixed(2) + '\n');
+	}
+	
+	alert (textcontent);
+	
+	
+	
+	//Угадайка
+	alert('А теперь играем в угадайку!');
+	
+	var answer = parseInt(Math.random()*100);
+	
+	alert('Нужно угадать число от 0 до 100\nпароль для выхода -> 404');
+	var first_gamer_name  = prompt('Введите имя первого игрока');
+	var second_gamer_name = prompt('Введите имя второго игрока');
+	var winner = 0;
+	var current_user_flag = 1;
+	var gamer_order = '';
+	var comment = '';
+	while (user_answer != '404') {
+			
+		if (current_user_flag>0) {
+			var current_gamer_name = first_gamer_name;
+		}	
+		else
+		{
+			var current_gamer_name = second_gamer_name;
+		}
+		
+		if (user_answer < answer) {comment = 'Нужно больше\n'}
+		if (user_answer > answer) {comment = 'Нужно меньше\n'}
+		
+		var user_answer = +prompt(comment + 'Ходит '+ current_gamer_name +'\nпароль для выхода -> 404');
+		
+			if (user_answer == answer) 
+				{
+					if (current_user_flag>0) {alert(first_gamer_name+' УГАДАЛ!');} else {alert(second_gamer_name +' УГАДАЛ!');}
+					break;
+				}
+		//игроков два - так что будем менять знак у флажка
+		current_user_flag = -1*current_user_flag;
+	}
+	
+</script>
+
+
+
+</body>
+</html>

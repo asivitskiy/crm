@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ДЗ-1</title>
+</head>
+
+<body>
+<script>
+	//считаем деньги
+	
+	var usd_value = 77.96;
+	var eur_value = 91.30;
+	var	rub_count = prompt('Сколько рублей меняем?');
+	//считалка евро
+	var eur_count_int = Math.floor(rub_count / eur_value);
+	var eur_count_part = Math.floor(100*(rub_count/eur_value - Math.floor(rub_count/eur_value)));
+	//считалка долларов
+	var usd_count_int = Math.floor(rub_count / usd_value);
+	var usd_count_part = Math.floor(100*(rub_count/usd_value - Math.floor(rub_count/usd_value)));
+	
+	var usd_count = rub_count / usd_value;
+	alert(	rub_count+' руб. -> '+eur_count_int+'\u20AC '+eur_count_part+'\u00A2\n' 
+		  + 
+		  	rub_count+' руб. -> '+usd_count_int+'\u0024 '+usd_count_part+'\u00A2');
+	
+	//считаем площадь
+	
+	alert('А теперь вычисляем площадь трапеции');
+	var	t_height = prompt('Введите высоту трапеции');
+	var	t_top_length = prompt('Введите длину первого основания трапеции');
+	var	t_bot_length = prompt('Введите длину второго основания трапеции');
+	var t_area = t_height * (t_top_length*1 + t_bot_length*1) / 2;
+	alert('Площадь трапеции -> '+ t_area);
+	
+	
+</script>
+</body>
+</html>

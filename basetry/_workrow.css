@@ -1,0 +1,183 @@
+			.master_content_table {
+			border: 1px; 
+			font-family: Consolas, 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', Monaco, 'Courier New', 'monospace'; 
+			font-size: 14px; 
+			border: dotted 1px black; 
+			width: 1000px;
+			}
+			
+			.ml_price_count {
+					border-right: 1px dotted gray; 
+					text-align: right;
+					padding: 3px;
+			}
+			
+			.ml_col_med_pp {
+			border-right: 1px dotted gray;
+			padding: 3px;
+			}
+			
+			.ml_sum {
+			text-align: right;
+			padding: 3px;
+			}
+			.ml_row {
+			border-top: 1px dotted gray;
+			margin-top: 5px;
+			}
+			.ml_name {
+			padding: 3px;
+			border-right: 1px dotted gray;
+			}
+			.ml_shir_vis {
+			background:#EfEfEf;
+			padding: 3px;
+			}
+			.ml_itog td {
+			border-right: 1px dotted gray;
+			padding: 3px; 
+			border-top: 1px dotted black; 
+			}
+			
+	.work_row select {
+	height: 40px;
+	}
+	.status_block select {
+		margin-top: 5px;
+		
+		padding-bottom: 3px;
+	}
+	.posRelative{
+		position: relative;
+		float: left;
+		
+	}
+	.searchResults{
+		width: 400px;
+		position: absolute;
+		left: 0;
+		top: 35px;
+		background-color: #fff;
+		border: solid 1px #999;
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+	.searchRow{
+		padding: 5px;
+    	border-bottom: dotted 1px #999;
+	}
+	.searchRow.active, .searchRow:hover{
+		background-color: #bbbbbb;
+		color: black;
+		cursor: pointer;
+	}
+
+.contragent_block {
+	width: 600px;	height: 450px;	border-radius: 3px;	border: 2px #E4E4E4 solid;	display: inline-block;
+	padding: 5px; margin-top: 5px;
+	
+}
+	.status_block {
+			padding: 3px;
+			margin-top: 15px;
+			border: 2px #E4E4E4 solid;
+			border-radius: 3px;
+			display: inline-block;
+			margin-left: 10px;
+			color: gray;
+			float: right;
+			
+		}
+ .blok-ramka {
+	border: 1px solid gray;
+	 border-radius: 3px;
+	 padding: 3px;
+}
+		.status_block select{
+			height: 30px;
+			width: 290px;
+			display: inline-block;
+		}
+		.addition_status_block {
+			display: inline-block;
+			margin-left: 10px;
+			margin-top: 5px;
+			float: right;
+			padding: 3px;
+			border: 2px #E4E4E4 solid;
+			border-radius: 3px;
+			display: inline-block;
+			height: 307px;
+			width: 260px;
+		}
+		
+		button {
+			border-radius: 2px;
+			height: 25px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			margin-right: 5px;
+		}
+		.workrow textarea, input, select {
+			font-size: 18px;
+			font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+			
+		}
+		.workrow textarea {
+			display: inline-block;
+			border: solid #D4D4D4 1px;
+			border-radius: 3px;
+			padding-left: 4px;
+			
+		}
+		.workrow input {
+			display: inline-block;
+			border: solid #D4D4D4 1px;
+			border-radius: 3px;
+			padding-left: 4px;
+			
+		}
+		.workrow select {
+			display: inline-block;
+			border: solid #D4D4D4 1px;
+			border-radius: 3px;
+			padding-left: 4px;
+			
+		}
+		.orderrow textarea, .orderrow input, .orderrow select{
+			font-size: 18px;
+			height: 35px;
+			border-radius: 3px;
+			border: solid 1px #D4D4D4;
+		
+		}
+	
+		body {
+			font-family:Constantia, "Lucida Bright", "DejaVu Serif", Georgia, "serif";
+		}
+		
+		.chain_body {
+			margin-left: 30px;
+			width: 460px;
+			margin-top: 5px;
+			display: block;
+			padding: 10px;
+			background-color: #eeeeee;
+			border-radius: 5px;
+			border: 1px solid #A2A2A2;
+			
+		}
+		.chain_header {
+		/*font-weight: 650;*/
+		font-size: 16px;
+		width: 450px;
+		}
+		
+		.chain_text {
+			margin-left: 15px;
+			display: block;
+			width: 400px;
+			overflow: auto;
+			
+			
+		}

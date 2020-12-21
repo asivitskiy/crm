@@ -1,0 +1,25 @@
+FTP:
+ftp.h010445205.nichost.ru
+h010445205_ftp
+MIorpbSmHh
+
+SSH
+
+ssh.h010445205.nichost.ru
+h010445205
+qy-i1tEW
+
+
+запросы вс€кие
+ёра (сколько готово заказов, отправленных на юру)
+
+SELECT SUM(works.work_count*works.work_price) FROM `works` 
+LEFT JOIN `order` ON order.order_number = works.work_order_number
+
+WHERE (((works.work_tech = 'ёра')or (works.work_tech = '—увенирка')) and (order.deleted = 1) and (order.date_of_end > 202010010000))
+GROUP BY order.deleted
+
+
+15000  15000 15000
+
+
