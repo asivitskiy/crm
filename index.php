@@ -30,7 +30,7 @@
     <!--JS autocomplete для странички с формированием заказа + еще какой то, непонять зачем -->
     <? include 'inc/_js_in_php.php'; ?>
 
-<title><? echo "hi!";
+<title><? echo "hi! 2";
 	for	($i = 0; $i <= 12; $i++) {
 		if	(
 			($_SERVER['REQUEST_URI'] == $hrefs[$i][0]) 
