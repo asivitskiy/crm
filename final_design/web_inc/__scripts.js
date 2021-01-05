@@ -2,8 +2,8 @@
 $(document).keyup(function(e) {
 	if (e.key === "Escape" || e.keyCode === 27) {
 		$("#omnisearch").val('');
-		$('.searchResults').empty();
-		$('.searchResults').html('').hide();
+		$('.searchResults_showlist').empty();
+		$('.searchResults_showlist').html('').hide();
 
 	}
 });
@@ -22,7 +22,7 @@ function searchClient(_element, _event)
 {
 	if (_event.key == 'ArrowDown' || _event.key == 'ArrowUp'|| _event.key == 'Enter'){
 		if (_event.key == 'Enter'){
-			$('.searchResults').html('').hide();
+			$('.searchResults_showlist').html('').hide();
 			return false;
 		}
 		selectSearchRow(_event.key == 'ArrowDown');
@@ -56,7 +56,7 @@ function searchClient(_element, _event)
 
 function renderResults(_results)
 {
-	$('.searchResults').html('');
+	$('.searchResults_showlist').html('');
 	var _resultsHtml = '';
 	_resultsHtml += '<div class="search-col">';
 	$.each(_results, function(_index, _element){
@@ -81,19 +81,19 @@ function renderResults(_results)
 		_resultsHtml += _html;
 	});
 	_resultsHtml += '</div>';
-	$('.searchResults').html(_resultsHtml).show('slow');
+	$('.searchResults_showlist').html(_resultsHtml).show('slow');
 }
 
 
 
 function selectSearchRow(_next) {
-	var _active = $('.searchResults').find('.active').length ? $('.searchResults').find('.active').index() : -1;
+	var _active = $('.searchResults_showlist').find('.active').length ? $('.searchResults_showlist').find('.active').index() : -1;
 	var _math = _next ? 1: -1;
 	var _index = _active + _math;
-	_index = _index < 0 ? $('.searchResults').find('.searchRow').length-1 : _index;
-	_index = _index == $('.searchResults').find('.searchRow').length ? 0 : _index;
-	$('.searchResults').find('.active').removeClass('active');
-	$($('.searchResults').find('.searchRow')[_index]).addClass('active');
+	_index = _index < 0 ? $('.searchResults_showlist').find('.searchRow').length-1 : _index;
+	_index = _index == $('.searchResults_showlist').find('.searchRow').length ? 0 : _index;
+	$('.searchResults_showlist').find('.active').removeClass('active');
+	$($('.searchResults_showlist').find('.searchRow')[_index]).addClass('active');
 	$.each(window.results[_index], function(_index, _element){
 		$('body').find('[data-column="' + _index + '"]').val(_element);
 	});
@@ -115,7 +115,7 @@ function selectSearchRow(_next) {
 /*function clickSearchRow(_index) {
 	$.each(window.results[_index], function(_index, _element){
 		$('body').find('#omnisearch').val(_element).addClass('read-less');
-		$('.searchResults').html('').hide();
+		$('.searchResults_showlist').html('').hide();
 	});
 }*/
 
@@ -125,7 +125,7 @@ $(document).on('click','.read-more',function(e){
 	var id = $(this).data('id') || 0;
 	var contragent = $(this).data('contragent') || 0;
 	// Вставляем полученный контент в HTML блок с id="content"
-	$("#order-content"+id).load("web_inc/ajax2.php",{action:"getContent", id:id,aaa:contragent});
+	$("#order-content"+id).load("final_design/web_inc/ajax2.php",{action:"getContent", id:id,aaa:contragent});
 	$(this).removeClass('read-more').addClass('read-less active_details_top_part');
 	$('.details_bottom'+id).addClass('active_details_bottom_part');
 

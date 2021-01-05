@@ -1,4 +1,4 @@
-<div class="header_wrapper">
+<div class="header_wrapper_showlist">
     <div class="header-block">
         <form action="" method="get">
             <input class="universal-search-string" style="" type="text" placeholder="универсальный поиск" onkeyup="searchClient(this, event);searchClient2(this, event)" autocomplete="off" id="omnisearch" name="searchstring">
@@ -59,13 +59,15 @@
         //проверка на основные переменные в адресной строке + проверка
 
 
-        if (
-                !strripos($this_a_href, 'showlist')
+        if ((
+            ((isset($_GET['showlist']))or(isset($_GET['myorder']))or(isset($_GET['noready'])))
+                and
+                (!strripos($this_a_href, 'showlist')
                 or
                 !strripos($this_a_href, 'noready')
                 or
-                !strripos($this_a_href, 'myorder')
-            ) {
+                !strripos($this_a_href, 'myorder'))
+            ) or ($_GET['action'] == "showlist")) {
             ?>
             <script>document.location.href = '?&myorder=0&noready=1&showlist='; </script>
             <?

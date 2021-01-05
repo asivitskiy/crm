@@ -18,11 +18,12 @@ body {
 ::-webkit-scrollbar-corner { background-color: #999;}}
 ::-webkit-resizer { background-color: #666;}*/
 
-.header_wrapper {
+.header_wrapper_showlist {
+	position: fixed;
 	background-color: #3C3F41;
 	padding: 10px;
 	width: 100%;
-	position: fixed;
+	/*position: fixed;*/
 	z-index: 100000;
 	top:0;
 
@@ -39,7 +40,7 @@ body {
 	border-radius: 3px;
 	opacity: 0.33;
 }
-.header_wrapper a {
+.header_wrapper_showlist a {
 	text-decoration: none;
 	color: white;
 }
@@ -58,8 +59,8 @@ body {
 	display: inline-block;
 	box-sizing: border-box;
 }
-.searchResults {
-	position: fixed;
+.searchResults_showlist {
+
 	top: 50px;
 	left: 100px;
 }
@@ -330,14 +331,16 @@ white-space: normal;
 .searchRow a {
 	text-decoration: none;
 	color: #222222;
+	border:1px solid white;
 }
 .searchRow:hover {
-	background-color: black;
+	background-color: #cecece;
+	border: 1px soid gray;
 }
-.searchResults {
+.searchResults_showlist {
 	display: fixed;
-	top: 50px;
-	left: 0;
+	top: 55px;
+	left: 130px;
 }
 .clientcard-left {
 	float: left;

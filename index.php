@@ -22,15 +22,18 @@
 <link rel="stylesheet" href="jquery-ui.css">
 <link rel="stylesheet" href="_workrow.css">
 <link rel="stylesheet" type="text/css" href="truestyle.css" />
-
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
+
+        <!--стили и шрифты от final_design листа заказов-->
+        <link rel="stylesheet" href="final_design/web_inc/__css.css">
+        <script language="javascript" src="final_design/web_inc/__scripts.js"></script>
 
 
 <meta charset="utf-8">
     <!--JS autocomplete для странички с формированием заказа + еще какой то, непонять зачем -->
     <? include 'inc/_js_in_php.php'; ?>
 
-<title><? echo "";
+<title><?
 	for	($i = 0; $i <= 12; $i++) {
 		if	(
 			($_SERVER['REQUEST_URI'] == $hrefs[$i][0]) 
@@ -98,14 +101,17 @@ for	($i = 0; $i <= 12; $i++) {
 		<div style=" text-align: left; padding: 0px auto; font-size: 16px; font-weight: 550; display: inline-block; width: 850px;  border-radius: 4px;">Карточка клиента</div> <? } ?>
 		
 	</div>
-		
 
-	<div class="main_content_block">
-	<?
+    <?
+    include("final_design/web_inc/top_control_panel.php");
+    ?>
+
+	<div class="main_content_block" style="margin-top: 55px;">
+	<?/*
 	$dolg_opl_data = mysql_fetch_array(mysql_query("SELECT SUM(money.summ) `opl` FROM `money`"));
 	$dolg_neopl_data = mysql_fetch_array(mysql_query("SELECT SUM(works.work_price * works.work_count) `neopl` FROM `works`"));
 	$dolg = $dolg_neopl_data['neopl'] - $dolg_opl_data['opl'];
-	echo "<font size=2>Сумарная задолжность: ".$dolg."</font>";	?>
+	echo "<font size=2>Сумарная задолжность: ".$dolg."</font>";	*/?>
 
 <?
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,10 +135,10 @@ for	($i = 0; $i <= 12; $i++) {
 	
 		<? if (($_SESSION['type'] == 'manager') or ($_SESSION['type'] == 'preprinter') or ($_SESSION['type'] == 'admin')) { ?>
 		<? ////////////////////////////////?>
-		<? if ($action == 'showlist') { 
+		<? if (($action == 'showlist')or(isset($_GET['myorder']))or(isset($_GET['noready']))) {
 			/*include "page_sorter.php";*/
-			include "main_list.php";
-		/*   include "final_design/index.php";*/
+			/*include "main_list.php";*/
+		   include "final_design/index.php";
 		} ?>
 		<? if ($action == 'administrating') { include "adminpanel.php"; } ?>
 		<? if ($action == 'rashodka') { include "_rashodka_forma.php"; } ?>
