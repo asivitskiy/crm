@@ -29,7 +29,7 @@ function searchClient(_element, _event)
 	} else {
 		clearTimeout(window._timeout);
 		window._timeout = setTimeout(function(){
-			if ($(_element).val().length > 2) {
+			if ($(_element).val().length > 0) {
 				const searchString = $(_element).val();
 				$.ajax({
 					url: '_workrow_processor.php',
