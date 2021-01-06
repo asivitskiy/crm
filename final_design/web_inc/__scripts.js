@@ -29,26 +29,28 @@ function searchClient(_element, _event)
 	} else {
 		clearTimeout(window._timeout);
 		window._timeout = setTimeout(function(){
-			const searchString = $(_element).val();
-			$.ajax({
-				url:'_workrow_processor.php',
-				data: {
-					search: searchString
-				},
-				method: 'get'
-			}).done(function(request){
-				var new_client = {
-					id: 'new'
-				};
-				$('.contragent_block').find('[data-column]').each(function(){
-					if($(this).data('column') != 'id'){
-						new_client[$(this).data('column')] = '';
-					}
-				});
-				request.unshift(new_client);
-				window.results = request;
-				renderResults(request);
-			})
+			if ($(_element).val().length > 2) {
+				const searchString = $(_element).val();
+				$.ajax({
+					url: '_workrow_processor.php',
+					data: {
+						search: searchString
+					},
+					method: 'get'
+				}).done(function (request) {
+					var new_client = {
+						id: 'new'
+					};
+					$('.contragent_block').find('[data-column]').each(function () {
+						if ($(this).data('column') != 'id') {
+							new_client[$(this).data('column')] = '';
+						}
+					});
+					request.unshift(new_client);
+					window.results = request;
+					renderResults(request);
+				})
+			}
 		} , 50)
 	}
 }
@@ -62,8 +64,8 @@ function renderResults(_results)
 	$.each(_results, function(_index, _element){
 		var _html = '';
 		var uri_current =  $(location).attr('search');
-		if(_element['name']/* || _element['address']*/){
-			$.each(['name'/*, 'address'*/], function(_a, _col){
+		if(_element['name']){
+			$.each(['name'], function(_a, _col){
 				/*http://192.168.1.221/?action=showlist&filter=client&argument=396*/
 				_html += _html?', ':'<div class="searchRow" onclick="clickSearchRow(' + _index + ')" onmouseover="hoverSearchRow(' + _index + ')">';
 				_html += '<a href=' + uri_current + '&clientstring=' + _element['id'] + '>';
@@ -86,7 +88,7 @@ function renderResults(_results)
 
 
 
-function selectSearchRow(_next) {
+/*function selectSearchRow(_next) {
 	var _active = $('.searchResults_showlist').find('.active').length ? $('.searchResults_showlist').find('.active').index() : -1;
 	var _math = _next ? 1: -1;
 	var _index = _active + _math;
@@ -97,22 +99,22 @@ function selectSearchRow(_next) {
 	$.each(window.results[_index], function(_index, _element){
 		$('body').find('[data-column="' + _index + '"]').val(_element);
 	});
+}*/
+
+/*function hoverSearchRow(_index) {
+	$.each(window.results[_index], function(_index, _element){
+		$('body').find('[data-column="' + _index + '"]').val(_element);
+	});
 }
 
-/*function hoverSearchRow(_index) {
+function hoverSearchRow(_index) {
 	$.each(window.results[_index], function(_index, _element){
 		$('body').find('[data-column="' + _index + '"]').val(_element);
 	});
-}*/
-
-/*function hoverSearchRow(_index) {
-	$.each(window.results[_index], function(_index, _element){
-		$('body').find('[data-column="' + _index + '"]').val(_element);
-	});
-}*/
+}
 
 
-/*function clickSearchRow(_index) {
+function clickSearchRow(_index) {
 	$.each(window.results[_index], function(_index, _element){
 		$('body').find('#omnisearch').val(_element).addClass('read-less');
 		$('.searchResults_showlist').html('').hide();
