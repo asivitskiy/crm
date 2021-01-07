@@ -127,7 +127,7 @@ $(document).on('click','.read-more',function(e){
 	var id = $(this).data('id') || 0;
 	var contragent = $(this).data('contragent') || 0;
 	// Вставляем полученный контент в HTML блок с id="content"
-	$("#order-content"+id).load("final_design/web_inc/ajax2.php",{action:"getContent", id:id,aaa:contragent});
+	$("#order-content"+id).load("final_design/web_inc/_details_template.php",{action:"getContent", id:id,aaa:contragent});
 	$(this).removeClass('read-more').addClass('read-less active_details_top_part');
 	$('.details_bottom'+id).addClass('active_details_bottom_part');
 

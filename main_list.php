@@ -256,13 +256,9 @@
 /////////////////////////////////?>
  <div class="details_of_order">		
 		<a target="_blank" class="a_orderrow" href = "?action=redact&order_number=<? echo $row['order_number']; ?>">редактировать</a>
-
 		<a target="_blank" class="a_orderrow" href = "index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>">удалить заказ</a>
-	
 		<a target="_blank" class="a_orderrow" href = "printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>">печатный бланк</a>
-
-		<a target="_blank" class="a_orderrow" href = "index.php?action=showlist&filter=client&argument=<? echo($tmp1_array['id']); ?>">карточка клиента</a>
-	 								
+    	<a target="_blank" class="a_orderrow" href = "index.php?action=showlist&filter=client&argument=<? echo($tmp1_array['id']); ?>">карточка клиента</a>
 	 	<a target="_blank" class="a_orderrow" href="_small_pdf_maker.php?order=<? echo $order_number; ?>" target="_blank">PDF</a>
 	 								<br><b>Контакты:</b><br> <? echo $tmp1_array['name']; ?><br>
    									<br><b>Адрес доставки:</b><br> <? echo $tmp1_array['address']; ?><br>

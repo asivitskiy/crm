@@ -1,4 +1,4 @@
-<div style="display: block; width: 1150px;">
+<div class="clientblock">
 <?
 if (!isset($_GET['red_num'])) {
 

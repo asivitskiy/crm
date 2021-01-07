@@ -4,10 +4,11 @@
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
-	SELECT order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
-	works.work_price, works.work_count, SUM( works.work_price * works.work_count ) amount_order,
-	contragents.name,contragents.id contragent_id
+	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,money.summ,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
+	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
+	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint
 	FROM `order`
+	LEFT JOIN `money` ON money.parent_order_number = order.order_number
 	LEFT JOIN `contragents` ON order.contragent = contragents.id
 	LEFT JOIN `works` ON order.order_number = works.work_order_number";
         $end_part_of_sql = "GROUP BY order.order_number ORDER BY order.date_in DESC";
@@ -51,6 +52,7 @@
         $data_row_array = mysql_query($dynamic_query_string);
 
         ?><div class="maintable"><?
+        /*echo $dynamic_query_string;*/
         while ($data_row_data = mysql_fetch_array($data_row_array)) {
 
             if (dig_to_d($data_row_data['date_in']) <> dig_to_d($prev)) {$prev = $data_row_data['date_in'];	?>
@@ -83,22 +85,79 @@
                 </div>
                 <!--светофор-->
                 <div class="trafficlights-wrapper">
-                <div class="maintable-row-block trafficlights trafficlights-green">раб</div>
+                    <?
+                    switch (true) {
+                        case ($data_row_data['soglas'] > 0):
+                            $add = "trafficlights-green";
+                            break;
+                        case ($data_row_data['soglas'] == 0):
+                            $add = "trafficlights-red";
+                            break;
+                    } ?>
+                <div class="maintable-row-block trafficlights trafficlights-green <? echo $add; ?>">раб</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block trafficlights trafficlights-yellow">диз</div>
+                    <?
+                    if (($diz_flag == 1) and ((strlen($data_row_data['preprint']) == 12)))
+                        {$add = "trafficlights-green";}
+                    else if ($diz_flag == 1)
+                            {$add = "trafficlights-yellow";} else {$add = "trafficlights-gray";}
+                    ?>
+                <div class="maintable-row-block trafficlights  <? echo $add; ?>">диз</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block trafficlights trafficlights-green" style="text-transform: none;">Алиса</div>
+                    <?
+                    switch(true) {
+                        case (($data_row_data['preprint'] == 'Аня') or ($data_row_data['preprint'] == "Алиса")):
+                            $add = "trafficlights-red";
+                            break;
+                        case ((strlen($data_row_data['preprint']) == 12) or ($data_row_data['preprint'] = "Нет")):
+                            $add = "trafficlights-green";
+                            break;
+                    }
+                    ?>
+                <div class="maintable-row-block trafficlights trafficlights-green <? echo $add; ?>" style="text-transform: none"><? echo $data_row_data['preprinter']; ?></div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block trafficlights trafficlights-red">гот</div>
+                    <?
+                    if (((strlen($data_row_data['date_of_end'])) <> 12)) {
+                        $add = "trafficlights-red";	} else { $add = "trafficlights-green";} ?>
+                <div class="maintable-row-block trafficlights <? echo $add; ?>">гот</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block trafficlights trafficlights-red">выст</div>
+                    <?
+                    switch(true) {
+                        case (((strlen($data_row_data['paystatus'])) == 12) and ($data_row_data['paylist'] <> '')):
+                            $add = "trafficlights-green";
+                            break;
+                        case (((strlen($data_row_data['paystatus'])) == 12) and ($data_row_data['paylist'] == '')):
+                            $add = "trafficlights-yellow";
+                            break;
+                        case ((strlen($data_row_data['paystatus'])) <> 12):
+                            $add = "trafficlights-gray";
+                            break;
+
+                    } ?>
+                <div class="maintable-row-block trafficlights <? echo $add; ?>">выст</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block trafficlights trafficlights-red">дост</div>
+                    <?
+                    switch(true) {
+                        case ($data_row_data['delivery'] == 1):
+                            $add = "trafficlights-red";
+                            break;
+                        case ($data_row_data['delivery'] > 1):
+                            $add = "trafficlights-green";
+                            break;
+                        case ($data_row_data['delivery'] == 0):
+                            $add = "trafficlights-gray";
+                            break;
+                    } ?>
+                <div class="maintable-row-block trafficlights <? echo $add; ?>">дост</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                 <div class="maintable-row-block trafficlights trafficlights-red">док</div>
                 <!--конец светофора-->
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block maintable-row-block-summ trafficlights-red">
+                    <? $add = '';
+                    if ($data_row_data['summ'] == 0) {$add = "trafficlights-red";} else
+                    if (abs($data_row_data['summ']*1 - $data_row_data['amount_order']*1) < 0.5) {$add = "trafficlights-green";} else {$add = "trafficlights-yellow";}
+                    ?>
+                <div class="maintable-row-block maintable-row-block-summ <? echo $add; ?>">
                     <? echo number_format($data_row_data['amount_order'], 2, ',', ' ');?>
                 </div>
                 </div>

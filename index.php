@@ -106,7 +106,7 @@ for	($i = 0; $i <= 12; $i++) {
     include("final_design/web_inc/top_control_panel.php");
     ?>
 
-	<div class="main_content_block" style="margin-top: 65px;">
+	<div class="main_content_block" style="margin-top: 64px;">
 	<?/*
 	$dolg_opl_data = mysql_fetch_array(mysql_query("SELECT SUM(money.summ) `opl` FROM `money`"));
 	$dolg_neopl_data = mysql_fetch_array(mysql_query("SELECT SUM(works.work_price * works.work_count) `neopl` FROM `works`"));
@@ -116,17 +116,17 @@ for	($i = 0; $i <= 12; $i++) {
 <?
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// //ДОЛГИ
-////////////////////////////////////////////////////////////////////////////////////////////////////?>
-    <?   echo '<table class="dolg-table">'; ?>
-            <? if (($action == 'cashbox')) { ?>    <script>
-            $.get('try.php?m=<?echo $current_manager; ?>', function(req, data){
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/?><!--
+    <?/*   echo '<table class="dolg-table">'; */?>
+            <?/* if (($action == 'cashbox')) { */?>    <script>
+            $.get('try.php?m=<?/*echo $current_manager; */?>', function(req, data){
                 $('.dolg-table').html(req);
 
             });
                 </script>
-                <?
-            } ?>
-    <?    echo '</table>';  ?>
+                <?/*
+            } */?>
+    --><?/*    echo '</table>';  */?>
 
 
 		<!--<a href="http://192.168.1.221/dynamic_load/">Новая база</a><br>-->

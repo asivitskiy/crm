@@ -1,4 +1,5 @@
 <div class="maintable-row-details-inner">
+
     <?
 include("dbconnect.php");
 // Если запрос не AJAX или не передано действие, выходим

@@ -251,16 +251,16 @@ body {
 .main_content_block {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	
-	margin: 5px 15px;
-	margin-top: 5px;
+/*	margin: 5px 15px;
+	margin-top: 5px;*/
 	float: left;
 	/*width: 97%; */
-	padding: 8px;
-	background-color: #f8f8f8;
-	border: 1px solid #e7e7e7;
+/*	padding: 8px;*/
+	/*background-color: #f8f8f8;*/
+	/*border: 1px solid #e7e7e7;*/
 	
 	color: black;
-	margin-top: 15px;
+/*	margin-top: 15px;*/
 }
 
 .center_block{
@@ -488,11 +488,11 @@ font-weight: 600;
 .a_orderrow {
 margin-top: 3px;
 margin-bottom: 3px;
-
+margin-right: 5px;
 padding: 3px;
 display: inline-block;
 border: 1px dotted #aaa;
-
+border-radius: 3px;
 background-color:#efefef;
 color: black;
 text-decoration: none;
@@ -500,4 +500,11 @@ font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, 'sans-se
 }
 .a_orderrow:hover {
 text-decoration: none;
+}
+
+.clientblock {
+	display: block;
+	width: 1150px;
+	padding-left: 10px;
+
 }
