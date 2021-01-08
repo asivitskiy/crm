@@ -1,9 +1,9 @@
 <? $start = microtime(true); ?>
-<? include 'dbconnect.php'; ?>
+<? include '../dbconnect.php'; ?>
 <? session_start(); ?>
 
-<? include './inc/global_functions.php'; ?>
-<? include './inc/cfg.php'; ?>
+<? include '../inc/global_functions.php'; ?>
+<? include '../inc/cfg.php'; ?>
 <? $action = $_GET['action']; ?>
 
 <html>
