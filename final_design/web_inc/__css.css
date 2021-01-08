@@ -80,12 +80,13 @@ body {
 	padding-top: 1px;
 	padding-bottom: 1px;
 	overflow: hidden;
-	line-height: 28px;
+	line-height: 26px;
 	display: table;
 	table-layout: fixed;
 	width: 99.2%;
-
+	border-bottom: 1px dotted #8c8c8c;
 }
+
 .maintable-row-wrapper:hover/* not.read-less*/{
 	/*outline: 1px solid black;*/
 	/*background-color: #d6d7dc;*/
@@ -102,14 +103,16 @@ body {
 
 .maintable-row-wrapper-date {
 	margin-left: 0px!important;
+	margin-top: 8px;
 	border: none!important;
-	/*padding: 4px;*/
+	padding: 0;
 	padding-bottom: 0px;
 	font-weight: 600;
 	box-sizing: border-box;
-	/*background-color: #ededed!important;*/
-	border-bottom: 1px solid gray!important;
-
+	/* background-color: #ededed!important; */
+	border-bottom: 2px solid gray!important;
+	line-height: 20px!important;
+}
 
 }
 .maintable-row-wrapper-date:hover {
