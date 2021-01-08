@@ -6,7 +6,9 @@
 <? include './inc/cfg.php'; ?>
 <? $action = $_GET['action']; ?>
 <?
-
+?>
+<body style="font-family: dompdf_tahoma, Tahoma">
+<?
 $contragent_sql = "SELECT * FROM `contragents`";
 $contragent_array = mysql_query($contragent_sql);
 while($contragent_data = mysql_fetch_array($contragent_array)) {
@@ -67,3 +69,4 @@ while($contragent_data = mysql_fetch_array($contragent_array)) {
 
 
 ?>
+</body>
