@@ -1,7 +1,7 @@
 
 $(document).keyup(function(e) {
 	if (e.key === "Escape" || e.keyCode === 27) {
-		$("#omnisearch").val('');
+		$("#omnisearch-top").val('');
 		$('.searchResults_showlist').empty();
 		$('.searchResults_showlist').html('').hide();
 
@@ -68,7 +68,9 @@ function renderResults(_results)
 			$.each(['name'], function(_a, _col){
 				/*http://192.168.1.221/?action=showlist&filter=client&argument=396*/
 				_html += _html?', ':'<div class="searchRow" onclick="clickSearchRow(' + _index + ')" onmouseover="hoverSearchRow(' + _index + ')">';
-				_html += '<a href=' + uri_current + '&clientstring=' + _element['id'] + '>';
+				/*_html += '<a href=' + uri_current + '&clientstring=' + _element['id'] + '>';*/
+				_html += '<a href=' + uri_current + '&myorder=1&noready=&showlist=' +'&clientstring=' + _element['id'] + '>';
+
 				_html += '<span>' + _element[_col] + '</span>';
 				_html += '</a>';
 			});

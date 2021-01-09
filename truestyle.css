@@ -508,3 +508,35 @@ text-decoration: none;
 	padding-left: 10px;
 
 }
+
+.clientlist_table {
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif"!important;
+	width: 100%;
+	border-collapse: collapse;
+
+}
+.clientlist_table td {
+	border:1px solid darkgray;
+	min-height: 26px;
+	padding: 3px;
+}
+
+.clientlist_table tr:nth-child(odd) {
+	background-color: #ededed;
+	border-top: 3px solid gray;
+}
+
+.clientlist_table__header {
+	font-size: 17px;
+	font-weight: 600;
+
+}
+.clientlist_table__spacer {
+	/*height: 10px;*/
+	/*margin-top: 10px;*/
+	/*background-color: #e4e6e8;*/
+	border: 0px solid red;
+}
+.clientlist_table__actions {
+	background: white;
+}

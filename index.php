@@ -103,10 +103,15 @@ for	($i = 0; $i <= 12; $i++) {
 	</div>
 
     <?
-    include("final_design/web_inc/top_control_panel.php");
-    ?>
+    $dynamic_margin_top = '0';
+    $dynamic_margin_left = '20';
+    if ($_GET['action']<>'redact') {
+        $dynamic_margin_top = '55';
+        $dynamic_margin_left = '0';
+        include("final_design/web_inc/top_control_panel.php");
+    } ?>
 
-	<div class="main_content_block" style="margin-top: 64px;">
+	<div class="main_content_block" style="margin-top: <? echo $dynamic_margin_top; ?>px; margin-left: <? echo $dynamic_margin_left; ?>px;">
 	<?/*
 	$dolg_opl_data = mysql_fetch_array(mysql_query("SELECT SUM(money.summ) `opl` FROM `money`"));
 	$dolg_neopl_data = mysql_fetch_array(mysql_query("SELECT SUM(works.work_price * works.work_count) `neopl` FROM `works`"));

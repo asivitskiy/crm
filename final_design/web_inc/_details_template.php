@@ -26,6 +26,7 @@ $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
     </div>
 
     <div class="details-ajax__header ajax-buttons">
+
         <a target="_blank" class="a_orderrow" href = "?action=redact&order_number=<? echo $order_data_data['order_number']; ?>">редактировать</a>
         <a target="_blank" class="a_orderrow" href = "index.php?action=delete&order_manager=<? echo $order_data_data['order_manager']; ?>&order_number=<? echo $order_data_data['order_number']; ?>">удалить заказ</a>
         <a target="_blank" class="a_orderrow" href = "printform.php?manager=<? echo $order_data_data['order_manager'];; ?>&number=<? echo $order_data_data['order_number']; ?>">печатный бланк</a>
