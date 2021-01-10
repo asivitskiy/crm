@@ -54,7 +54,7 @@ $contragent_id = $client_list_data['id'];
 
 		<td align="center"><div>долг</div></td>
 		<td rowspan="2" align="right" class="clientlist_table__actions">
-		    <a target="_blank" class="a_orderrow" href = "?action=showlist&filter=client&argument=<? echo $client_list_data['id']; ?>">карточка клиента</a>
+		    <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&clientstring=<? echo $client_list_data['id']; ?>">Заказы клиента</a>
         </td>
 	</tr>
 	<tr height="15">

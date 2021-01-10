@@ -51,8 +51,9 @@
             width: 30px;
         }
         .works-header {
-            font-size: 12px;
-            background-color: #ededed;
+            font-size: 13px;
+            height: 40px;
+            background-color: #dbdbdb;
         }
         .works__cell--size {
             width: 40px;
@@ -70,6 +71,54 @@
         }
         .works__cell--tech {
             font-size: 12px;
+        }
+        .blank-header {
+
+        }
+        .blank-header__cell {
+            font-size: 14px;
+            font-weight: 300;
+            text-align: center;
+            overflow: hidden;
+            margin: 0px auto;
+            overflow: visible;
+            padding: 0px;
+            padding-left: 3px;
+            padding-right: 3px;
+
+            border: 1px solid gray;
+        }
+        .blank-header__cell--order-number {
+            text-align: left;
+            width: 400px;
+            padding: 5px;
+            font-size: 18px;
+            line-height: 24px;
+        }
+        .blank-header__cell--order-datein {
+            font-size: 16px;
+        }
+        .blank-header__cell--order-datetoend{
+            font-size: 16px;
+            background-color: #ededed;
+        }
+        .blank-header__cell--title {
+            background-color: #dbdbdb;
+            width: 130px;
+            line-height: 22px;
+            text-align: right;
+            padding-right: 15px;
+        }
+        .blank-header__cell--spacer {
+            height: 10px;
+            /*background-color: #dbdbdb;*/
+            border: none;
+        }
+
+        .blank-header__cell--contragent {
+            text-align: left;
+            padding-left: 15px;
+            padding-right: 15px;
         }
     </style>
 </head>
@@ -96,24 +145,49 @@ $works_query  = mysql_query($works_sql);
 
 ?>
 
-<? echo $order_data['order_number']; ?><br>
-<? echo(dig_to_d($datein)); ?>.<? echo(dig_to_m($datein)); ?>.<? echo(dig_to_y($datein)); ?> <? echo(dig_to_h($datein)); ?>:<? echo(dig_to_minute($datein)); ?><br>
-<? echo(dig_to_d($datetoend)); ?>.<? echo(dig_to_m($datetoend)); ?>.<? echo(dig_to_y($datetoend)); ?> <? echo(dig_to_h($datetoend)); ?>:<? echo(dig_to_minute($datetoend)); ?><br>
-<? echo($contragent_data['name']); ?> / <? echo($contragent_data['contacts']); ?><br>
-<? echo($order_data['paymethod']); ?> <? echo($order_data['paylist']); ?><br>
-
+<table class="works">
+    <tr class="blank-header">
+        <td class="blank-header__cell blank-header__cell--order-number">Заказ № <? echo $order_data['order_manager']; ?>-<? echo $order_data['order_number']; ?></td>
+        <td class="blank-header__cell blank-header__cell--order-datein"><? echo(dig_to_d($datein)); ?>.<? echo(dig_to_m($datein)); ?>.<? echo(dig_to_y($datein)); ?> <? echo(dig_to_h($datein)); ?>:<? echo(dig_to_minute($datein)); ?></td>
+        <td class="blank-header__cell blank-header__cell--order-datetoend"><? echo(dig_to_d($datetoend)); ?>.<? echo(dig_to_m($datetoend)); ?>.<? echo(dig_to_y($datetoend)); ?> <? echo(dig_to_h($datetoend)); ?>:<? echo(dig_to_minute($datetoend)); ?></td>
+    </tr>
+</table>
+<table class="works">
+    <tr class="blank-header">
+        <td class="blank-header__cell blank-header__cell--spacer"></td>
+    </tr>
+</table>
+<table class="works">
+    <tr class="blank-header">
+        <td class="blank-header__cell blank-header__cell--title">Заказчик</td>
+        <td class="blank-header__cell blank-header__cell--contragent" colspan="2"><? echo($contragent_data['name']); ?> / <? echo($contragent_data['contacts']); ?></td>
+    </tr>
+    <tr class="blank-header">
+        <td class="blank-header__cell blank-header__cell--title">Описание заказа:</td>
+        <td class="blank-header__cell blank-header__cell--contragent" colspan="2"> <? echo($order_data['order_description']); ?> </td>
+    </tr>
+    <tr class="blank-header">
+        <td class="blank-header__cell blank-header__cell--title">Дополнительно:</td>
+        <td class="blank-header__cell blank-header__cell--contragent" colspan="2">Допечать: <? echo($order_data['preprinter']); ?> </td>
+    </tr>
+</table>
+<table class="works">
+    <tr class="blank-header">
+        <td class="blank-header__cell blank-header__cell--spacer"></td>
+    </tr>
+</table>
 
 <table class="works">
 
     <tr class="works__row works-header">
-        <td class="works__cell works__cell--name"      >Наименование</td>
-        <td class="works__cell works__cell--size"      >Форм</td>
-        <td class="works__cell works__cell--tech"      >Техника</td>
-        <td class="works__cell works__cell--color"     >Цвет</td>
-        <td class="works__cell works__cell--media"     >Матераиал</td>
-        <td class="works__cell works__cell--price"     >Цена</td>
-        <td class="works__cell works__cell--count"     >Кол</td>
-        <td class="works__cell works__cell--amount"    >Сумма</td>
+        <td class="works-header works__cell works__cell--name"      >Наименование</td>
+        <td class="works-header works__cell works__cell--size"      >Форм</td>
+        <td class="works-header works__cell works__cell--tech"      >Техника</td>
+        <td class="works-header works__cell works__cell--color"     >Цвет</td>
+        <td class="works-header works__cell works__cell--media"     >Матераиал</td>
+        <td class="works-header works__cell works__cell--price"     >Цена</td>
+        <td class="works-header works__cell works__cell--count"     >Кол</td>
+        <td class="works-header works__cell works__cell--amount"    >Сумма</td>
     </tr>
     <?
     $order_summ = 0;
@@ -161,7 +235,15 @@ $works_query  = mysql_query($works_sql);
 
 <?
     }
-    echo number_format(($order_summ),2,',',''); ?>
+     ?>
+</table>
+
+<table class="works">
+    <tr>
+        <td style="text-align: right; height: 50px; line-height: 15px" class="works__cell">
+           Итого по заказу: <font style="font-size: 18px; display: inline;"><? echo number_format(($order_summ),2,',',''); ?></font>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

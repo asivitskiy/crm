@@ -13,7 +13,7 @@ switch ($action) {
 }
 $order_number = $id;
 
-$order_data_sql = "    SELECT * FROM `order`
+$order_data_sql = "    SELECT *,contragents.id as cid FROM `order`
                        LEFT JOIN `contragents` ON contragents.id = order.contragent
                        WHERE order.order_number = '$order_number'";
 $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
@@ -61,31 +61,34 @@ $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
             $sps_array = mysql_query($sps_redact);
             while($sps_data = mysql_fetch_array($sps_array))
             {
+                $amount = $amount + $sps_data['work_price']*$sps_data['work_count'];
             ?>
             <tr>
                 <td ><b><? echo $sps_data['work_name']; ?></b><p><? echo $sps_data['work_description']; ?></p></td>
-                <td ><? echo $sps_data['work_tech']; ?></td>
-                <td ><? echo $sps_data['work_shir']; ?></td>
-                <td ><? echo $sps_data['work_vis']; ?></td>
-                <td ><? echo $sps_data['work_color']; ?></td>
-                <td ><? echo $sps_data['work_media']; ?></td>
-                <td ><? echo $sps_data['work_postprint']; ?></td>
-                <td ><? echo $sps_data['work_price']; ?></td>
-                <td ><? echo $sps_data['work_count']; ?></td>
-                <td ><? echo $sps_data['work_price']*$sps_data['work_count']; ?></td>
+                <td style="text-align: center" ><? echo $sps_data['work_tech']; ?></td>
+                <td style="text-align: center" ><? echo $sps_data['work_shir']; ?></td>
+                <td style="text-align: center" ><? echo $sps_data['work_vis']; ?></td>
+                <td style="text-align: center" ><? echo $sps_data['work_color']; ?></td>
+                <td style="text-align: center" ><? echo $sps_data['work_media']; ?></td>
+                <td style="text-align: center" ><? echo $sps_data['work_postprint']; ?></td>
+                <td style="text-align: right" ><? echo number_format($sps_data['work_price']*1,2,',',''); ?></td>
+                <td style="text-align: center" ><? echo number_format($sps_data['work_count']*1,0,',',''); ?></td>
+                <td style="text-align: right" ><? echo number_format($sps_data['work_price']*$sps_data['work_count'],2,',',''); ?></td>
             </tr>
             <? } ?>
             <tr>
                 <td colspan="7" style="text-align: right">Сумма</td>
-                <td colspan="3" style="text-align: right">5555,55</td>
+                <td colspan="3" style="text-align: right"><b><? echo number_format($amount,2,',',''); ?></b></td>
             </tr>
             </tbody>
-
+<?
+$current_contragent = $order_data_data['cid'];
+$cmountorders = mysql_fetch_array(mysql_query("SELECT COUNT(*) as cnt FROM `order` WHERE `contragent` = '$current_contragent' LIMIT 1"));?>
         </table>
         <div class="dopinfo">
-            <div class="dopinfo__block dopinfo__block--count">Всего заказов: ХЗ (в процессе)</div>
-            <div class="dopinfo__block dopinfo__block--amount">Общий оборот: ХЗ (в процессе)</div>
-            <div class="dopinfo__block dopinfo__block--dolg">Сумарный долг:  ХЗ (в процессе)</div>
+            <div class="dopinfo__block dopinfo__block--count">Всего заказов: <? echo number_format($cmountorders['cnt'],0,',',''); ?></div>
+            <div class="dopinfo__block dopinfo__block--amount">Общий оборот: <? echo number_format(($order_data_data['contragent_inwork']*1+$order_data_data['contragent_completed']),2,',',''); ?></div>
+            <div class="dopinfo__block dopinfo__block--dolg">Сумарный долг:  <? echo number_format($order_data_data['contragent_dolg']*1,2,',',''); ?></div>
         </div>
     </div>
     <div class="details-ajax__fullinfo ajax-fullinfo">

@@ -528,12 +528,15 @@ white-space: normal;
 }
 .dopinfo__block--count {
 	color: gray;
+	text-align: right;
 }
 .dopinfo__block--amount {
 	 color: gray;
+	text-align: right;
  }
 .dopinfo__block--dolg {
 	color: red;
+	text-align: right;
 }
 
 .ajax-buttons {
