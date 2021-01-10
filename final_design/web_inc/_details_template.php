@@ -32,6 +32,7 @@ $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
         <a target="_blank" class="a_orderrow" href = "printform.php?manager=<? echo $order_data_data['order_manager']; ?>&number=<? echo $order_data_data['order_number']; ?>">печатный бланк</a>
         <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&clientstring=<? echo($order_data_data['id']); ?>">карточка клиента</a>
         <a target="_blank" class="a_orderrow" href="./_pdf_engine/?order_number=<? echo $order_data_data['order_number']; ?>" target="_blank">PDF</a>
+        <!--<a target="_blank" class="a_orderrow" href="./_pdf_engine/?order_number=<?/* echo $order_data_data['order_number']; */?>" target="_blank">Прямая печать</a>-->
     </div>
 
     <div class="details-ajax__orderdesc">

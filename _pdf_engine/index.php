@@ -21,9 +21,9 @@ $dompdf->render();
 
 
 $output = $dompdf->output();
-$dompdf->stream($order_number.'-'.date("YmdHi").'.pdf',array("Attachment" => false));
+/*$dompdf->stream($order_number.'-'.date("YmdHi").'.pdf',array("Attachment" => false));*/
 
-file_put_contents($order_number.'-'.date("YmdHi").'.pdf', $output);
+file_put_contents('./_toprint/'.$order_number.'-'.date("YmdHi").'.pdf', $output);
 
 ?>
-<!--<script>window.close()</script>-->
+<script>window.close()</script>
