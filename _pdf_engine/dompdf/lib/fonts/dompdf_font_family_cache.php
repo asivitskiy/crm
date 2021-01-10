@@ -101,4 +101,10 @@
     'italic' => DOMPDF_FONT_DIR . 'tahoma',
     'bold_italic' => DOMPDF_FONT_DIR . 'tahoma',
   ),
+  'dompdf_tahoma_bold' => array(
+    'normal' => DOMPDF_FONT_DIR . 'tahomabd_0',
+    'bold' => DOMPDF_FONT_DIR . 'tahomabd_0',
+    'italic' => DOMPDF_FONT_DIR . 'tahomabd_0',
+    'bold_italic' => DOMPDF_FONT_DIR . 'tahomabd_0',
+  ),
 ) ?>

@@ -1,4 +1,5 @@
-<?php
+<?
+
 set_include_path(get_include_path() . PATH_SEPARATOR . "./dompdf/");
 
 require_once "dompdf_config.inc.php";
@@ -8,16 +9,21 @@ $dompdf = new DOMPDF();
 /*$html = <<<'ENDHTML'
 .file_get_contents("http://www.example.com/").
 ENDHTML;*/
-$page = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."printform_pdf.php?manager=Ю&number=5041";
+$order_number = $_GET['order_number'].'';
+
+$page = "http://".$_SERVER['HTTP_HOST']."/_pdf_engine/"."printform_new.php?manager=Ю&number=".$order_number;
+/*echo $page;*/
 /*echo $page;*/
 $content = file_get_contents($page);
 $dompdf->load_html($content);
 
 $dompdf->render();
 
-/*$dompdf->stream("hello.pdf");*/
+
 $output = $dompdf->output();
-file_put_contents('Brochure5.pdf', $output);
+$dompdf->stream($order_number.'-'.date("YmdHi").'.pdf',array("Attachment" => false));
+
+file_put_contents($order_number.'-'.date("YmdHi").'.pdf', $output);
 
 ?>
-<script>window.close()</script>
+<!--<script>window.close()</script>-->

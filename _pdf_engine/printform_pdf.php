@@ -15,6 +15,11 @@
 <title><? echo $_GET['number'].'  Печать'; ?></title>
 <!--<link rel="stylesheet" href="printform_pdf.css">-->
 <style>
+    td {
+        padding: 3px!important;
+    }
+    @page { margin: 10px; }
+    body { margin: 10px; }
     <? include "./printform_pdf.css"; ?>
 </style>
 <body>
@@ -49,27 +54,8 @@ $works_query  = mysql_query($works_sql);
 	?>
 
 <table border=0 cellpadding=0 cellspacing=0 width=714 class=xl656347
- style='border-collapse:collapse;table-layout:fixed;width:538pt'>
- <col class=xl696347 width=114 style='mso-width-source:userset;mso-width-alt:
- 4169;width:86pt'>
- <col class=xl696347 width=69 style='mso-width-source:userset;mso-width-alt:
- 2523;width:52pt'>
- <col class=xl696347 width=42 style='mso-width-source:userset;mso-width-alt:
- 1536;width:32pt'>
- <col class=xl696347 width=61 style='mso-width-source:userset;mso-width-alt:
- 2230;width:46pt'>
- <col class=xl696347 width=46 style='mso-width-source:userset;mso-width-alt:
- 1682;width:35pt'>
- <col class=xl696347 width=37 style='mso-width-source:userset;mso-width-alt:
- 1353;width:28pt'>
- <col class=xl696347 width=112 style='mso-width-source:userset;mso-width-alt:
- 4096;width:127pt'>
- <col class=xl696347 width=56 style='mso-width-source:userset;mso-width-alt:
- 2048;width:42pt'>
- <col class=xl696347 width=75 style='mso-width-source:userset;mso-width-alt:
- 2742;width:40pt'>
- <col class=xl696347 width=102 style='mso-width-source:userset;mso-width-alt:
- 3730;width:50pt'>
+ style='border-collapse:collapse;width:300px'>
+
  <tr class=xl686347 height=52 style='mso-height-source:userset;height:39.0pt'>
   <td height=52 class=xl996347 width=114 style='height:39.0pt;width:86pt'><a
   name="RANGE!A1:J15">ЗАКАЗ № <? echo $order_data['order_manager']; ?></a></td>
@@ -80,18 +66,7 @@ $works_query  = mysql_query($works_sql);
   <td colspan=3 class=xl1246347 width=177 style='border-right:1.0pt solid black;
   width:133pt'>К <? echo(dig_to_d($datetoend)); ?>.<? echo(dig_to_m($datetoend)); ?>.<? echo(dig_to_y($datetoend)); ?> <? echo(dig_to_h($datetoend)); ?>:<? echo(dig_to_minute($datetoend)); ?></td>
  </tr>
- <tr class=xl686347 height=13 style='mso-height-source:userset;height:9.95pt'>
-  <td height=13 class=xl716347 style='height:9.95pt'>&nbsp;</td>
-  <td class=xl736347>&nbsp;</td>
-  <td class=xl746347>&nbsp;</td>
-  <td class=xl756347>&nbsp;</td>
-  <td class=xl756347>&nbsp;</td>
-  <td class=xl756347>&nbsp;</td>
-  <td class=xl766347>&nbsp;</td>
-  <td class=xl776347>&nbsp;</td>
-  <td class=xl786347>&nbsp;</td>
-  <td class=xl786347>&nbsp;</td>
- </tr>
+
  <tr class=xl676347 height=25 style='mso-height-source:userset;height:18.75pt'>
   <td height=25 class=xl726347 style='height:18.75pt'>Клиент</td>
   <td colspan=9 class=xl1216347 width=600 style='width:452pt'><? echo($contragent_data['name']); ?> / <? echo($contragent_data['contacts']); ?></td>
@@ -101,7 +76,7 @@ $works_query  = mysql_query($works_sql);
   <td colspan=9 class=xl1236347><? echo($order_data['paymethod']); ?> <? echo($order_data['paylist']); ?></td>
  </tr>
  <tr class=xl676347 height=13 style='mso-height-source:userset;height:9.95pt'>
-  <td height=13 class=xl726347 style='height:9.95pt'>&nbsp;</td>
+     <td  colspan="8"><div style="display: inline-block; text-wrap: normal; width: 650px!important;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid culpa deleniti dolore doloremque eius facere itaque, iusto nam non obcaecati officiis pariatur perferendis provident quo ratione rerum vitae voluptate voluptatum?</div></td>
   <td class=xl806347>&nbsp;</td>
   <td class=xl806347>&nbsp;</td>
   <td class=xl806347>&nbsp;</td>
@@ -113,14 +88,14 @@ $works_query  = mysql_query($works_sql);
   <td class=xl796347>&nbsp;</td>
  </tr>
  <tr class=xl676347 height=42 style='mso-height-source:userset;height:31.5pt'>
-  <td colspan=3 height=42 class=xl1186347 width=225 style='border-right:1.0pt solid black; height:31.5pt;width:170pt'>Изделие</td>
-  <td class=xl886347  >Фор-мат</td>
-  <td class=xl886347  >Техника</td>
-  <td class=xl886347  >Цвет</td>
-  <td class=xl886347  >Материал</td>
-  <td class=xl886347  >Цена</td>
-  <td class=xl886347  >Кол-во</td>
-  <td class=xl886347  >Сумма</td>
+  <td colspan=3 height=42 class=xl1186347  style="width: 50px">Изделие</td>
+  <td class=xl886347 style="width: 50px">Формат</td>
+  <td class=xl886347 style="width: 50px">Техника</td>
+  <td class=xl886347 style="width: 50px">Цвет</td>
+  <td class=xl886347 style="width: 50px">Материал</td>
+  <td class=xl886347 style="width: 50px">Цена</td>
+  <td class=xl886347 style="width: 50px">Кол-во</td>
+  <td class=xl886347 style="width: 50px">Сумма</td>
  </tr>
  
  <!--
@@ -147,7 +122,7 @@ while ($works_data = mysql_fetch_array($works_query)) {
 
   <tr class=xl666347 >
   <td colspan=3 class=xl1276347 width=225 style='border-right:.5pt solid black;
-  width:170pt'><b style="font-size: 14"><? echo $works_data['work_name']; ?></b><br><font size="1"><? echo $works_data['work_description']; ?></font></td>
+  width:170pt'><b style="font-size: 14px"><? echo $works_data['work_name']; ?></b><br><font size="1"><? echo $works_data['work_description']; ?></font></td>
   <td class=xl926347  ><? echo $works_data['work_shir']; ?>*<? echo $works_data['work_vis'].'<br>'; 
   	if ($works_data['work_rasklad'] <> '[34320 / 13800][220x156 / 138x100]') { echo $works_data['work_rasklad'];}
   														?></td>
@@ -156,7 +131,7 @@ while ($works_data = mysql_fetch_array($works_query)) {
   <td class=xl926347  ><? echo $works_data['work_media']; ?><br><b><? echo $works_data['work_postprint']; ?></b></td>
   <td class=xl936347  ><? echo number_format(($works_data['work_price'])*1,2,',',''); ?></td>
   <td class=xl966347  ><? echo number_format(($works_data['work_count'])*1,0,',',''); ?></td>
-  <td class=xl986347 align=right width=102 style='width:77pt'><? echo number_format(($works_data['work_count']*$works_data['work_price']),2,',',''); ?></td>
+  <td class=xl986347 style='width:25pt; text-align: right;'><? echo number_format(($works_data['work_count']*$works_data['work_price']),2,',',''); ?></td>
  </tr>
  
  <? $order_summ = $order_summ + $works_data['work_count']*$works_data['work_price']; ?>
