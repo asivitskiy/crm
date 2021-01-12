@@ -4,11 +4,12 @@
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
-	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,money.summ,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
+	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
-	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint
+	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
+	(select SUM(money.summ) from `money` where money.parent_order_number = order.order_number) as amount_money 
 	FROM `order`
-	LEFT JOIN `money` ON money.parent_order_number = order.order_number
+
 	LEFT JOIN `contragents` ON order.contragent = contragents.id
 	LEFT JOIN `works` ON order.order_number = works.work_order_number";
         $end_part_of_sql = "GROUP BY order.order_number ORDER BY order.date_in DESC";
@@ -153,11 +154,12 @@
                 <div class="maintable-row-block trafficlights trafficlights-red">док</div>
                 <!--конец светофора-->
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                    <? $add = '';
-                    if ($data_row_data['summ'] == 0) {$add = "trafficlights-red";} else
-                    if (abs($data_row_data['summ']*1 - $data_row_data['amount_order']*1) < 0.5) {$add = "trafficlights-green";} else {$add = "trafficlights-yellow";}
+                    <? $add2 = '';
+                    if ($data_row_data['amount_money'] == 0) {$add2 = "trafficlights-red";} else
+                    if (abs($data_row_data['amount_order']*1 - $data_row_data['amount_money']*1) < 1) {$add2 = "trafficlights-green";} else {$add2 = "trafficlights-yellow";}
+
                     ?>
-                <div class="maintable-row-block maintable-row-block-summ <? echo $add; ?>">
+                <div class="maintable-row-block maintable-row-block-summ <? echo $add2; ?>">
                     <? echo number_format($data_row_data['amount_order'], 2, ',', ' ');?>
                 </div>
                 </div>

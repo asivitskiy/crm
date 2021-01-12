@@ -1,5 +1,6 @@
 <?
 include("dbconnect.php");
+include ("../../inc/global_functions.php");
 // Если запрос не AJAX или не передано действие, выходим
 if ($_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest' || empty($_REQUEST['action'])) {exit();}
 $action = $_REQUEST['action'];
@@ -37,6 +38,11 @@ $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
 
     <div class="details-ajax__orderdesc">
         <h1><? echo $order_data_data['order_description']; ?></h1>
+    </div>
+
+    <div class="details-ajax__orderdesc">
+        Дата/время приема - <? echo (dig_to_d($order_data_data['date_in'])); ?>.<? echo (dig_to_m($order_data_data['date_in'])); ?>.<? echo (dig_to_y($order_data_data['date_in'])); ?>(<? echo (dig_to_h($order_data_data['date_in'])); ?>:<? echo (dig_to_minute($order_data_data['date_in'])); ?>)<br>
+        Дата/время сдачи &nbsp;&nbsp;&nbsp;- <? echo (dig_to_d($order_data_data['datetoend'])); ?>.<? echo (dig_to_m($order_data_data['datetoend'])); ?>.<? echo (dig_to_y($order_data_data['datetoend'])); ?>(<? echo (dig_to_h($order_data_data['datetoend'])); ?>:<? echo (dig_to_minute($order_data_data['datetoend'])); ?>)
     </div>
 
     <div class="ajax-table">
