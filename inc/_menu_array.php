@@ -19,63 +19,63 @@
     $hrefs[4][1] = "img/icons/user, account, profile, avatar, person.png";
     $hrefs[4][2] = "Клиенты";
 
-    $hrefs[5][0] = "/?action=showlist&filter=archive";
-    $hrefs[5][1] = "img/icons/drawer, archive, files, documents, office.png";
-    $hrefs[5][2] = "Мой архив";
+    // $hrefs[5][0] = "/?action=showlist&filter=archive";
+    // $hrefs[5][1] = "img/icons/drawer, archive, files, documents, office.png";
+    // $hrefs[5][2] = "Мой архив";
 
-    $hrefs[6][0] = "/?action=showlist&filter=archiveoverall";
-    $hrefs[6][1] = "img/icons/database, server, storage, data center, hosting.png";
-    $hrefs[6][2] = "Весь архив";
+    // $hrefs[6][0] = "/?action=showlist&filter=archiveoverall";
+    // $hrefs[6][1] = "img/icons/database, server, storage, data center, hosting.png";
+    // $hrefs[6][2] = "Весь архив";
 
-    $hrefs[7][0] = "/?action=templates";
-    $hrefs[7][1] = "img/icons/code, coding, html, css, programming.png";
-    $hrefs[7][2] = "Шаблоны";
+    $hrefs[5][0] = "/?action=templates";
+    $hrefs[5][1] = "img/icons/code, coding, html, css, programming.png";
+    $hrefs[5][2] = "Шаблоны";
 
-    $hrefs[10][0] = "/?action=administrating&filter=startscreen";
-    $hrefs[10][1] = "img/icons/bug, virus, insect, malware, pest.png";
-    $hrefs[10][2] = "Админка";
+    $hrefs[6][0] = "/?action=administrating&filter=startscreen";
+    $hrefs[6][1] = "img/icons/bug, virus, insect, malware, pest.png";
+    $hrefs[6][2] = "Админка";
 
-    $hrefs[8][0] = "/?action=paydemands";
-    $hrefs[8][1] = "img/icons/refresh, reload, repeat, sync, rotate.png";
-    $hrefs[8][2] = "Поставщики";
+    $hrefs[7][0] = "/?action=paydemands";
+    $hrefs[7][1] = "img/icons/refresh, reload, repeat, sync, rotate.png";
+    $hrefs[7][2] = "Поставщики";
 
-    $hrefs[9][0] = "/?action=showlist&filter=delivery";
-    $hrefs[9][1] = "img/icons/send, paper plane, sent, interface, message.png";
-    $hrefs[9][2] = "Доставка";
+    // $hrefs[9][0] = "/?action=showlist&filter=delivery";
+    // $hrefs[9][1] = "img/icons/send, paper plane, sent, interface, message.png";
+    // $hrefs[9][2] = "Доставка";
 
-    $hrefs[11][0] = "/?action=showlist&filter=fulllist";
-    $hrefs[11][1] = "img/icons/computer, screen, display, monitor, desktop.png";
-    $hrefs[11][2] = "Полный список";
+    // $hrefs[11][0] = "/?action=showlist&filter=fulllist";
+    // $hrefs[11][1] = "img/icons/computer, screen, display, monitor, desktop.png";
+    // $hrefs[11][2] = "Полный список";
 
 //счетчик сообщений
 $message_query = "SELECT * FROM `messages_chains` WHERE (
 																(
 																	(`responders` LIKE '%$current_manager%') or (`responders` = 'all')
-																) 
-																
-																and 
-																
+																)
+
+																and
+
 																(`flag_of_chain_close` = 0)
 															)";
 $message_array = mysql_query($message_query);
 $a = mysql_num_rows($message_array);
-$newmessage_flag_sql = "SELECT * FROM `messages_chains` 
+$newmessage_flag_sql = "SELECT * FROM `messages_chains`
 							LEFT JOIN `users` ON users.word='$current_manager'
-							
+
 							WHERE users.last_visit_messages<messages_chains.date_of_chain_update";
 $newmessage_flag_array = mysql_query($newmessage_flag_sql);
 
 /*	echo mysql_num_rows($message_array);*/
 if (mysql_num_rows($newmessage_flag_array)==0) {
-    $hrefs[12][0] = "/?action=messages&step=start_page";
-    $hrefs[12][1] = "img/icons/chat, comment, message, talk, speak.png";
-    $hrefs[12][2] = "Сообщения(".$a.")";
+    $hrefs[8][0] = "/?action=messages&step=start_page";
+    $hrefs[8][1] = "img/icons/chat, comment, message, talk, speak.png";
+    $hrefs[8][2] = "Сообщения(".$a.")";
 }
 
 if (mysql_num_rows($newmessage_flag_array)>0) {
-    $hrefs[12][0] = "/?action=messages&step=start_page";
-    $hrefs[12][1] = "img/icons/active_message.png";
-    $hrefs[12][2] = "Сообщения(".$a.")";
+    $hrefs[9][0] = "/?action=messages&step=start_page";
+    $hrefs[9][1] = "img/icons/active_message.png";
+    $hrefs[9][2] = "Сообщения(".$a.")";
 }
 
 

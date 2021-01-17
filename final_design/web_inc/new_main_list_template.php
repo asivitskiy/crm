@@ -7,7 +7,7 @@
 	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
-	(select SUM(money.summ) from `money` where money.parent_order_number = order.order_number) as amount_money 
+	(select SUM(money.summ) from `money` where money.parent_order_number = order.order_number) as amount_money
 	FROM `order`
 
 	LEFT JOIN `contragents` ON order.contragent = contragents.id
@@ -27,21 +27,21 @@
         }
         if (isset($_GET['searchstring']) and (strlen($_GET['searchstring'])>0)) {
             $searchstring = $_GET['searchstring'];
-            $where_or = $where_or."(contragents.name LIKE '%$searchstring%') 
+            $where_or = $where_or."(contragents.name LIKE '%$searchstring%')
 												or
 											(order.order_description LIKE '%$searchstring%')
 												or
 											(order.order_number LIKE '%$searchstring%')
-												or 
-											(contragents.fullinfo LIKE '%$searchstring%') 
-												or 
+												or
+											(contragents.fullinfo LIKE '%$searchstring%')
+												or
 											(contragents.contacts LIKE '%$searchstring%')";
 
 
         }
         if (($_GET['noready'])==1) {$where_and=$where_and." and (`deleted` <> 1)";}
         if (($_GET['myorder'])<>1) {$where_and=$where_and." and (order.order_manager = '$current_manager')";}
-
+        if (($_GET['delivery'])<>1) {$where_and = $where_and." and (`delivery` = 1)";}
 
         //проверка на пустые значения where_or&where_end и вставка туда тупеньких условий
         if (strlen($where_or) == 0) {$where_or="order.id>0";}

@@ -36,8 +36,8 @@
 <title><?
 	for	($i = 0; $i <= 12; $i++) {
 		if	(
-			($_SERVER['REQUEST_URI'] == $hrefs[$i][0]) 
-				or 	
+			($_SERVER['REQUEST_URI'] == $hrefs[$i][0])
+				or
 			(((strpos($_SERVER['REQUEST_URI'],"ction=showlist&filter=manager")) > 0) and ($i==2))
 			) { echo $hrefs[$i][2];}
 								}
@@ -67,14 +67,14 @@
 
 <div class="left_container">
 <?
-for	($i = 0; $i <= 12; $i++) { 
-	
+for	($i = 0; $i <= 9; $i++) {
+
 	?>
 <a title="<? echo $hrefs[$i][2];  ?>" href="<? echo $hrefs[$i][0];  ?>">
-<div align="center" class="left_menu_item<? 
+<div align="center" class="left_menu_item<?
 	//небольшое исключение будет, так как буква манагера русская - невозможно сравнить  строки, так что будет лишнее условие
 	if(($_SERVER['REQUEST_URI'] == $hrefs[$i][0]) or (((strpos($_SERVER['REQUEST_URI'],"ction=showlist&filter=manager")) > 0) and $i==2)) { echo ('_hover');} ?>" style="vertical-align: middle; border-bottom: 1px dotted #666; ">
- 	
+
  		<img src="<? echo $hrefs[$i][1];  ?>"><? echo '<br>'.$hrefs[$i][2].'';  ?>
 
 </div>
@@ -89,17 +89,17 @@ for	($i = 0; $i <= 12; $i++) {
 
 <? ////////////////////////////////?>
 <div class="center_block">
-		
+
 	<div class="top_nav_block" style="display: none;">
-		
+
 		<!-- Вывод сообщения о неверном клиенте(незаполнен, либо дубль) !-->
 		<? if (($_GET['double_contragent'] == 1) and (isset($_GET['double_contragent']))) { ?>
 		<div style="background-color: #FF6366; text-align: center; padding: 0px auto; font-size: 16px; font-weight: 550; display: inline-block; width: 850px; height: 30px; border-radius: 4px;">Данные клиента не заполнены, либо клиент с таким именем уже есть в базе. Измените имя</div> <? } ?>
-		
+
 		<!-- Вывод сообщения о неверном клиенте(незаполнен, либо дубль) !-->
 		<? if (($_GET['action'] == 'showlist') and ($_GET['filter'] == 'client')) { ?>
 		<div style=" text-align: left; padding: 0px auto; font-size: 16px; font-weight: 550; display: inline-block; width: 850px;  border-radius: 4px;">Карточка клиента</div> <? } ?>
-		
+
 	</div>
 
     <?
@@ -137,7 +137,7 @@ for	($i = 0; $i <= 12; $i++) {
 		<!--<a href="http://192.168.1.221/dynamic_load/">Новая база</a><br>-->
 
 		<?//Тут, вероятно будет ограничение доступа работать (хотя не факт) ?>
-	
+
 		<? if (($_SESSION['type'] == 'manager') or ($_SESSION['type'] == 'preprinter') or ($_SESSION['type'] == 'admin')) { ?>
 		<? ////////////////////////////////?>
 		<? if (($action == 'showlist')or(isset($_GET['myorder']))or(isset($_GET['noready']))) {
@@ -155,19 +155,19 @@ for	($i = 0; $i <= 12; $i++) {
 		<? if ($action == 'zarplata') { include "_money_list.php"; } ?>
 		<? if (($action == 'new') or ($action == 'redact')) { include "_workrow.php"; } ?>
 		<? //if ($page == 'main_list') { include "main_list.php"; } ?>
-		<? } ?>	
-		<?// if ($_SESSION['type'] == 'printer') {include "print_workplace.php"; } ?>	
-		
-		
+		<? } ?>
+		<?// if ($_SESSION['type'] == 'printer') {include "print_workplace.php"; } ?>
+
+
 		<!--Переадресация в рабочую зону печатника-->
-		<? 
+		<?
 		if ($_SESSION['type'] == 'printer') {echo 'Привет, олкоголек';
 			include "_printer_workplace.php";
 		}
 		?>
-		
+
 <?/* $time = microtime(true) - $start; echo $time; */?>
-		
+
 	</div>
 </div>
 

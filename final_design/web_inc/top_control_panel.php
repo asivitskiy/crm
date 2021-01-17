@@ -24,6 +24,7 @@
     //массив кнопок (название, статусы, отображение)
     $button_default['noready'] = '0';    $button_type['noready'] = 'permanent'; $button_placeholder['noready'] = 'Отображать завершенные';
     $button_default['myorder'] = '1';    $button_type['myorder'] = 'permanent'; $button_placeholder['myorder'] = 'Только мои';
+    $button_default['delivery'] = '0';    $button_type['delivery'] = 'permanent'; $button_placeholder['delivery'] = 'Доставка';
     $button_default['searchstring'] = '';$button_type['searchstring'] = 'temp'; $button_placeholder['searchstring'] = 'Текст поиска: ';
     $button_default['clientstring'] = '';$button_type['clientstring'] = 'temp'; $button_placeholder['clientstring'] = 'Клиент: ';
 
@@ -66,10 +67,12 @@
                 or
                 !strripos($this_a_href, 'noready')
                 or
+                !strripos($this_a_href, 'delivery')
+                or
                 !strripos($this_a_href, 'myorder'))
             ) or ($_GET['action'] == "showlist")) {
             ?>
-            <script>document.location.href = '?&myorder=0&noready=1&showlist='; </script>
+            <script>document.location.href = '?&myorder=0&noready=1&showlist=&delivery=1'; </script>
             <?
         }
 
