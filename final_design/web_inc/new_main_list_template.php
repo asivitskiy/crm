@@ -4,7 +4,7 @@
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
-	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
+	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
 	(select SUM(money.summ) from `money` where money.parent_order_number = order.order_number) as amount_money
@@ -31,7 +31,9 @@
 												or
 											(order.order_description LIKE '%$searchstring%')
 												or
-											(order.order_number LIKE '%$searchstring%')
+                      (order.paylist LIKE '%$searchstring%')
+  												or
+  										(order.order_number LIKE '%$searchstring%')
 												or
 											(contragents.fullinfo LIKE '%$searchstring%')
 												or
@@ -42,6 +44,16 @@
         if (($_GET['noready'])==1) {$where_and=$where_and." and (`deleted` <> 1)";}
         if (($_GET['myorder'])<>1) {$where_and=$where_and." and (order.order_manager = '$current_manager')";}
         if (($_GET['delivery'])<>1) {$where_and = $where_and." and (`delivery` = 1)";}
+
+        //// TODO: нужно поймать S_GET['paylist_demand'], извлечь номера бланков, в которых в работе  в счете расхода стоит это значение и добавить условие выборки
+        // if (($_GET['filter'] == "dolg")) {
+        //     $mnth = $_GET['mnth'];
+        //     $mng = $_GET['mng'];
+        //       $order_string = dolg_string($mnth,$mng);
+        //       $query = "SELECT * FROM `order` WHERE `order_number` IN ($order_string)";
+        //
+        // }
+
 
         //проверка на пустые значения where_or&where_end и вставка туда тупеньких условий
         if (strlen($where_or) == 0) {$where_or="order.id>0";}
@@ -81,8 +93,14 @@
                     <? echo $data_row_data['name']; ?>
                 </div>
 
+                <div class="maintable-row-block maintable-row-block-dash">&nbsp;</div>
                 <div class="maintable-row-block maintable-row-block-description">
                     <? echo $data_row_data['order_description']; ?>
+                </div>
+                <div class="maintable-row-block maintable-row-block-dash">&nbsp;</div>
+                <div class="maintable-row-block maintable-row-block-date">
+                    <? echo dig_to_d($data_row_data['date_in']).".".dig_to_m($data_row_data['date_in']); ?>
+                    <? echo "> ".dig_to_d($data_row_data['datetoend']).".".dig_to_m($data_row_data['datetoend']); ?>
                 </div>
                 <!--светофор-->
                 <div class="trafficlights-wrapper">

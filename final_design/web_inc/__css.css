@@ -157,6 +157,12 @@ white-space: normal;
 	width: 17px;
 	font-weight: 300;
 }
+.maintable-row-block-date {
+	width: 87px;
+	font-size: 12px;
+	font-weight: 300;
+}
+
 .maintable-row-block-dash {
 	width: 9px;
 	font-weight: 300;
