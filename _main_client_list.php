@@ -1,5 +1,5 @@
-<div class="clientblock">
-<?
+<div class="clientblock"><h3>Список клиентов</h3> (долги/обороты обновляются раз в 30 минут)<br><br>
+    <?
 if (!isset($_GET['red_num'])) {
 
 $client_list_sql = "SELECT * FROM `contragents` ORDER by `contragent_dolg` DESC";
@@ -54,7 +54,7 @@ $contragent_id = $client_list_data['id'];
 
 		<td align="center"><div>долг</div></td>
 		<td rowspan="2" align="right" class="clientlist_table__actions">
-		    <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&clientstring=<? echo $client_list_data['id']; ?>">Заказы клиента</a>
+		    <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&delivery=1&clientstring=<? echo $client_list_data['id']; ?>">Заказы клиента</a>
         </td>
 	</tr>
 	<tr height="15">

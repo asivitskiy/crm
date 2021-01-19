@@ -9,17 +9,19 @@
     }
 
     ?>
-      <?
+      <? if (isset($_GET['paylist_demand_owner']) or isset($_GET['paylist_demand'])) { $a=1;}
+      $joiner_join = $joiner_join." LEFT JOIN `order_vars` ON order.order_number = `order_vars`.`order_vars-order_id`";
+      $joiner_fields = $joiner_fields." `order_vars`.`order_vars-design_flag`,`order_vars`.`order_vars-reorder_flag`,`order_vars`.`order_vars-error`, ";
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
 	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
-	`order_vars`.`order_vars-design_flag`,`order_vars`.`order_vars-reorder_flag`,`order_vars`.`order_vars-error`,
+    ".$joiner_fields."	
 	(select SUM(money.summ) from `money` where money.parent_order_number = order.order_number) as amount_money
 	FROM `order`
-    LEFT JOIN `order_vars` ON order.order_number = `order_vars`.`order_vars-order_id`
+    ".$joiner_join."
 	LEFT JOIN `contragents` ON order.contragent = contragents.id
 	LEFT JOIN `works` ON order.order_number = works.work_order_number";
         $end_part_of_sql = "GROUP BY order.order_number ORDER BY order.date_in DESC";
@@ -39,15 +41,15 @@
             $searchstring = $_GET['searchstring'];
             $where_or = $where_or."(contragents.name LIKE '%$searchstring%')
 												or
-											(order.order_description LIKE '%$searchstring%')
+											  (order.order_description LIKE '%$searchstring%')
 												or
-                      (order.paylist LIKE '%$searchstring%')
+                                              (order.paylist LIKE '%$searchstring%')
   												or
-  										(order.order_number LIKE '%$searchstring%')
+  										      (order.order_number LIKE '%$searchstring%')
 												or
-											(contragents.fullinfo LIKE '%$searchstring%')
+											  (contragents.fullinfo LIKE '%$searchstring%')
 												or
-											(contragents.contacts LIKE '%$searchstring%')";
+											  (contragents.contacts LIKE '%$searchstring%')";
 
 
         }
@@ -223,10 +225,10 @@
                     <?
                     $add = '';
                     switch(true) {
-                        case ($data_row_data['order_vars-reorder_flag'] == 1):
+                        case ($data_row_data['order_vars-error'] == 1):
                             $add = "trafficlights-red";
                             break;
-                        case ($data_row_data['order_vars-reorder_flag'] == 0):
+                        case ($data_row_data['order_vars-error'] == 0):
                             $add = "trafficlights-green";
                             break;
                     } ?>

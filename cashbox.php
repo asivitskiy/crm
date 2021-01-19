@@ -4,14 +4,16 @@ $plan_date = date("Y")."-".date("m")."-".(date("d"));
 $plan_time = date("H").":00";
 
 ?>
+<div class="cashbox_wrapper">
+<br>
 <form method="get" action="">
 Дата отчета:<br>
 <input type="hidden" name="action" value="cashbox">
 <input type="date" name="date" value="<? if(!isset($_GET['date'])){ echo $plan_date;} else {echo $_GET['date'];}?>"><input type=submit value="показать">
 </form>
 
-<table class="cashbox" border="1" cellspacing="0">
-	 	<tr>
+<table class="cashbox_table" border="1" cellspacing="0">
+	 	<tr class="">
 	 		<td>Бланк</td>
 	 		<td>Клиент</td>
 	 		<td>ООО</td>
@@ -97,3 +99,5 @@ $plan_time = date("H").":00";
 	 	
 	 	
 	 </table>
+
+    </div>
