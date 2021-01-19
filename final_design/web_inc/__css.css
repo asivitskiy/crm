@@ -4,7 +4,8 @@
 }
 body {
 	/*font-family: Gost,sans-serif;*/
-	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+	/* font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif"; */
+	font-family: 'Roboto', sans-serif;
 
 }
 .clearfix {
@@ -200,14 +201,14 @@ white-space: normal;
 	display: table-cell;
 }
 .trafficlights-green {
-	background-color: #C9E2CD;
+	background-color: #bfe8c5;
 }
 .trafficlights-yellow {
 	background-color: #FCF5B3;
 
 }
 .trafficlights-red {
-	background-color: #FFDEDB;
+	background-color: #fdd2cf;
 }
 .trafficlights-gray {
 	background-color: #eeeeee;

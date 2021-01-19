@@ -415,7 +415,11 @@ if (((strlen($ready_checker_data['delivery'])==12) or (strlen($ready_checker_dat
 
 //конец проверки заказа на готовность
 
+//сброс статуса order-checked
+mysql_query("UPDATE `order` SET `order_status-check`=0 WHERE `order_number` = '$order_number'");
 
+//переадресация обратно
 	header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?double_contragent='.($doublecontragentcount*1).'&action=redact&order_number='.$order_number);
-//														}
+
+
 ?>

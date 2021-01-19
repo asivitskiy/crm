@@ -110,7 +110,7 @@ while ($paylist_demand_data = mysql_fetch_array($paylist_demand_query)) {
 				if ($paylist_demands_data['closed'] == 1) {echo 'opacity: 0.6';}
 			?>">
 				<td style="width: 200px;">
-					<a href="?&myorder=1&noready=&showlist=&delivery=1&clientstring=<? echo $owner_id; ?>">
+					<a href="?&myorder=1&noready=&showlist=&delivery=1&paylist_demand_owner=<? echo $owner_id; ?>">
 					<? echo $paylist_demands_data['owner']; ?>
 					</a>
 				 </td>

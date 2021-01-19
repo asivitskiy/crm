@@ -1,5 +1,14 @@
 <div>
+    <? //массив названий работ для поиска из странички поставщиков
+    $worktypes_sql = "SELECT * FROM `work_types`";
+    $worktypes_array = mysql_query($worktypes_sql);
+    while ($worktypes_data = mysql_fetch_array($worktypes_array)) {
+        $cur_id = $worktypes_data['id'];
+        $cur_name = $worktypes_data['name'];
+        $work_types[$cur_id] = $cur_name;
+    }
 
+    ?>
       <?
         //----------------------------конструктор запросов
         //------------------------------------------------
@@ -7,9 +16,10 @@
 	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
+	`order_vars`.`order_vars-design_flag`,`order_vars`.`order_vars-reorder_flag`,`order_vars`.`order_vars-error`,
 	(select SUM(money.summ) from `money` where money.parent_order_number = order.order_number) as amount_money
 	FROM `order`
-
+    LEFT JOIN `order_vars` ON order.order_number = `order_vars`.`order_vars-order_id`
 	LEFT JOIN `contragents` ON order.contragent = contragents.id
 	LEFT JOIN `works` ON order.order_number = works.work_order_number";
         $end_part_of_sql = "GROUP BY order.order_number ORDER BY order.date_in DESC";
@@ -45,14 +55,31 @@
         if (($_GET['myorder'])<>1) {$where_and=$where_and." and (order.order_manager = '$current_manager')";}
         if (($_GET['delivery'])<>1) {$where_and = $where_and." and (`delivery` = 1)";}
 
-        //// TODO: нужно поймать S_GET['paylist_demand'], извлечь номера бланков, в которых в работе  в счете расхода стоит это значение и добавить условие выборки
-        // if (($_GET['filter'] == "dolg")) {
-        //     $mnth = $_GET['mnth'];
-        //     $mng = $_GET['mng'];
-        //       $order_string = dolg_string($mnth,$mng);
-        //       $query = "SELECT * FROM `order` WHERE `order_number` IN ($order_string)";
-        //
-        // }
+        //формирование списка бланков, в которых есть поставщик, либо номер счета
+          if ($_GET['paylist_demand_owner'] <> '') {
+              $reorder_id = $_GET['paylist_demand_owner'];
+              $reorder_name = $work_types[$reorder_id];
+              $works_reorder_sql = "SELECT DISTINCT `work_order_number` FROM `works` WHERE `work_tech` = '$reorder_name'";
+              $works_reorder_array = mysql_query($works_reorder_sql);
+              while ($works_reorder_data = mysql_fetch_array($works_reorder_array)) {
+                  $workstring_array[] = $works_reorder_data['work_order_number'];
+              }
+              $workstring = implode(',',$workstring_array);
+              //вот в этой строчке список бланков, в которых есть перезаказ от поставщика с номером $_GET['paylist_demand_owner']
+              $where_and = $where_and." and (order.order_number IN ($workstring))";
+          }
+          if ($_GET['paylist_demand'] <> '') {
+              $reorder_name = $_GET['paylist_demand'];
+              $works_reorder_sql = "SELECT DISTINCT `work_order_number` FROM `works` WHERE `work_rashod_list` = '$reorder_name'";
+              $works_reorder_array = mysql_query($works_reorder_sql);
+              while ($works_reorder_data = mysql_fetch_array($works_reorder_array)) {
+                  $workstring_array[] = $works_reorder_data['work_order_number'];
+              }
+              $workstring = implode(',',$workstring_array);
+              //вот в этой строчке список бланков, в которых есть перезаказ от поставщика с номером $_GET['paylist_demand_owner']
+              $where_and = $where_and." and (order.order_number IN ($workstring))";
+          }
+
 
 
         //проверка на пустые значения where_or&where_end и вставка туда тупеньких условий
@@ -116,9 +143,9 @@
                 <div class="maintable-row-block trafficlights trafficlights-green <? echo $add; ?>">раб</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
-                    if (($diz_flag == 1) and ((strlen($data_row_data['preprint']) == 12)))
+                    if ($data_row_data['order_vars-design_flag'] == 2)
                         {$add = "trafficlights-green";}
-                    else if ($diz_flag == 1)
+                    else if ($data_row_data['order_vars-design_flag'] == 1)
                             {$add = "trafficlights-yellow";} else {$add = "trafficlights-gray";}
                     ?>
                 <div class="maintable-row-block trafficlights  <? echo $add; ?>">диз</div>
@@ -168,8 +195,8 @@
                             break;
                     } ?>
                 <div class="maintable-row-block trafficlights <? echo $add; ?>">дост</div>
-                <div class="maintable-row-block trafficlights-spacer"></div>
-                <div class="maintable-row-block trafficlights trafficlights-red">док</div>
+                <!--<div class="maintable-row-block trafficlights-spacer"></div>
+                <div class="maintable-row-block trafficlights trafficlights-red">док</div>-->
                 <!--конец светофора-->
                 <div class="maintable-row-block trafficlights-spacer"></div>
                     <? $add2 = '';
@@ -180,6 +207,32 @@
                 <div class="maintable-row-block maintable-row-block-summ <? echo $add2; ?>">
                     <? echo number_format($data_row_data['amount_order'], 2, ',', ' ');?>
                 </div>
+                    <div class="maintable-row-block trafficlights-spacer"></div>
+                    <?
+                    $add = '';
+                    switch(true) {
+                        case ($data_row_data['order_vars-reorder_flag'] == 1):
+                            $add = "trafficlights-yellow";
+                            break;
+                        case ($data_row_data['order_vars-reorder_flag'] == 0):
+                            $add = "trafficlights-green";
+                            break;
+                    } ?>
+                    <div class="maintable-row-block trafficlights <? echo $add; ?>">ПЗК</div>
+                    <div class="maintable-row-block trafficlights-spacer"></div>
+                    <?
+                    $add = '';
+                    switch(true) {
+                        case ($data_row_data['order_vars-reorder_flag'] == 1):
+                            $add = "trafficlights-red";
+                            break;
+                        case ($data_row_data['order_vars-reorder_flag'] == 0):
+                            $add = "trafficlights-green";
+                            break;
+                    } ?>
+
+                    <div class="maintable-row-block trafficlights <? echo $add; ?>">ОШБ</div>
+
                 </div>
             </div>
 
