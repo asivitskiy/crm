@@ -1,7 +1,7 @@
 <div class="header_wrapper_showlist">
     <div class="header-block">
         <form action="" method="get">
-            <input class="universal-search-string" type="text" onfocus='$(".header_wrapper_showlist").toggleClass("universal-search-string--focused");'  onblur='$(".header_wrapper_showlist").toggleClass("universal-search-string--focused");' placeholder="универсальный поиск" onkeyup="searchClient(this, event);searchClient2(this, event)" autocomplete="off" id="omnisearch-top" name="searchstring">
+            <input class="universal-search-string" type="text" onfocus='$(".header_wrapper_showlist").toggleClass("universal-search-string--focused");'  onblur='$(".header_wrapper_showlist").toggleClass("universal-search-string--focused");' placeholder="универсальный поиск" onkeyup="searchClient(this, event);" autocomplete="off" id="omnisearch-top" name="searchstring">
             <!--<input type="hidden" name="fulltextfilter">-->
 
             <?  foreach($_GET as $key => $value){

@@ -99,13 +99,17 @@
 
             if (dig_to_d($data_row_data['date_in']) <> dig_to_d($prev)) {$prev = $data_row_data['date_in'];	?>
 
-                <div  class="maintable-row-wrapper maintable-row-wrapper-date ">
+                <div  class=" maintable-row-wrapper-date ">
                         <? echo (dig_to_d($data_row_data['date_in'])); ?> / <? echo (dig_to_m($data_row_data['date_in'])); ?> / <? echo (dig_to_y($data_row_data['date_in'])); ?>
                 </div>
             <? }
             if ($data_row_data['deleted'] == '1') {
                 $row_corrector_1 = 'maintable-row-wrapper-ready'; } else {$row_corrector_1 = '';}
 
+            ?>
+            <?
+            $iii++;
+            if(($iii % 2) == 0){$row_corrector_1 = $row_corrector_1." stroka";}
             ?>
             <div class="maintable-row-wrapper <? echo $row_corrector_1; ?> read-more " data-id="<? echo $data_row_data['order_number']; ?>" data-contragent="<? echo $data_row_data['contragent']; ?>">
 
@@ -217,10 +221,12 @@
                             $add = "trafficlights-yellow";
                             break;
                         case ($data_row_data['order_vars-reorder_flag'] == 0):
-                            $add = "trafficlights-green";
+                            $add = "noscreen";
                             break;
                     } ?>
-                    <div class="maintable-row-block trafficlights <? echo $add; ?>">ПЗК</div>
+                    <div class="maintable-row-block trafficlights trafficlights-roud"></div>
+                    <div class="maintable-row-block trafficlights-spacer"></div>
+                    <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>">ПЗК</div>
                     <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     $add = '';
@@ -229,11 +235,11 @@
                             $add = "trafficlights-red";
                             break;
                         case ($data_row_data['order_vars-error'] == 0):
-                            $add = "trafficlights-green";
+                            $add = "noscreen";
                             break;
                     } ?>
 
-                    <div class="maintable-row-block trafficlights <? echo $add; ?>">ОШБ</div>
+                    <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>" style="border-radius: 50%; height: 28px; width: 28px;">ОШБ</div>
 
                 </div>
             </div>

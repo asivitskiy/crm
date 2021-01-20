@@ -71,6 +71,9 @@ body {
 /*	display: block;*/
 	overflow: hidden;
 }
+/*.stroka {
+	background-color: #faf9f8;
+}*/
 .maintable-row-wrapper {
 
 	cursor: pointer;
@@ -95,11 +98,12 @@ body {
 	/*-webkit-box-shadow: inset 2px 0 0 #dadce0, inset 0px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(200,200,200);*/
 	background-color: #f3f3f3;
 
+
 }
-.maintable-row-wrapper-ready {
-	background: rgba(240,243,243,1);
-	color: #8c8c8c;
-	font-weight: 300!important;
+.maintable-row-wrapper-ready,.maintable-row-wrapper-ready:hover {
+	color: gray;
+	background: rgb(232, 246, 232) !important;
+
 }
 
 
@@ -110,7 +114,7 @@ body {
 	border: none!important;
 	padding: 0;
 	padding-bottom: 0px;
-	font-weight: 600;
+	font-weight: 300;
 	box-sizing: border-box;
 	/* background-color: #ededed!important; */
 	border-bottom: 2px solid gray!important;
@@ -150,13 +154,10 @@ white-space: normal;
 	padding-bottom: 10px;
 	padding-left: 15px;
 }
-/*.maintable-row-wrapper:nth-child(2n) {
-	background-color: #efefef; !* Цвет фона *!
-}*/
 
 .maintable-row-block-word {
 	width: 17px;
-	font-weight: 300;
+	font-weight: 600;
 }
 .maintable-row-block-date {
 	width: 87px;
@@ -170,11 +171,11 @@ white-space: normal;
 }
 .maintable-row-block-number {
 	width: 50px;
-	font-weight: 300;
+	font-weight: 600;
 }
 .maintable-row-block-contragent {
 	width: 250px;
-	font-weight: 600;
+	font-weight: 400;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -212,6 +213,13 @@ white-space: normal;
 }
 .trafficlights-gray {
 	background-color: #eeeeee;
+}
+.trafficlights-roud {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	font-weight: 600;
+	color: gray;
 }
 .maintable-row-block-summ {
 	padding-right: 5px;
@@ -326,8 +334,11 @@ white-space: normal;
  }
 
 .search-col {
+	position: fixed;
+	box-shadow: 0 0 6px 3px rgba(200, 200, 200, 1);
 	display: block;
 	margin-top: 10px;
+	z-index: 1000000;
 }
 .searchRow {
 /*	height: 20px;
@@ -345,10 +356,16 @@ white-space: normal;
 }
 .searchRow a {
 	text-decoration: none;
-	color: #222222;
-	border:1px solid white;
+	display: inline-block;
+	color: #111111;
+	font-weight: 500;
+	font-size: 18px;
+	width: 100%;
+	height: 25px;
+	padding-top: 5px;
 }
 .searchRow:hover {
+	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 	background-color: #cecece;
 	border: 1px soid gray;
 }
@@ -553,4 +570,7 @@ white-space: normal;
 	padding-left: 10px;
 	border-left: 5px solid red;
 	background: none!important;
+}
+.noscreen {
+	visibility: hidden;
 }

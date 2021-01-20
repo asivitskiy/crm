@@ -105,7 +105,7 @@ for	($i = 0; $i <= 9; $i++) {
     <?
     $dynamic_margin_top = '0';
     $dynamic_margin_left = '20';
-    if ($_GET['action']<>'redact') {
+    if (($_GET['action']<>'redact') and ($_GET['action']<>'new')) {
         $dynamic_margin_top = '55';
         $dynamic_margin_left = '0';
         include("final_design/web_inc/top_control_panel.php");
