@@ -39,8 +39,9 @@
 		if	(
 			($_SERVER['REQUEST_URI'] == $hrefs[$i][0])
 				or
-			(((strpos($_SERVER['REQUEST_URI'],"ction=showlist&filter=manager")) > 0) and ($i==2))
-			) { echo $hrefs[$i][2];}
+			(((strpos($_SERVER['REQUEST_URI'],"showlist")) > 0) and ($i==2))
+			) { /*echo $hrefs[$i][2];*/
+		        echo "Список";}
 								}
 		if (isset($_GET['order_number'])) {echo $_GET['order_number'].' - РЕДАКТИРОВАНИЕ';}
 ?></title>
