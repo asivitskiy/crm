@@ -116,7 +116,7 @@ set_time_limit(0);
 ?>
 
 
-<? //actualizer - статусы меняет заказам
+<? //actualizer - статусы меняет заказам (работает по таблице ордеров)
 set_time_limit(0);
 
 $check_sql = "SELECT `order_number`,`preprint` FROM `order` WHERE `order_status-check` = 0";
@@ -168,7 +168,7 @@ while ($check_data = mysql_fetch_array($check_array)) {
 
 ?>
 
-<? //sorter - сортировку клиентов делает и сумму долгов / заказов обновляет
+<? //sorter - сортировку клиентов делает и сумму долгов / заказов обновляет (то есть работает по таблице контрагентов)
 $contragent_sql = "SELECT * FROM `contragents`";
 $contragent_array = mysql_query($contragent_sql);
 while($contragent_data = mysql_fetch_array($contragent_array)) {
