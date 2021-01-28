@@ -29,6 +29,11 @@
     $button_default['clientstring'] = '';$button_type['clientstring'] = 'temp'; $button_placeholder['clientstring'] = 'Клиент: ';
 
 
+
+    echo "<div class='header-block'>";
+    echo "<a href=?&myorder=0&noready=1&showlist=&delivery=1 ";
+    echo " type=button class= 'search-button'  style='background-color: red;'>"; echo "Сброс фильтров</a>";
+    echo "</div>";
     //генератор ссылок, которые отменяют фильтр, который включается по этой ссылке
     foreach($button_type as $key_out => $value_out){
         $this_a_href = '';
@@ -82,6 +87,8 @@
         echo " type=button class='search-button ".$activeflag."'>"; echo $button_placeholder[$key_out].$button_text; echo "</a>";
         echo "</div>";
     }
+
+
 
     if ($_GET['filter'] == 'contragent') {$contragent=' active';$contragent_value = $_GET['argument'];} ?>
 </div>

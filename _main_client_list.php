@@ -12,22 +12,22 @@ $order_pays = 0;
 $contragent_id = $client_list_data['id'];
 																   //echo($contragent_id);
 //достаём айди текущего заказчика чтобы после этого  искать его заказы
-      $client_order_sql = "SELECT * FROM `order` WHERE `contragent` = '$contragent_id'";
-      $client_order_query = mysql_query($client_order_sql);
+/*      $client_order_sql = "SELECT * FROM `order` WHERE `contragent` = '$contragent_id'";
+      $client_order_query = mysql_query($client_order_sql);*/
 //перебор заказов клиента для просчета общей суммы
-				while ($client_order_data = mysql_fetch_array($client_order_query)) {
+/*				while ($client_order_data = mysql_fetch_array($client_order_query)) {
 				$number_of_orders = $number_of_orders + 1;
 				$order_manager = $client_order_data['order_manager'];$order_number = $client_order_data['order_number'];//echo($order_manager);echo($order_number);
 					$work_of_order_sql = "SELECT * FROM `works` WHERE ((`work_order_manager` = '$order_manager') AND (`work_order_number` = '$order_number'))";
-					$work_of_order_query = mysql_query($work_of_order_sql);
+					$work_of_order_query = mysql_query($work_of_order_sql);*/
 //перебор работ в заказе для расчета общей суммы
-					while ($work_of_order_data = mysql_fetch_array($work_of_order_query)) {
+/*					while ($work_of_order_data = mysql_fetch_array($work_of_order_query)) {
 						$workprice = $work_of_order_data['work_price'] * $work_of_order_data['work_count'];
 						$order_price = $workprice + $order_price;
 					}
-			}
+			}*/
 //перебор оплат для вычисления общей суммы оплат
-	$order_pays_sql = "
+/*	$order_pays_sql = "
 	SELECT * FROM `order` 
 	LEFT JOIN `money` ON money.parent_order_number = order.order_number
 	WHERE ((`contragent` = '$contragent_id'))
@@ -37,7 +37,7 @@ $contragent_id = $client_list_data['id'];
 		$order_pays = $order_pays + $order_pays_data['summ'];
 	}
 	
-	
+	*/
 /*	$order_pays_sql = "SELECT * FROM `money` WHERE ((`parent_contragent` = '$contragent_id'))";
 	$order_pays_query = mysql_query($order_pays_sql);
 	while ($order_pays_data = mysql_fetch_array($order_pays_query)) {
