@@ -64,7 +64,7 @@ $contragent_id = $client_list_data['id'];
 		<td align="center"><? echo $client_list_data['contragent_inwork']; ?></td>
 		<td align="center"><? echo $client_list_data['contragent_completed']; ?></td>
 
-		<td align="center"><div style="font-weight: 100; display: inline-block; font-size: 14px;<? if ($dolg > 0) { echo("color:red;"); } ?>"> <? echo $client_list_data['contragent_dolg']; ?></div></td>
+		<td align="center"><div style="<? if ($client_list_data['contragent_dolg'] > 0) { echo("color:red;"); } ?>"> <? echo $client_list_data['contragent_dolg']; ?></div></td>
 	</tr>
 
 

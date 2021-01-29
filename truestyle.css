@@ -1,5 +1,19 @@
+body {
+	/*font-family: 'Roboto', sans-serif;*/
+	font-family: Tahoma, Verdana, Arial, 'Sans Serif';
+	text-decoration: none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
 .dolg-table a{
-	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+	/*font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";*/
 	text-decoration: none;
 	color: #212121;
 	font-size: 14px;
@@ -64,14 +78,7 @@
 }
 a {text-decoration: none;}
 a:hover {text-decoration: underline;}
-body {
-	font-family: 'Roboto', sans-serif;
-	/* font-family: 'Montserrat', sans-serif; */
-	text-decoration: none;
-	margin: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
 
-}
 
 .left_container {
 	position: fixed;
@@ -105,7 +112,7 @@ body {
 .header {
 	opacity: 0.85;
 	position: fixed;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	width: 99.4%;
 	height: 45px;
 	display: inline-block;
@@ -123,7 +130,7 @@ body {
 	width: 150px;
 	margin-left: 20px;
 
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	font-size: 14px;
 }
 .header h2 {
@@ -166,7 +173,7 @@ body {
 	margin-left: 5px;
 }
 .left_nav_block {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	font-size: 18px;
 
 	width: 200px;
@@ -210,7 +217,7 @@ body {
 
 
 .left_content_block {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 	margin: 0px 15px;
 	float: left;
 	width: 200px;
@@ -236,7 +243,6 @@ body {
 	filter: invert(1);
 }
 .top_nav_block {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin-top: 10px;
 	margin-left: 15px;
 	float: left;
@@ -251,7 +257,7 @@ body {
 
 .main_content_block {
 	/* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
-	font-family: 'Roboto', sans-serif;
+	/*font-family: 'Roboto', sans-serif;*/
 
 /*	margin: 5px 15px;
 	margin-top: 5px;*/
@@ -351,8 +357,8 @@ details[open] summary tr{
 }
 
 .cashbox_wrapper h3 {
-	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
-	font-weight: 500;}
+/*	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";*/
+	/*font-weight: 500;*/}
 .cashbox_wrapper .contragent {
 	text-decoration: none;
 	display: inline-block;
@@ -505,7 +511,7 @@ background-color:#efefef;
 color: black;
 text-decoration: none;
 /* font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, 'sans-serif'; */
-font-family: 'Roboto', sans-serif;
+/*font-family: 'Roboto', sans-serif;*/
 
 }
 .a_orderrow:hover {

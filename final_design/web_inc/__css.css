@@ -1,13 +1,6 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-body {
-	/*font-family: Gost,sans-serif;*/
-	/* font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif"; */
-	font-family: 'Roboto', sans-serif;
 
-}
+
+
 .clearfix {
 	clear: both;
 }
@@ -77,7 +70,7 @@ body {
 .maintable-row-wrapper {
 
 	cursor: pointer;
-	margin-left: 0.8%;
+	margin-left: 12px;
 	/*cursor: pointer;*/
 	box-sizing: border-box;
 	padding-left: 10px;
@@ -140,6 +133,9 @@ white-space: normal;
 }
 .maintable-row-details {
 	width: 100%;
+	background-color: #c2dbff;
+	margin-left: 11px;
+	margin-top: -5px;
 }
 .maintable-row-details-inner {
 
@@ -423,6 +419,7 @@ white-space: normal;
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 8px;
+	background-color: white;
 }
 
 .details-ajax__row {
@@ -475,7 +472,7 @@ white-space: normal;
 	display: flex;
 	background-color: #efefef;
 	border-left: 5px solid red;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 }
 
 .ajax-fullinfo__req {
@@ -485,6 +482,9 @@ white-space: normal;
 	padding: 5px;
 	padding-left: 10px;
 	text-align: justify;
+}
+.ajax-fullinfo__req summary{
+	cursor: pointer;
 }
 
 

@@ -101,8 +101,28 @@ $cmountorders = mysql_fetch_array(mysql_query("SELECT COUNT(*) as cnt FROM `orde
     </div>
     <div class="details-ajax__fullinfo ajax-fullinfo">
         <div class="ajax-fullinfo__req">
-            <?  if ($order_data_data['fullinfo'] <> '') {
-                echo nl2br($order_data_data['fullinfo']);} else echo ("Платежные реквизиты не указаны"); ?>
+            <details>
+                <summary>Реквизиты</summary>
+                <?  if ($order_data_data['fullinfo'] <> '') {
+                    echo nl2br($order_data_data['fullinfo']);} else echo ("Платежные реквизиты не указаны"); ?>
+            </details>
+
+        </div>
+        <div class="ajax-fullinfo__req">
+            <details>
+                <summary>Адрес</summary>
+                <?  if ($order_data_data['address'] <> '') {
+                    echo nl2br($order_data_data['address']);} else echo ("Адрес не указан"); ?>
+            </details>
+
+        </div>
+        <div class="ajax-fullinfo__req">
+            <details>
+                <summary>Контакты</summary>
+                <?  if ($order_data_data['contacts'] <> '') {
+                    echo nl2br($order_data_data['contacts']);} else echo ("Контакты не заполнены"); ?>
+            </details>
+
         </div>
     </div>
 
