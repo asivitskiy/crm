@@ -1,0 +1,28 @@
+[33m3c06923[m[33m ([m[1;36mHEAD -> [m[1;32mdev2[m[33m, [m[1;31morigin/dev2[m[33m)[m HEAD@{0}: commit: приделан новый список в состоянии как есть, без подгонки (но всё работает)
+[33m7574107[m HEAD@{1}: commit: старт глобальной переработки црм
+[33m7531dbe[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{2}: checkout: moving from main to dev2
+[33m7531dbe[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{3}: pull: Fast-forward
+[33m2e2292b[m HEAD@{4}: checkout: moving from dev-21-12-20 to main
+[33m1fecde1[m HEAD@{5}: commit: обороты на 21 год добавлены
+[33mab49c09[m HEAD@{6}: checkout: moving from main to dev-21-12-20
+[33m2e2292b[m HEAD@{7}: checkout: moving from dev-21-12-20 to main
+[33mab49c09[m HEAD@{8}: commit: удалено и перемещено несколько ненужных папок
+[33m9cbf581[m HEAD@{9}: checkout: moving from main to dev-21-12-20
+[33m2e2292b[m HEAD@{10}: checkout: moving from dev-21-12-20 to main
+[33m9cbf581[m HEAD@{11}: commit: изменен титул из дома в ветке дев
+[33mfc6cc2a[m HEAD@{12}: commit: удаление лишних папок из проекта (sivitskiy_pro старую версию и еще пару мусорных)
+[33mc1cc5f8[m HEAD@{13}: checkout: moving from main to dev-21-12-20
+[33m2e2292b[m HEAD@{14}: checkout: moving from dev-21-12-20 to main
+[33mc1cc5f8[m HEAD@{15}: checkout: moving from main to dev-21-12-20
+[33m2e2292b[m HEAD@{16}: reset: moving to 2e2292b
+[33mc1cc5f8[m HEAD@{17}: checkout: moving from dev-21-12-20 to main
+[33mc1cc5f8[m HEAD@{18}: checkout: moving from main to dev-21-12-20
+[33mc1cc5f8[m HEAD@{19}: checkout: moving from main to main
+[33mc1cc5f8[m HEAD@{20}: pull origin dev-21-12-20: Fast-forward
+[33m2e2292b[m HEAD@{21}: checkout: moving from dev-21-12-20 to main
+[33mc1cc5f8[m HEAD@{22}: checkout: moving from main to dev-21-12-20
+[33m2e2292b[m HEAD@{23}: checkout: moving from dev-21-12-20 to main
+[33mc1cc5f8[m HEAD@{24}: commit: еще одно изменение в ветке дев, но уже с домашнего компа
+[33me7f8d5a[m HEAD@{25}: pull origin dev-21-12-20: Fast-forward
+[33m2e2292b[m HEAD@{26}: checkout: moving from main to dev-21-12-20
+[33m2e2292b[m HEAD@{27}: clone: from https://github.com/asivitskiy/crm.git

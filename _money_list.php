@@ -1,8 +1,14 @@
-<!--Заказы выводятся не по порядку приема, а по порядку завершения.--><br><br>
+<div class="zarplata-table">
+<?php
+$year_count = $_GET['year']*1;
+?>
+<a class="a_orderrow" href="?action=zarplata&year=2020">2020</a>
+<a class="a_orderrow" href="?action=zarplata&year=2021">2021</a>
+<Br>
 <?php
 
-if ($_SESSION['manager'] == 'Марина') {
-	
+if (($_SESSION['manager'] == 'Марина') and (isset($_GET['year']))) {
+
 	//общая сумма неоплаченных заказов
 	$dolg_opl_data = mysql_fetch_array(mysql_query("SELECT SUM(money.summ) `opl` FROM `money`"));
 	$dolg_neopl_data = mysql_fetch_array(mysql_query("SELECT SUM(works.work_price * works.work_count) `neopl` FROM `works`"));
@@ -57,7 +63,7 @@ $imager_array = mysql_query($imager_sql);
 	
 
 		
-	for ($iy=2020;$iy<=2020;$iy++) {
+	for ($iy=$year_count;$iy<=$year_count;$iy++) {
 		?>
 		<tr>
 			<td style='border:1px solid black; padding:5px;'><? echo $imager; ?></td>
@@ -81,7 +87,7 @@ $imager_array = mysql_query($imager_sql);
 	<?
 	
 	
-	
+	ob_flush();
 	
 	/////////////////////////////////////////////
 	//										   //	
@@ -168,7 +174,7 @@ $printer_amount[$year_of_ready][$month_of_ready] = $printer_amount[$year_of_read
 
 }
 //конец перебора менеджеров
-
+    ob_flush();
 
 $managers_array[] = 'Ю';
 $managers_array[] = 'Н';
@@ -198,7 +204,7 @@ $managerrrr = $managers_array[$i];
 ?> <tr><td style='border:1px solid black; padding:5px;' colspan=4><? echo $managerrrr; ?></td></tr><?
 
 	
-	for ($iy=2020;$iy<=2020;$iy++) {
+	for ($iy=$year_count;$iy<=$year_count;$iy++) {
 		?>
 		<tr>
 			<td style='border:1px solid black; padding:5px;'><? echo 'Цифровая печать' ?></td>
@@ -301,7 +307,7 @@ $managerrrr = $managers_array[$i];
 	}
 
 echo '<br>Цифра+тетради для зарплаты печатки<br>';
-for ($iy=2020;$iy<=2020;$iy++) {
+for ($iy=$year_count;$iy<=$year_count;$iy++) {
 		
 		for ($im=01;$im<=12;$im++) {
 			echo "<td style='border:1px solid black; padding:5px;'>";
@@ -369,8 +375,8 @@ $oborot_period = dig_to_m(date("YmdHi"))."";
 
 //приход денег за прошлый месяц
 echo '<br> Приход денег за прошлый месяц<br>';
-$oborot_sql = "SELECT * FROM `money` WHERE ((`date_in` > 2020".str_pad($oborot_period-1,2,'0',STR_PAD_LEFT)."000000) and (`date_in` < 2020".str_pad($oborot_period,2,'0',STR_PAD_LEFT)."000000))";
-//echo $oborot_sql;
+$oborot_sql = "SELECT * FROM `money` WHERE ((`date_in` > ".$year_count.str_pad($oborot_period-1,2,'0',STR_PAD_LEFT)."000000) and (`date_in` < $year_count".str_pad($oborot_period,2,'0',STR_PAD_LEFT)."000000))";
+/*echo $oborot_sql;*/
 $oborot_array = mysql_query($oborot_sql);
 while ($oborot_data = mysql_fetch_array($oborot_array)) {
 	if (($oborot_data['paymethod'] == 'Терм')) {
@@ -408,7 +414,7 @@ echo('СБОЛ     / '.$oborot_sbol);echo("<br>");
 
 //приход денег за ткущий месяц
 echo '<br> Приход денег за текущий месяц<br>';
-$oborot_sql = "SELECT * FROM `money` WHERE ((`date_in` > 2020".str_pad($oborot_period,2,'0',STR_PAD_LEFT)."000000) and (`date_in` < 2020".str_pad($oborot_period+1,2,'0',STR_PAD_LEFT)."000000))";
+$oborot_sql = "SELECT * FROM `money` WHERE ((`date_in` > $year_count".str_pad($oborot_period,2,'0',STR_PAD_LEFT)."000000) and (`date_in` < $year_count".str_pad($oborot_period+1,2,'0',STR_PAD_LEFT)."000000))";
 /*echo $oborot_sql;*/
 $oborot_array = mysql_query($oborot_sql);
 while ($oborot_data = mysql_fetch_array($oborot_array)) {
@@ -449,3 +455,4 @@ echo('СБОЛ     / '.$oborot_sbol_now);echo("<br>");
 
 
 ?>
+</div>

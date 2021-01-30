@@ -29,39 +29,39 @@ if ($_GET['filter'] == 'startscreen') {  ?>
 //........................................................................
 //........................................................................
 if ($_GET['filter'] == 'add_demand') {
-	?> 
+	?>
 	<br><a class="a_orderrow" href="?action=administrating&filter=startscreen">Вернутсья в панель администрирования</a>
-	<form method="post" action="?action=administrating&filter=demand_count"> 
+	<form method="post" action="?action=administrating&filter=demand_count">
 	<?
 	echo '<h3>Запросы счетов:</h3>';
 	include("dbconnect.php");
 	// рабочее окно администратора базы данныъ
 	// тут своя таблица заказов
-	$main_sql = "   SELECT * FROM `order` 
-	                LEFT JOIN `contragents` ON order.contragent = contragents.id  
-	                WHERE ((order.paystatus>0) and (order.paylist='')) 
+	$main_sql = "   SELECT * FROM `order`
+	                LEFT JOIN `contragents` ON order.contragent = contragents.id
+	                WHERE ((order.paystatus>0) and (order.paylist=''))
 	                ORDER by contragents.name DESC";
 	$main_array = mysql_query($main_sql);
 	/*echo mysql_error(); */
-	
+
 	while ($main_data = mysql_fetch_array($main_array)) {
 
 		$sss = $main_data['order_number'];
 		$sss2 = $main_data['order_manager'];
 
         $order_amount_calc_array = mysql_fetch_array(mysql_query("        SELECT SUM(works.work_count*works.work_price)  ssmm
-                                                              FROM `works` 
+                                                              FROM `works`
                                                               WHERE works.work_order_number = '$sss'
                                                               GROUP BY works.work_order_number"));
         $sss3 = number_format($order_amount_calc_array['ssmm'],2, '.', ' ');
 
 		echo '<input type="checkbox" name="names['.$sss.']">&nbsp;
-		<a style="display: inline-block; width:65px;" 
+		<a style="display: inline-block; width:65px;"
 		href=?action=redact&order_number='.$sss.'>'.$sss2.'-'.$sss.'
 		</a> <div style="width: 110px; display: inline-block; text-align: left; margin-right: 15px; margin-left: 5px"> '.$sss3.' руб. </div>'.$main_data['name'].' ==> '.$main_data['order_description'].'<br>';
 	}
 	?>
-	
+
 	<input type="submit" value="Рассчитать">
 	</form>
 	<?
@@ -75,19 +75,19 @@ if ($_GET['filter'] == 'add_demand') {
 //........................................................................
 //........................................................................
 if ($_GET['filter'] == 'demand_count') {
-	?> 
+	?>
 	<br><a class="a_orderrow" href="?action=administrating&filter=startscreen">Вернутсья в панель администрирования</a>;
-	<form method="post" action="?action=administrating&filter=complete_demand"> 
+	<form method="post" action="?action=administrating&filter=complete_demand">
 	<?
-	
+
 	$searchstring1 = array_keys($_POST['names']);
 	$searchstring = implode(',',$searchstring1);
 	//поиск контрагента из номера бланка
-	$contragent_info_array = mysql_query(	"SELECT * FROM `order` 
+	$contragent_info_array = mysql_query(	"SELECT * FROM `order`
 											LEFT JOIN `contragents` ON contragents.id = order.contragent
 											WHERE `order_number` IN ($searchstring) LIMIT 1");
 	$contragent_info_data = mysql_fetch_array($contragent_info_array);
-	
+
 
 
 	// рабочее окно администратора базы данныъ
@@ -108,7 +108,7 @@ if ($_GET['filter'] == 'demand_count') {
 	?>
 	<br>
 	<input type="text" name="paylist" placeholder="Номер счета">
-	
+
 	<select name="paymethod">
 		<option value="ООО">ООО</option>
 		<option value="ИП">ИП</option>
@@ -131,15 +131,15 @@ if ($_GET['filter'] == 'demand_count') {
 			<td>Количество</td>
 			<td>Сумма</td>
 		</tr>
-		
+
 	<?
-	$info_order_sql = 	"SELECT * FROM `order` 
+	$info_order_sql = 	"SELECT * FROM `order`
 						WHERE `order_number` IN ($searchstring)";
 	$info_order_array = mysql_query($info_order_sql);
 	while ($info_order_data = mysql_fetch_array($info_order_array)) {
 		$info_order_number = $info_order_data['order_number'];
 	?>
-		
+
 		<tr style="background-color: #D3D3D3">
 			<td><? echo $info_order_number; ?></td>
 			<td></td>
@@ -168,16 +168,16 @@ if ($_GET['filter'] == 'demand_count') {
 		<?
 		}
 		?>
-	<tr style="padding: 0px; border-spacing: 0px; border: 0px;"><td>&nbsp;</td></tr>		
-	<? 
+	<tr style="padding: 0px; border-spacing: 0px; border: 0px;"><td>&nbsp;</td></tr>
+	<?
 	$prev_order_number = $info_order_data['order_number'];
-	} ?>		
+	} ?>
 	</table>
 	<b>Итог: <? echo $amount_demand_works; ?></b>
-	
-	
-	
-	
+
+
+
+
 	<?
 }
 ?>
@@ -196,8 +196,8 @@ if ($_GET['filter'] == 'complete_demand') {
 			$orders = array_keys($_POST['names']);
 				//вставка номер счета в таблицу с номерами счетов
 				mysql_query("INSERT INTO `contragent_demand` (
-															contragent_demand_summ, 
-															contragent_demand_name, 
+															contragent_demand_summ,
+															contragent_demand_name,
 															contragent_demand_date_in,
 															contragent_demand_paymethod,
 															contragent_demand_paid,
@@ -221,10 +221,10 @@ if ($_GET['filter'] == 'complete_demand') {
 				mysql_query("UPDATE `order` SET `paylist` = '$paylist' WHERE (`order_number` = '$value')");
 				mysql_query("UPDATE `order` SET `paylist_id` = '$aaa_result' WHERE (`order_number` = '$value')");
 				mysql_query("UPDATE `order` SET `paymethod` = '$paymethod' WHERE (`order_number` = '$value')");
-				//вставка в таблицу связей (заказ-номер счета - клиент)	
+				//вставка в таблицу связей (заказ-номер счета - клиент)
 					mysql_query("INSERT INTO `contragent_demand_order_key` (
-															cdok_order, 
-															cdok_demand, 
+															cdok_order,
+															cdok_demand,
 															cdok_contragent,
 															cdok_contragent_demand_id
 															)
@@ -236,12 +236,12 @@ if ($_GET['filter'] == 'complete_demand') {
 															'$aaa_result'
 															)
 															");
-				
+
 			}
-			
+
 			echo ('Счет успешно добавлен!<br><a href=?action=administrating&filter=startscreen>Вернутсья в панель администрирования</a>');
 	/*$update_old_contragent_sql = "UPDATE `contragents` SET `name`='$contragent_name',`address`='$contragent_address',`fullinfo` ='$contragent_fullinfo',`contacts`='$contragent_contacts' WHERE (`id`='$contragent_id')";
-	*/	
+	*/
 }
 ?>
 
@@ -256,7 +256,7 @@ if ($_GET['filter'] == 'demand_list_first') {
 	$main_sql = "SELECT `paylist`,`order_number` FROM `order` WHERE ((`paylist` <> '') and (`deleted` <> 1) and (`paystatus` <> '')) GROUP BY `paylist` ORDER by paylist DESC";
 	$main_array = mysql_query($main_sql);
 	/*echo mysql_error(); */
-	
+
 	while ($main_data = mysql_fetch_array($main_array)) {
 		$sss = $main_data['paylist'];
 		//обнуление массива номеров заказов с текущим счетом
@@ -269,7 +269,7 @@ if ($_GET['filter'] == 'demand_list_first') {
 		$secondary_array = mysql_query("SELECT * FROM `order` LEFT JOIN `contragents` ON order.contragent = contragents.id WHERE order.paylist = '$sss' ");
 		while ($secondary_data = mysql_fetch_array($secondary_array)) {
 				//обнуление суммы по заказу
-				
+
 				$order_contragent_name = $secondary_data['name'];
 				/*echo($order_contragent_name);*/
 				$order_number = $secondary_data['order_number'];
@@ -277,9 +277,9 @@ if ($_GET['filter'] == 'demand_list_first') {
 				array_push($order_numbers,$order_number);
 					$summ_array = mysql_query("SELECT `work_price`,`work_count` FROM `works` WHERE `work_order_number` = '$order_number'");
 					while ($summ_data = mysql_fetch_array($summ_array)) {
-						
-						$order_amount = $order_amount + $summ_data['work_price']*$summ_data['work_count']; 
-						
+
+						$order_amount = $order_amount + $summ_data['work_price']*$summ_data['work_count'];
+
 					}
 			//выборка из таблицы MONEY для проверки оплачен ли счет. если оплачен - подсветка зеленым строки
 				$paycheck_sql = "SELECT * FROM `money` WHERE `parent_order_number` = '$order_number'";
@@ -287,42 +287,42 @@ if ($_GET['filter'] == 'demand_list_first') {
 				while ($paycheck_data = mysql_fetch_array($paycheck_array)) {
 					$paycheck = $paycheck + $paycheck_data['summ']*1;
 				}
-			
+
 		}
-		
+
 		//Вывод строки на экран
-		
+
 		/*echo $sss.' =>'.$main_data['order_number'].'<br>';*/
-		if ((abs($paycheck - $order_amount)<0.1) and ($paycheck > 0)) {$colorflag = "color:black";$colorflag2 = "background-color: #C4D9C4"; /*echo '<b>'.$paycheck.' / '.$order_amount.'</b>';*/} 
+		if ((abs($paycheck - $order_amount)<0.1) and ($paycheck > 0)) {$colorflag = "color:black";$colorflag2 = "background-color: #C4D9C4"; /*echo '<b>'.$paycheck.' / '.$order_amount.'</b>';*/}
 			?>
-			
+
 			<div class="paylist_row" style=" <? echo($colorflag2); ?>">
-		
-			<a class="adminpanel_a"  style="width: 150px;<? echo $colorflag; ?>;" href="?action=showlist&filter=contragent_paydemand&argument=<? echo $main_data['paylist'] ;?>">
+
+			<a class="adminpanel_a"  style="width: 170px;<? echo $colorflag; ?>;" href="?searchstring=<? echo $main_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist=">
 				<b><? echo $main_data['paylist'] ; ?></b>
 			</a>
-			
+
 				<div style="width: 230px;display: inline-block; white-space: nowrap; overflow: hidden;"?><? echo $order_contragent_name; ?> </div>
 				<div style="width: 130px;display: inline-block; text-align: right;"?><b> <? echo $order_amount; ?> руб. </b></div>
-				
+
 			<a class="adminpanel_a" style=" <? echo $colorflag; ?>"; href="_payment_processor.php?action=plusmoney&paylist=<? echo $main_data['paylist'] ;?> ">
 				Счет оплачен
 			</a>
-			
+
 <!--			<a class="adminpanel_a" <? /*echo 'style='.$colorflag;*/ ?>; href="">
 				Отменить оплату
-			
+
 			</a>-->
 			<div style="display:inline-block;">
 			<? echo " ("; echo implode(',',$order_numbers).')';/* echo '  '.$order_contragent_name.'---'; echo $order_amount;*/?></div>
 			<div style="display: inline-block; width: 5px; height: 0px;">&nbsp;</div>
-			
+
 			</div>
-			
+
 			<?
 	}
-	
-	
+
+
 }
 ?>
 
@@ -333,20 +333,20 @@ if ($_GET['filter'] == 'demand_list_first') {
 //........................................................................
 if ($_GET['filter'] == 'new_all_demands') {
 	//в запросе сортировка по дате выставления счета от новых к старым
-	$new_demand_list_query = "SELECT * FROM `contragent_demand` 
+	$new_demand_list_query = "SELECT * FROM `contragent_demand`
 							LEFT JOIN `contragent_demand_order_key` ON contragent_demand_order_key.cdok_demand = contragent_demand.contragent_demand_name
 							LEFT JOIN `contragents` ON contragent_demand.contragent_demand_contragent_id = contragents.id
 							WHERE contragent_demand.contragent_demand_paid <> '3'
 							GROUP BY contragent_demand.contragent_demand_name
 							ORDER BY contragent_demand.contragent_demand_date_in DESC
-							
+
 							";
 	$new_demand_list_array = mysql_query($new_demand_list_query);
-	
+
 	while ($new_demand_list_data = mysql_fetch_array($new_demand_list_array)) {
 		//вывод одной строки
 		//одна строка-один выставленный счет
-		
+
 		?>
 		<div class="" style="display: table; padding: 0; margin: 0; border-spacing: 0px; height: 25px; border: 1px solid black; padding: 3px; margin-bottom: 5px; border-radius: 4px; white-space: nowrap; ">
 			<div style="display: table-cell; vertical-align: middle; border: 0px solid gray; height: 100%; width: 150px;">
@@ -373,29 +373,21 @@ if ($_GET['filter'] == 'new_all_demands') {
 			<div style="border-radius: 3px;display: table-cell; padding-left: 4px; padding-right: 4px; vertical-align: middle; border: 2px solid green; height: 100%; width: 60px; overflow: hidden; ">
 				оплатить
 				</div>
-			
 
-			
+
+
 		</div>
-		
-		
-		
-	
-	
-	
+
+
+
+
+
+
 	<?
-	
+
 	} 	/*print_r($resultr);*/
-	
+
 } ?>
 
 
 </div>
-
-
-
-
-
-
-
-

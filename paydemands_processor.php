@@ -52,6 +52,5 @@ if (($_POST['paylist_flag']) == '2') {
 
 
 
-
-header('Location: http://192.168.1.221/?action=paydemands');
+header('Location: http://'.$_SERVER['SERVER_NAME'].'/?action=paydemands');
 ?>

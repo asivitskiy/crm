@@ -1,7 +1,7 @@
-<div class="header_wrapper">
+<div class="header_wrapper_showlist">
     <div class="header-block">
         <form action="" method="get">
-            <input class="universal-search-string" style="" type="text" placeholder="универсальный поиск" onkeyup="searchClient(this, event);searchClient2(this, event)" autocomplete="off" id="omnisearch" name="searchstring">
+            <input class="universal-search-string" type="text" onfocus='$(".header_wrapper_showlist").toggleClass("universal-search-string--focused");'  onblur='$(".header_wrapper_showlist").toggleClass("universal-search-string--focused");' placeholder="универсальный поиск" onkeyup="searchClient(this, event);" autocomplete="off" id="omnisearch-top" name="searchstring">
             <!--<input type="hidden" name="fulltextfilter">-->
 
             <?  foreach($_GET as $key => $value){
@@ -24,10 +24,16 @@
     //массив кнопок (название, статусы, отображение)
     $button_default['noready'] = '0';    $button_type['noready'] = 'permanent'; $button_placeholder['noready'] = 'Отображать завершенные';
     $button_default['myorder'] = '1';    $button_type['myorder'] = 'permanent'; $button_placeholder['myorder'] = 'Только мои';
+    $button_default['delivery'] = '0';    $button_type['delivery'] = 'permanent'; $button_placeholder['delivery'] = 'Доставка';
     $button_default['searchstring'] = '';$button_type['searchstring'] = 'temp'; $button_placeholder['searchstring'] = 'Текст поиска: ';
     $button_default['clientstring'] = '';$button_type['clientstring'] = 'temp'; $button_placeholder['clientstring'] = 'Клиент: ';
 
 
+
+    echo "<div class='header-block'>";
+    echo "<a href=?&myorder=0&noready=1&showlist=&delivery=1 ";
+    echo " type=button class= 'search-button'  style='background-color: red;'>"; echo "Сброс фильтров</a>";
+    echo "</div>";
     //генератор ссылок, которые отменяют фильтр, который включается по этой ссылке
     foreach($button_type as $key_out => $value_out){
         $this_a_href = '';
@@ -59,15 +65,19 @@
         //проверка на основные переменные в адресной строке + проверка
 
 
-        if (
-                !strripos($this_a_href, 'showlist')
+        if ((
+            ((isset($_GET['showlist']))or(isset($_GET['myorder']))or(isset($_GET['noready'])))
+                and
+                (!strripos($this_a_href, 'showlist')
                 or
                 !strripos($this_a_href, 'noready')
                 or
-                !strripos($this_a_href, 'myorder')
-            ) {
+                !strripos($this_a_href, 'delivery')
+                or
+                !strripos($this_a_href, 'myorder'))
+            ) or ($_GET['action'] == "showlist")) {
             ?>
-            <script>document.location.href = '?&myorder=0&noready=1&showlist='; </script>
+            <script>document.location.href = '?&myorder=0&noready=1&showlist=&delivery=1'; </script>
             <?
         }
 
@@ -77,6 +87,8 @@
         echo " type=button class='search-button ".$activeflag."'>"; echo $button_placeholder[$key_out].$button_text; echo "</a>";
         echo "</div>";
     }
+
+
 
     if ($_GET['filter'] == 'contragent') {$contragent=' active';$contragent_value = $_GET['argument'];} ?>
 </div>

@@ -343,17 +343,30 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
   
 
 </tr>
-	<? } //конец общего цикла таблицы ?>	
-<tr><td style="width: 99%;" align="right"><div style="" style="display: inline-block; float: right; width: 100%;"><button class="click" type="button">добавить</button><button type="button" class="click2">убавить</button>Итог: <input id="itog" type="text" style="text-align: right;" readonly value="<? echo number_format($order_summ,2,'.',' '); ?>"></div></td></tr>
+	<? } //конец общего цикла таблицы ?>
+<tr><td><div style="display: block; text-align: right"><button class="click" type="button">добавить</button><button type="button" class="click2">убавить</button>Итог: <input id="itog" type="text" style="text-align: right;" readonly value="<? echo number_format($order_summ,2,'.',' '); ?>"></div></td></tr>
 
 </table>
+<!--    <div class="ajax-buttons" style="border-left: 0px solid white">
+
+        <a target="_blank" class="a_orderrow" href = "?action=redact&order_number=<?/* echo $order_data_data['order_number']; */?>">редактировать</a>
+        <a target="_blank" class="a_orderrow" href = "index.php?action=delete&order_manager=<?/* echo $order_data_data['order_manager']; */?>&order_number=<?/* echo $order_data_data['order_number']; */?>">удалить заказ</a>
+        <a target="_blank" class="a_orderrow" href = "printform.php?manager=<?/* echo $order_data_data['order_manager'];; */?>&number=<?/* echo $order_data_data['order_number']; */?>">печатный бланк</a>
+        <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&clientstring=<?/* echo($order_data_data['id']); */?>">карточка клиента</a>
+        <a target="_blank" class="a_orderrow" href="_small_pdf_maker.php?order=<?/* echo $order_data_data['order_number']; */?>" target="_blank">PDF</a>
+    </div>-->
 <div>
 	<input type="submit" class="final" value="Оформить / обновить">
 	<input type="submit" style="margin-left: 150px;" class="111" name="doubleflag" value="Дублировать заказ">
-	<input type="submit" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Печатный бланк">
+	<input type="submit" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк">
+    <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank">PDF</a>
+    <a target="_blank" class="a_orderrow" href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
 	<input type="submit" formaction="index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>" value="Удалить заказ">
 </div>
-		
+<br>
+<br>
+<br>
+<br>
 </div>
 </form>
 <? include("_workrow_script.php"); ?>

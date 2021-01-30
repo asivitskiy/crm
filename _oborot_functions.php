@@ -15,6 +15,23 @@ function obsh_oborot($period_start,$period_end) {
     return $result;
 }
 
+//всего принято (вложенный запрос для перевроверки
+function obsh_oborot2($period_start,$period_end) {
+    $sql = "SELECT *,(select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as ordersum FROM `order` 
+            LEFT JOIN `works` ON order.order_number = works.work_order_number
+
+            WHERE ((order.date_in > '$period_start') and (order.date_in < '$period_end'))
+             GROUP BY order.order_number";
+    $array = mysql_query($sql);
+    while ($data = mysql_fetch_array($array)) {
+        $amount = $amount + $data['ordersum'];
+    }
+
+
+    $result = number_format($amount, 2, '.', '');$amount;
+    return $result;
+}
+
 //оборот цифра (книги+цифра+дизайн
 function obsh_cifra($period_start,$period_end) {
     $sql = "SELECT *,SUM(works.work_price*works.work_count) as ordersum FROM `order` 
