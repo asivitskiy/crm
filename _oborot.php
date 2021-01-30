@@ -98,6 +98,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -117,7 +118,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -136,8 +137,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -155,8 +155,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -174,7 +173,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -193,8 +192,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -212,8 +210,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
 
     echo '<td>';
@@ -250,7 +247,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     //всего оплачено
     echo '<tr>';
     echo '<td>';
@@ -268,7 +265,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     //заказы в работе
     echo '<tr>';
     echo '<td>';
@@ -286,8 +283,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
     echo '<td>';
     echo 'Закрытие месяца';
@@ -303,8 +299,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
     echo '<td>';
     echo 'Долг в деньгах';
@@ -320,7 +315,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     echo '<tr>';
     echo '<td>';
     echo 'Долг в деньгах (%)';
@@ -336,8 +331,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
-
+    ob_flush();
     echo '<tr>';
     echo '<td colspan="13" style="text-align: left!important;">Долги с разбивкой по менеджерам</td>';
     echo '</tr>';
@@ -361,7 +355,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     echo '<tr>';
     echo '<td>';
     echo 'Долг -> Натале';
@@ -381,7 +375,7 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '</td>';
     }
     echo '</tr>';
-
+    ob_flush();
     echo '<tr>';
     echo '<td>';
     echo 'Долг -> Аня';

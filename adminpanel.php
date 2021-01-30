@@ -298,7 +298,7 @@ if ($_GET['filter'] == 'demand_list_first') {
 
 			<div class="paylist_row" style=" <? echo($colorflag2); ?>">
 
-			<a class="adminpanel_a"  style="width: 150px;<? echo $colorflag; ?>;" href="?searchstring=<? echo $main_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist=">
+			<a class="adminpanel_a"  style="width: 170px;<? echo $colorflag; ?>;" href="?searchstring=<? echo $main_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist=">
 				<b><? echo $main_data['paylist'] ; ?></b>
 			</a>
 

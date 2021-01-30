@@ -73,9 +73,9 @@ if (mysql_num_rows($newmessage_flag_array)==0) {
 }
 
 if (mysql_num_rows($newmessage_flag_array)>0) {
-    $hrefs[9][0] = "/?action=messages&step=start_page";
-    $hrefs[9][1] = "img/icons/active_message.png";
-    $hrefs[9][2] = "Сообщения(".$a.")";
+    $hrefs[8][0] = "/?action=messages&step=start_page";
+    $hrefs[8][1] = "img/icons/active_message.png";
+    $hrefs[8][2] = "Сообщения(".$a.")";
 }
 
 

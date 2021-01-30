@@ -1,4 +1,4 @@
-<div style="display: flex">
+<div class="zarplata-table" style="display: flex">
     <div style="width: 300px;">
         <?php
         echo 'hi';

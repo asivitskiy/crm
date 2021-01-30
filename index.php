@@ -69,7 +69,7 @@
 
 <div class="left_container">
 <?
-for	($i = 0; $i <= 9; $i++) {
+for	($i = 0; $i <= 8; $i++) {
 
 	?>
 <a title="<? echo $hrefs[$i][2];  ?>" href="<? echo $hrefs[$i][0];  ?>">
@@ -86,6 +86,22 @@ for	($i = 0; $i <= 9; $i++) {
 
 <br><a style='float:right; margin-right:30px; display:inline-block;' href=login.php?quit=1>выход</a>
 
+    <div align="center" class="" style="position: absolute; bottom: 20px; color: white; text-align: center; display: block; width: 100%;">
+    <?
+    $sql = "SELECT SUM(`contragent_dolg`) as smm FROM `contragents`";
+    $arr = mysql_query($sql);
+    $ddt = mysql_fetch_array($arr);
+
+    $sql2 = "SELECT COUNT(1) as cnt FROM `order` WHERE `deleted`<>1";
+    $arr2 = mysql_query($sql2);
+    $ddt2 = mysql_fetch_array($arr2);
+    ?>
+        Общий долг:<br>
+        <? echo $ddt['smm']; ?> <br><br>
+        Не закрыто:<br>
+        <? echo $ddt2['cnt']; ?> <br>
+
+    </div>
 
 </div>
 
