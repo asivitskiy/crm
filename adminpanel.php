@@ -142,13 +142,8 @@ if ($_GET['filter'] == 'demand_count') {
 
 		<tr style="background-color: #D3D3D3">
 			<td><? echo $info_order_number; ?></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td colspan="7"><? echo $info_order_data['order_description'] ?></td>
+
 		</tr>
 		<?
 		$info_works_sql = "SELECT * FROM `works` WHERE `work_order_number` = '$info_order_number'";
