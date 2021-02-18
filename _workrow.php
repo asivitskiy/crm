@@ -20,10 +20,10 @@
 			$order_number = $row_cclist_2['order_number'] + 1;
 			$contragent_id = "new";
 				//получение планируемой даты сдачи (+1 день)
-			$plan_date = date("Y")."-".date("m")."-".(date("d"));
-			$plan_time = date("H").":00";
+			$plan_date = "";/*date("Y")."-".date("m")."-".(date("d"));*/
+			$plan_time = "";/*date("H").":00";*/
 			break;
-		 
+
 		case "redact": //в случае редакирования - принимаем данные из GET и используем их дальше
 			$action = $_GET['action'];
 			$order_number = $_GET['order_number'];
@@ -356,7 +356,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
         <a target="_blank" class="a_orderrow" href="_small_pdf_maker.php?order=<?/* echo $order_data_data['order_number']; */?>" target="_blank">PDF</a>
     </div>-->
 <div>
-	<input type="submit" class="final" value="Оформить / обновить">
+	<input type="submit" class="final" value="Оформить / обновить" <? if ($plan_time == '') {echo "disabled";} ?>>
 	<input type="submit" style="margin-left: 150px;" class="111" name="doubleflag" value="Дублировать заказ">
 	<input type="submit" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк">
     <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank">PDF</a>
@@ -369,4 +369,12 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 <br>
 </div>
 </form>
+<script>
+    var dateInput = document.querySelector('input[name="timetoend"]');
+    dateInput.addEventListener("change",unblockButton);
+    function  unblockButton() {
+        var curButton = document.querySelector(".final");
+        curButton.removeAttribute("disabled");
+    }
+</script>
 <? include("_workrow_script.php"); ?>
