@@ -1,0 +1,152 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+.list__item * {
+    white-space: nowrap;
+}
+
+.header-container {
+    width: 100%;
+    display: flex;
+}
+
+.main-container {
+    margin-top: 6px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-logo {
+    width: 150px;
+    margin: 0 auto;
+}
+
+/*скрыт чтобы не мешал дальше делать страничку. заменить на flex*/
+.clientcode {
+    display: none;
+    margin: 0 auto;
+}
+
+.clientcode__inputCode {
+    width: 250px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+.list {
+    margin: 0 auto;
+}
+
+.list>div {
+    height: 30px;
+}
+
+.list>div.list__item:nth-child(2n) {
+    background-color: #f3f3f3;
+}
+
+.list__header h1{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.list__item {
+   /* width: 800px;*/
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.list__item:hover {
+    background-color: #c6dec2 !important;
+}
+.list__item > div {
+
+    margin-left: 15px;
+    padding: 3px;
+    line-height: 25px;
+}
+
+.list__item-count {
+    display: flex;
+    flex-direction: row;
+}
+
+.list__item-count input {
+    margin: 0 auto;
+    text-align: center;
+    width: 45px;
+    font-size: 16px;
+    height: 26px;
+    padding: 3px;
+}
+
+.list__item-count button {
+    padding: 5px;
+    height: 26px;
+    line-height: 15px;
+}
+
+.list__group {
+    padding-top: 5px;
+    padding-left: 5px;
+    background-color: #80b7db;
+    margin-top: 15px;
+}
+
+.list__item-name {
+    width: 300px;
+    overflow: hidden;
+}
+
+.list__item-price {
+    width: 100px;
+    text-align: right;
+}
+
+.list__item-descr {
+    width: 150px;
+}
+
+.list__item-amount {
+    text-align: right;
+    margin-right: 10px;
+    width: 100px;
+}
+
+.basket {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.list__item-descr {
+    display: none;
+    width: 250px;
+}
+
+.checkid {
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+    font-size: 25px;
+    height: 26px;
+    width: 26px;
+    border: 1px solid gray;
+}
+
+.checkid:hover {
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
