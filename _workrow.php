@@ -23,7 +23,7 @@
 			$plan_date = date("Y")."-".date("m")."-".(date("d"));
 			$plan_time = date("H").":00";
 			break;
-		
+		 
 		case "redact": //в случае редакирования - принимаем данные из GET и используем их дальше
 			$action = $_GET['action'];
 			$order_number = $_GET['order_number'];
