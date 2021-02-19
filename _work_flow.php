@@ -4,99 +4,107 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .workflow_wrapper * {
-            margin: 0;
+        .workflow_table {
+            width: 1400px;
+        }
+        .graphic {
+            width: 150px;
+            height: 700px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .timeline {
+            height: 30px;
+            width: 150px;
             box-sizing: border-box;
         }
-        .workflow_wrapper {
+        .graphicsContainer {
+            width: 150px;
             display: flex;
-            width: 1200px;
-            justify-content: space-between;
-        }
-        .workflow__row {
-            margin-top: 25px;
-            border: 1px solid black;
-            width: 100%;
-            display: flex;
-            flex-wrap: nowrap;
-        }
-
-        .workflow__col {
-            width: 100%;
-            border: 3px solid grey;
-            padding: 5px;
-            display: flex;
+            align-content: flex-start;
             flex-wrap: wrap;
         }
+        .graphElement {
 
-        .workflow__order-card {
-            margin: 1px 1px 1px 1px;
-            padding: 1px 1px 1px 1px;
-            width: 100px;
-            height: 30px;
-            border:1px dotted gray;
+            margin: 2px 2px 2px 2px;
             border-radius: 3px;
+            width: 65px;
+            height: 30px;
+            border: 1px dotted grey;
         }
-
     </style>
 </head>
 <body>
-    <div class="workflow_wrapper">
-        <div class="workflow__row">
-            <div class="workflow__col">
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card" style="height: 50px; width: 70px"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-            </div>
-            <div class="workflow__col">
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-            </div>
-            <div class="workflow__col">
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-            </div>
-            <div class="workflow__col">
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-            </div>
-            <div class="workflow__col">
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-                <div class="workflow__order-card"></div>
-            </div>
+<table class="workflow_table" border="1">
+    <tr>
+        <td class="timeline">asdsad</td>
+        <td class="timeline" colspan="3">asdsad</td>
+        <td class="timeline" colspan="3">asdsad</td>
+        <td class="timeline" colspan="3">asdsad</td>
 
-        </div>
+    </tr>
+    <tr>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+        <td class="timeline">asdsad</td>
+    </tr>
+    <tr>
+        <td class="graphic">
+            <div class="graphicsContainer">
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+                <div class="graphElement"></div>
+            </div>
+        </td>
 
-    </div>
+
+
+    </tr>
+
+</table>
+<?
+/*echo date("w",strtotime(date("Ymd")));*/
+
+$inp = date("Ymd");
+$i = 0;
+function dateChecker($hz)
+{   while (count($dates)<3) {
+        if ((date("w", strtotime(date($hz))) <> 6) and (date("w", strtotime(date($hz))) <> 0)) {
+            $dates[] = $hz;
+            $hz = date('Ymd', strtotime($hz .' +1 day'));
+            //если не выходной - пропустится
+        } else {$hz = date('Ymd', strtotime($hz .' +1 day'));}
+    }
+    return $dates;
+}
+//получаем массив из трёх рабочих дней, включая сегодняшний
+print_r(dateChecker($inp));
+?>
 
 </body>
 </html>
