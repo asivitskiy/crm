@@ -58,7 +58,8 @@ body {
    }
 .cashbox td, th {
     padding: 3px; /* Поля вокруг содержимого таблицы */
-    border-spacing: 0pxadmi;
+    border-spacing: 0px;
+
    }
 .cashbox th {
     background: #fff; /* Цвет фона */
@@ -85,6 +86,7 @@ a:hover {text-decoration: underline;}
 
 
 .left_container {
+	/*display: none!important;*/
 	position: fixed;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	width: 120px;
@@ -276,8 +278,8 @@ a:hover {text-decoration: underline;}
 }
 
 .center_block{
-	overflow: hidden;
-	width: 1400px;
+	overflow: visible;
+	width: 1200px;
 	display: inline-block;
 	margin: 0px auto;
 	float: left;
@@ -357,6 +359,7 @@ details[open] summary tr{
 /*	margin-left: 15px;
 	margin-top: 15px;*/
 	padding: 5px;
+/*	width: 1200px;*/
 
 }
 
@@ -380,7 +383,11 @@ details[open] summary tr{
 	color:red;
 }
 
+.cashbox_table {
+	width: 800px;
+}
 .cashbox_table table {
+	width: 100%;
 	border: 1px solid gray;
 	background-color: white;
 }
@@ -399,6 +406,7 @@ details[open] summary tr{
 	border-left: 1px solid gray!important;
 	border-bottom: 1px solid gray!important;
 	padding: 3px;
+	white-space: nowrap;
 }
 
 .adminpanel_a {
@@ -565,4 +573,12 @@ text-decoration: none;
 .zarplata-table {
 	margin-left: 10px;
 	margin-top: 10px;
+}
+.adminpanel__demands {
+	/*width: 100%;*/
+}
+.adminpanel__demands td {
+	border-bottom: 1px solid gray;
+
+
 }

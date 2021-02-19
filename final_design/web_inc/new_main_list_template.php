@@ -136,7 +136,7 @@
                     <? echo "> ".dig_to_d($data_row_data['datetoend']).".".dig_to_m($data_row_data['datetoend']); ?>
                 </div>
                 <!--светофор-->
-                <div class="trafficlights-wrapper">
+                <!--<div class="trafficlights-wrapper">-->
                     <?
                     switch (true) {
                         case ($data_row_data['soglas'] > 0):
@@ -241,7 +241,7 @@
 
                     <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>" style="border-radius: 50%; height: 28px; width: 28px;">ОШБ</div>
 
-                </div>
+                <!--</div>-->
             </div>
 
  <div class="maintable-row-details" id="order-content<? echo $data_row_data['order_number']; ?>">

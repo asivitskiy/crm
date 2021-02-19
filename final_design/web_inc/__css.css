@@ -15,21 +15,22 @@
 .header_wrapper_showlist {
 	position: fixed;
 	padding: 10px;
-	width: 100%;
 	z-index: 100000;
 	top:0;
+	left: 120px;
+
 	background-color: rgba(255, 255, 255, 0.9);
 }
 .search-button {
 	display:inline-block;
-	padding-left: 8px;
-	padding-right: 8px;
-	height: 40px;
-	line-height: 40px;
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 30px;
+	line-height: 30px;
 	box-sizing: border-box;
 	background-color: #212121;
-	margin-left: 10px;
-	border-radius: 3px;
+	margin-left: 5px;
+	border-radius: 2px;
 	opacity: 0.35;
 
 }
@@ -39,11 +40,11 @@
 }
 .universal-search-string {
 	background-color: #ededed;
-	padding-left: 10px;
-	height: 40px;
-	line-height: 40px;
+	padding-left: 5px;
+	height: 30px;
+	line-height: 30px;
 	font-size: 16px;
-	width: 400px;
+	/*width: 400px;*/
 }
 
 .button-active {
@@ -157,6 +158,8 @@ white-space: normal;
 }
 .maintable-row-block-date {
 	width: 87px;
+	white-space: nowrap;
+	overflow: hidden;
 	font-size: 12px;
 	font-weight: 300;
 }
@@ -170,8 +173,8 @@ white-space: normal;
 	font-weight: 600;
 }
 .maintable-row-block-contragent {
-	width: 250px;
-	font-weight: 400;
+	/*width: 250px;*/
+	font-weight: 300;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -189,6 +192,7 @@ white-space: normal;
 	font-size: 10px;
 	text-transform: uppercase;
 	width: 35px;
+	min-width: 25px;
 }
 .trafficlights-wrapper{
 	flex: 0 0 351px;
@@ -220,8 +224,10 @@ white-space: normal;
 .maintable-row-block-summ {
 	padding-right: 5px;
 	box-sizing: border-box;
+	min-width: 85px;
 	width: 85px;
 	text-align: right;
+	white-space: nowrap;
 }
 .read-less, .read-less:hover {
 	background-color: #c2dbff!important;
@@ -409,7 +415,9 @@ white-space: normal;
 	}
 
 }*/
-
+.cashboxBlank:visited {
+	color: green;
+}
 .details-ajax {
 	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
 	margin-left: 40px;

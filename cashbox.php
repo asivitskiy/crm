@@ -4,7 +4,7 @@ $plan_date = date("Y")."-".date("m")."-".(date("d"));
 $plan_time = date("H").":00";
 
 ?>
-<div class="cashbox_wrapper">
+<div class="cashbox_wrapper" style="overflow: visible;;">
 <br>
 <form method="get" action="">
 Дата отчета:<br>
@@ -46,11 +46,10 @@ $plan_time = date("H").":00";
 					
 					
 						 <tr>
-	 						<td><a target="_blank" href="index.php?action=redact&order_manager=<? echo $cashbox_data['parent_order_manager']; ?>&order_number=<? echo $cashbox_data['parent_order_number']; ?>">
+	 						<td><a class="cashboxBlank" target="_blank" href="index.php?check&action=redact&order_manager=<? echo $cashbox_data['parent_order_manager']; ?>&order_number=<? echo $cashbox_data['parent_order_number']; ?>">
 	 							<? echo $cashbox_data['parent_order_manager'].'-'.$cashbox_data['parent_order_number']; ?>
-	 								</td>
+                            </td>
 	 						<td><? echo $cashbox_data['name'];?></td>
-	 								
 	 						<td><? if ($cashbox_data['pmm'] == 'ООО') {echo $cashbox_data['summ'];	$sum_ooo=$sum_ooo+$cashbox_data['summ'];}	 	?></td>
 	 						<td><? if ($cashbox_data['pmm'] == 'ИП') {echo $cashbox_data['summ'];		$sum_ip=$sum_ip+$cashbox_data['summ'];} 	 	?></td>
 	 						<td><? if ($cashbox_data['pmm'] == 'Терм') {echo $cashbox_data['summ'];	$sum_term=$sum_term+$cashbox_data['summ'];}  	?></td>

@@ -91,8 +91,8 @@ $paymethod	= $_POST['paymethod'];
 			$date_of_end = '';
 			$delivery = 0;
 			$d=strtotime("+1 day");
-			$datetoend	= date("Ymd",$d);
-			$timetoend	= date("H").':00';
+			$datetoend	= "";/*date("Ymd",$d);*/
+			$timetoend	= "";/*date("H").':00';*/
 													}
 				
 //данные по каждой работе

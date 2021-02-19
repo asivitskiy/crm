@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="final_design/web_inc/__css.css">
         <script language="javascript" src="final_design/web_inc/__scripts.js"></script>
 
-
+    <meta name = "viewport" content = "width = device-width">
 <meta charset="utf-8">
     <!--JS autocomplete для странички с формированием заказа + еще какой то, непонять зачем -->
     <? include 'inc/_js_in_php.php'; ?>

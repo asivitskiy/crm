@@ -32,6 +32,8 @@ if ($_GET['filter'] == 'add_demand') {
 	?>
 	<br><a class="a_orderrow" href="?action=administrating&filter=startscreen">Вернутсья в панель администрирования</a>
 	<form method="post" action="?action=administrating&filter=demand_count">
+        <table class="adminpanel__demands">
+
 	<?
 	echo '<h3>Запросы счетов:</h3>';
 	include("dbconnect.php");
@@ -55,13 +57,13 @@ if ($_GET['filter'] == 'add_demand') {
                                                               GROUP BY works.work_order_number"));
         $sss3 = number_format($order_amount_calc_array['ssmm'],2, '.', ' ');
 
-		echo '<input type="checkbox" name="names['.$sss.']">&nbsp;
+		echo '<tr><td height="30" border="1"><input type="checkbox" style="height:20px; width:20px;margin-top: 4px; margin-right: 15px;" name="names['.$sss.']"></td><td>
 		<a style="display: inline-block; width:65px;"
 		href=?action=redact&order_number='.$sss.'>'.$sss2.'-'.$sss.'
-		</a> <div style="width: 110px; display: inline-block; text-align: left; margin-right: 15px; margin-left: 5px"> '.$sss3.' руб. </div>'.$main_data['name'].' ==> '.$main_data['order_description'].'<br>';
+		</a> <div style="width: 90px; display: inline-block; text-align: left; margin-right: 15px; margin-left: 5px;white-space: nowrap;"> '.$sss3.'</div>'.$main_data['name'].' ==> '.$main_data['order_description'].'</td></tr>';
 	}
 	?>
-
+        </table>
 	<input type="submit" value="Рассчитать">
 	</form>
 	<?

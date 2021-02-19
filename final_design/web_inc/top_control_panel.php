@@ -22,17 +22,17 @@
     //TEMP - строковые поиски
     //PERMANENT - логические поиски
     //массив кнопок (название, статусы, отображение)
-    $button_default['noready'] = '0';    $button_type['noready'] = 'permanent'; $button_placeholder['noready'] = 'Отображать завершенные';
+    $button_default['noready'] = '0';    $button_type['noready'] = 'permanent'; $button_placeholder['noready'] = '+Завершенные';
     $button_default['myorder'] = '1';    $button_type['myorder'] = 'permanent'; $button_placeholder['myorder'] = 'Только мои';
     $button_default['delivery'] = '0';    $button_type['delivery'] = 'permanent'; $button_placeholder['delivery'] = 'Доставка';
-    $button_default['searchstring'] = '';$button_type['searchstring'] = 'temp'; $button_placeholder['searchstring'] = 'Текст поиска: ';
+    $button_default['searchstring'] = '';$button_type['searchstring'] = 'temp'; $button_placeholder['searchstring'] = 'Текст: ';
     $button_default['clientstring'] = '';$button_type['clientstring'] = 'temp'; $button_placeholder['clientstring'] = 'Клиент: ';
 
 
 
     echo "<div class='header-block'>";
     echo "<a href=?&myorder=0&noready=1&showlist=&delivery=1 ";
-    echo " type=button class= 'search-button'  style='background-color: red;'>"; echo "Сброс фильтров</a>";
+    echo " type=button class= 'search-button'  style='background-color: red;'>"; echo "Сброс</a>";
     echo "</div>";
     //генератор ссылок, которые отменяют фильтр, который включается по этой ссылке
     foreach($button_type as $key_out => $value_out){

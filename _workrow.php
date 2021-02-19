@@ -126,7 +126,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 		<? if ((strlen($order_redact_data['paystatus']) <> 12)) { ?><div style="color: orangered; display: inline-block;">Счет не запрошен</div> <? } ?>
 </div>
 
-<div class="blok-ramka" style="margin-top: 5px;">Оплата		
+<div class="blok-ramka" style="margin-top: 5px; width: 300px;">Оплата
 <br><select name="paymethod"  onchange="if (this.selectedIndex) this.form.submit ()">
 
 		<option style="display: none"></option>
@@ -146,7 +146,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 ?><br>
 Счет: 
 					<b>
-					<a href="?action=showlist&filter=contragent_paydemand&argument=<? echo $order_redact_data['paylist'] ;?>"><? echo $order_redact_data['paylist'] ;?></a>
+					<a style="white-space: normal" href="?action=showlist&filter=contragent_paydemand&argument=<? echo $order_redact_data['paylist'] ;?>"><? echo $order_redact_data['paylist'] ;?></a>
 					<? /*echo $order_redact_data['paylist'];*/?>
 					</b>
 
@@ -356,11 +356,11 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
         <a target="_blank" class="a_orderrow" href="_small_pdf_maker.php?order=<?/* echo $order_data_data['order_number']; */?>" target="_blank">PDF</a>
     </div>-->
 <div>
-	<input type="submit" class="final" value="Оформить / обновить" <? if ($plan_time == '') {echo "disabled";} ?>>
+	<input type="submit" class="final" value="Оформить / обновить" >
 	<input type="submit" style="margin-left: 150px;" class="111" name="doubleflag" value="Дублировать заказ">
-	<input type="submit" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк">
-    <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank">PDF</a>
-    <a target="_blank" class="a_orderrow" href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
+	<input type="submit" class="oldBlank" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк" <? if ($plan_time == '') {echo "disabled";} ?>>
+    <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank" >PDF</a>
+    <a target="_blank" class="a_orderrow printerButton" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
 	<input type="submit" formaction="index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>" value="Удалить заказ">
 </div>
 <br>
@@ -372,9 +372,15 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 <script>
     var dateInput = document.querySelector('input[name="timetoend"]');
     dateInput.addEventListener("change",unblockButton);
+    var dateInput = document.querySelector('input[name="datetoend"]');
+    dateInput.addEventListener("change",unblockButton);
+
     function  unblockButton() {
-        var curButton = document.querySelector(".final");
+        var curButton = document.querySelector(".oldBlank");
         curButton.removeAttribute("disabled");
+        var curPrint = document.querySelector(".printerButton");
+        curPrint.style.pointerEvents = "visible";
+        curPrint.style.color = "black";
     }
 </script>
 <? include("_workrow_script.php"); ?>
