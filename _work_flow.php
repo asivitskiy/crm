@@ -44,31 +44,31 @@ $aftertomorrow_dinner = ($k[2]."1200")*1;
 $aftertomorrow_evening = ($k[2]."1600")*1;
 $aftertomorrow_end   = ($k[2]."2359")*1;
 
-$past_sql = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend<'$today_start') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$past_sql = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend<'$today_start') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $past_array = mysql_query($past_sql);
 
-$now_sql_p1  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$today_start') and (order.datetoend<='$today_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$now_sql_p1  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$today_start') and (order.datetoend<='$today_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $now_array_p1 = mysql_query($now_sql_p1);
-$now_sql_p2  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$today_dinner') and (order.datetoend<='$today_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$now_sql_p2  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$today_dinner') and (order.datetoend<='$today_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $now_array_p2 = mysql_query($now_sql_p2);
-$now_sql_p3  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$today_evening') and (order.datetoend<='$today_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$now_sql_p3  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$today_evening') and (order.datetoend<='$today_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $now_array_p3 = mysql_query($now_sql_p3);
 
-$tomorrow_sql_p1  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_start') and (order.datetoend<='$tomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$tomorrow_sql_p1  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$tomorrow_start') and (order.datetoend<='$tomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $tomorrow_array_p1 = mysql_query($tomorrow_sql_p1);
-$tomorrow_sql_p2  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_dinner') and (order.datetoend<='$tomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$tomorrow_sql_p2  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$tomorrow_dinner') and (order.datetoend<='$tomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $tomorrow_array_p2 = mysql_query($tomorrow_sql_p2);
-$tomorrow_sql_p3  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_evening') and (order.datetoend<='$tomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$tomorrow_sql_p3  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$tomorrow_evening') and (order.datetoend<='$tomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $tomorrow_array_p3 = mysql_query($tomorrow_sql_p3);
 
-$aftertomorrow_sql_p1  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_start') and (order.datetoend<='$aftertomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$aftertomorrow_sql_p1  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_start') and (order.datetoend<='$aftertomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $aftertomorrow_array_p1 = mysql_query($aftertomorrow_sql_p1);
-$aftertomorrow_sql_p2  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_dinner') and (order.datetoend<='$aftertomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$aftertomorrow_sql_p2  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_dinner') and (order.datetoend<='$aftertomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $aftertomorrow_array_p2 = mysql_query($aftertomorrow_sql_p2);
-$aftertomorrow_sql_p3  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_evening') and (order.datetoend<='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$aftertomorrow_sql_p3  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_evening') and (order.datetoend<='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $aftertomorrow_array_p3 = mysql_query($aftertomorrow_sql_p3);
 
-$late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$late_sql  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $late_array = mysql_query($late_sql);
 
 
