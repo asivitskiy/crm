@@ -19,11 +19,12 @@
 
 <SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></SCRIPT>
 <SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
-<SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
 <link rel="stylesheet" href="jquery-ui.css">
 <link rel="stylesheet" href="_workrow.css">
 <link rel="stylesheet" type="text/css" href="truestyle.css" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./inc/jquery.timepicker.css" />
+<SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
 
         <!--стили и шрифты от final_design листа заказов-->
         <link rel="stylesheet" href="final_design/web_inc/__css.css">
@@ -184,7 +185,12 @@ for	($i = 0; $i <= 8; $i++) {
 		}
 		?>
 
-<?/* $time = microtime(true) - $start; echo $time; */?>
+<?/* $time = microtime(true) - $start; echo $time;
+ ?&myorder=0&noready=1&showlist=&delivery=1
+ !isset($_GET) or
+ */
+/*if (isset($_GET)) {echo "321321321"; } */
+?>
 
 	</div>
 </div>
@@ -195,6 +201,18 @@ for	($i = 0; $i <= 8; $i++) {
 
 
 <? }?>
-
+<script>
+    $('.timeselect').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 30,
+        minTime: '10',
+        maxTime: '7:00pm',
+/*        defaultTime: '10',*/
+        startTime: '10:00',
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+    });
+</script>
 </body>
 </html>

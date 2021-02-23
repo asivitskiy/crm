@@ -2,10 +2,10 @@
 include "./dbconnect.php";
 include "./inc/global_functions.php";
 $dayarray = array("","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскрескенье");
-function elemMaker($man,$num) {
+function elemMaker($man,$num,$cur_pre) {
     ?>
                     <div class="graphElement"">
-                        <div class="_n_blank" onclick="clicker(this)"><? echo $man."-".$num;?></div><br>
+                        <div class="_n_blank" <? if (($cur_pre == "Нет")or($cur_pre>10000000000)) {echo "style='border:2px solid green'";} ?> onclick="clicker(this)"><? echo $man."-".$num;?></div><br>
                         <div class="_n_redact" onclick="window.open('./?action=redact&order_number=<? echo $num;?>','_blank')">Ред.</div><br><br>
                         <div class="_n_ready" onclick="location.href='_work_flow_readymaker.php?order_number=<? echo $num;?>'">Готов</div><br>
                         <!--<div class="closerButton" onclick="closeElem(this)">закрыть</div>-->
@@ -44,43 +44,32 @@ $aftertomorrow_dinner = ($k[2]."1200")*1;
 $aftertomorrow_evening = ($k[2]."1600")*1;
 $aftertomorrow_end   = ($k[2]."2359")*1;
 
-$past_sql = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend<'$today_start') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$past_sql = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend<'$today_start') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $past_array = mysql_query($past_sql);
 
-$now_sql_p1  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$today_start') and (order.datetoend<='$today_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$now_sql_p1  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$today_start') and (order.datetoend<='$today_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $now_array_p1 = mysql_query($now_sql_p1);
-$now_sql_p2  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$today_dinner') and (order.datetoend<='$today_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$now_sql_p2  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$today_dinner') and (order.datetoend<='$today_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $now_array_p2 = mysql_query($now_sql_p2);
-$now_sql_p3  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$today_evening') and (order.datetoend<='$today_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$now_sql_p3  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$today_evening') and (order.datetoend<='$today_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $now_array_p3 = mysql_query($now_sql_p3);
 
-$tomorrow_sql_p1  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$tomorrow_start') and (order.datetoend<='$tomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$tomorrow_sql_p1  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_start') and (order.datetoend<='$tomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $tomorrow_array_p1 = mysql_query($tomorrow_sql_p1);
-$tomorrow_sql_p2  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$tomorrow_dinner') and (order.datetoend<='$tomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$tomorrow_sql_p2  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_dinner') and (order.datetoend<='$tomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $tomorrow_array_p2 = mysql_query($tomorrow_sql_p2);
-$tomorrow_sql_p3  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$tomorrow_evening') and (order.datetoend<='$tomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$tomorrow_sql_p3  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_evening') and (order.datetoend<='$tomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $tomorrow_array_p3 = mysql_query($tomorrow_sql_p3);
 
-$aftertomorrow_sql_p1  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_start') and (order.datetoend<='$aftertomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$aftertomorrow_sql_p1  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_start') and (order.datetoend<='$aftertomorrow_dinner') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $aftertomorrow_array_p1 = mysql_query($aftertomorrow_sql_p1);
-$aftertomorrow_sql_p2  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_dinner') and (order.datetoend<='$aftertomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$aftertomorrow_sql_p2  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_dinner') and (order.datetoend<='$aftertomorrow_evening') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $aftertomorrow_array_p2 = mysql_query($aftertomorrow_sql_p2);
-$aftertomorrow_sql_p3  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_evening') and (order.datetoend<='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$aftertomorrow_sql_p3  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_evening') and (order.datetoend<='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $aftertomorrow_array_p3 = mysql_query($aftertomorrow_sql_p3);
 
-$late_sql  = "SELECT * FROM `order` WHERE ( (order.order_has_digital = 1) and (order.datetoend>='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
+$late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>='$aftertomorrow_end') and (order.deleted<>1) and (order.handing=0) and (order.soglas<>0) and (order.order_ready_digital<10))";
 $late_array = mysql_query($late_sql);
-
-
-
-/*$tomorrow_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$tomorrow_start') and (order.datetoend<'$tomorrow_end') and (order.deleted<>1))";
-$tomorrow_array = mysql_query($tomorrow_sql);
-
-$aftertomorrow_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_start') and (order.datetoend<'$aftertomorrow_end') and (order.deleted<>1))";
-    $aftertomorrow_array = mysql_query($aftertomorrow_sql);
-
-$late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (order.datetoend>'$aftertomorrow_end') and (order.deleted<>1))";
-    $late_array = mysql_query($late_sql);*/
 
 //получаем массив из трёх рабочих дней, включая сегодняшний
 ?><!DOCTYPE html>
@@ -122,7 +111,7 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
             border-radius: 3px;
             width: 65px;
             height: 22px;
-            border: 1px dotted grey;
+          /*  border: 1px dotted grey;*/
             white-space: nowrap;
             overflow: hidden;
         }
@@ -160,7 +149,7 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
         <td class="timeline" colspan="3"><? echo $dayarray[date("w",strtotime($k[0]))]; echo(" (".dig_to_d($k[0]."0000").".".dig_to_m($k[0]."0000").") - Сегодня");?></td>
         <td class="timeline" colspan="3"><? echo $dayarray[date("w",strtotime($k[1]))]; echo(" (".dig_to_d($k[1]."0000").".".dig_to_m($k[1]."0000").")");?></td>
         <td class="timeline" colspan="3"><? echo $dayarray[date("w",strtotime($k[2]))]; echo(" (".dig_to_d($k[2]."0000").".".dig_to_m($k[2]."0000").")");?></td>
-        <td class="timeline" colspan="3"><? echo $dayarray[date("w",strtotime($k[3]))]; echo(" (".dig_to_d($k[3]."0000").".".dig_to_m($k[3]."0000").") ->>");?></td>
+        <td class="timeline" colspan="3"><? echo $dayarray[date("w",strtotime($k[3]))]; echo(" (".dig_to_d($k[3]."0000").".".dig_to_m($k[3]."0000").")->>");?></td>
     </tr>
     <tr>
         <td class="timeline">Вчера и ранее</td>
@@ -173,7 +162,7 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
         <td class="timeline">10:00 - 12:00</td>
         <td class="timeline">12:00 - 16:00</td>
         <td class="timeline">16:00 - 19:00</td>
-        <td class="timeline">10:00 - 12:00</td>
+        <td class="timeline">-</td>
 
 
     </tr>
@@ -183,7 +172,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($past_data = mysql_fetch_array($past_array)) {?>
                     <? $cur_num = $past_data['order_number']; ?>
                     <? $cur_man = $past_data['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $past_data['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -193,7 +183,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($now_data_p1 = mysql_fetch_array($now_array_p1)) {?>
                      <? $cur_num = $now_data_p1['order_number']; ?>
                     <? $cur_man = $now_data_p1['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $now_data_p1['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -203,7 +194,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($now_data_p2 = mysql_fetch_array($now_array_p2)) {?>
                     <? $cur_num = $now_data_p2['order_number']; ?>
                     <? $cur_man = $now_data_p2['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $now_data_p2['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -213,7 +205,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($now_data_p3 = mysql_fetch_array($now_array_p3)) {?>
                     <? $cur_num = $now_data_p3['order_number']; ?>
                     <? $cur_man = $now_data_p3['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $now_data_p3['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -224,7 +217,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($tomorrow_data_p1 = mysql_fetch_array($tomorrow_array_p1)) {?>
                     <? $cur_num = $tomorrow_data_p1['order_number']; ?>
                     <? $cur_man = $tomorrow_data_p1['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $tomorrow_data_p1['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -234,7 +228,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($tomorrow_data_p2 = mysql_fetch_array($tomorrow_array_p2)) {?>
                     <? $cur_num = $tomorrow_data_p2['order_number']; ?>
                     <? $cur_man = $tomorrow_data_p2['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $tomorrow_data_p2['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -244,7 +239,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($tomorrow_data_p3 = mysql_fetch_array($tomorrow_array_p3)) {?>
                     <? $cur_num = $tomorrow_data_p3['order_number']; ?>
                     <? $cur_man = $tomorrow_data_p3['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $tomorrow_data_p3['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -254,8 +250,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
             <div class="graphicsContainer">
                 <? while ($aftertomorrow_data_p1 = mysql_fetch_array($aftertomorrow_array_p1)) {?>
                     <? $cur_num = $aftertomorrow_data_p1['order_number']; ?>
-                    <? $cur_man = $aftertomorrow_data_p1['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $aftertomorrow_data_p1['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -265,7 +261,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($aftertomorrow_data_p2 = mysql_fetch_array($aftertomorrow_array_p2)) {?>
                      <? $cur_num = $aftertomorrow_data_p2['order_number']; ?>
                     <? $cur_man = $aftertomorrow_data_p2['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $aftertomorrow_data_p2['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -275,7 +272,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($aftertomorrow_data_p3 = mysql_fetch_array($aftertomorrow_array_p3)) {?>
                     <? $cur_num = $aftertomorrow_data_p3['order_number']; ?>
                     <? $cur_man = $aftertomorrow_data_p3['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $aftertomorrow_data_p3['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
@@ -286,7 +284,8 @@ $late_sql  = "SELECT * FROM `order` WHERE ((order.order_has_digital = 1) and (or
                 <? while ($late_data = mysql_fetch_array($late_array)) {?>
                     <? $cur_num = $late_data['order_number']; ?>
                     <? $cur_man = $late_data['order_manager']; ?>
-                    <? elemMaker($cur_man,$cur_num);?>
+                    <? $cur_pre = $late_data['preprint']; ?>
+                    <? elemMaker($cur_man,$cur_num,$cur_pre);?>
                 <? } ?>
             </div>
         </td>
