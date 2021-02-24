@@ -224,7 +224,9 @@
                             $add = "noscreen";
                             break;
                     } ?>
-                    <div class="maintable-row-block trafficlights trafficlights-roud"></div>
+                   <!-- <div class="maintable-row-block trafficlights trafficlights-roud"></div>-->
+                    <div class="maintable-row-block trafficlights-spacer"></div>
+                    <div class="maintable-row-block trafficlights-spacer"></div>
                     <div class="maintable-row-block trafficlights-spacer"></div>
                     <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>">ПЗК</div>
                     <div class="maintable-row-block trafficlights-spacer"></div>
