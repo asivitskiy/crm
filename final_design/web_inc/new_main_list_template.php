@@ -102,6 +102,7 @@
                 <div  class=" maintable-row-wrapper-date ">
                         <? echo (dig_to_d($data_row_data['date_in'])); ?> / <? echo (dig_to_m($data_row_data['date_in'])); ?> / <? echo (dig_to_y($data_row_data['date_in'])); ?>
                 </div>
+
             <? }
             if ($data_row_data['deleted'] == '1') {
                 $row_corrector_1 = 'maintable-row-wrapper-ready'; } else {$row_corrector_1 = '';}
@@ -135,6 +136,7 @@
                     <? echo dig_to_d($data_row_data['date_in']).".".dig_to_m($data_row_data['date_in']); ?>
                     <? echo "> ".dig_to_d($data_row_data['datetoend']).".".dig_to_m($data_row_data['datetoend']); ?>
                 </div>
+                <div class="maintable-row-block trafficlights-spacer" style="width: 5px;">&nbsp;</div>
                 <!--светофор-->
                 <!--<div class="trafficlights-wrapper">-->
                     <?
@@ -196,6 +198,7 @@
                         case ($data_row_data['delivery'] > 1):
                             $add = "trafficlights-green";
                             break;
+                        case ($data_row_data['delivery'] == 0):
                         case ($data_row_data['delivery'] == 0):
                             $add = "trafficlights-gray";
                             break;

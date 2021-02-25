@@ -27,10 +27,10 @@
 <SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
 
         <!--стили и шрифты от final_design листа заказов-->
-        <link rel="stylesheet" href="final_design/web_inc/__css.css">
+        <link rel="stylesheet" href="final_design/web_inc/__css.css?sadsa2d">
         <script language="javascript" src="final_design/web_inc/__scripts.js"></script>
 
-    <meta name = "viewport" content = "width = device-width">
+    <meta name = "viewport" content = "width=1800">
 <meta charset="utf-8">
     <!--JS autocomplete для странички с формированием заказа + еще какой то, непонять зачем -->
     <? include 'inc/_js_in_php.php'; ?>

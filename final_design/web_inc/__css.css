@@ -157,9 +157,11 @@ white-space: normal;
 	font-weight: 600;
 }
 .maintable-row-block-date {
-	width: 87px;
+	width: 93px;
+	padding-left:5px;
+	padding-right:5px;
 	white-space: nowrap;
-	overflow: hidden;
+/*	overflow: hidden;*/
 	font-size: 12px;
 	font-weight: 300;
 }
@@ -169,7 +171,7 @@ white-space: normal;
 	font-weight: 300;
 }
 .maintable-row-block-number {
-	width: 50px;
+	width: 60px;
 	font-weight: 600;
 }
 .maintable-row-block-contragent {
@@ -181,6 +183,7 @@ white-space: normal;
 .maintable-row-block-description {
 /*	display: block!important;*/
 	white-space: nowrap;
+	overflow: hidden;
 	overflow: hidden;
 
 /*width: 350px;*/
