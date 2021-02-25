@@ -33,6 +33,7 @@ body {
 	padding: 4px;
 }
 .adminpanel {
+	width: 100%;
 	margin-left: 10px;
 	margin-top: 10px;
 }
@@ -268,7 +269,7 @@ a:hover {text-decoration: underline;}
 /*	margin: 5px 15px;
 	margin-top: 5px;*/
 	float: left;
-	/*width: 97%; */
+	width: 97%;
 /*	padding: 8px;*/
 	/*background-color: #f8f8f8;*/
 	/*border: 1px solid #e7e7e7;*/

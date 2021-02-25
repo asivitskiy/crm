@@ -245,5 +245,26 @@ $works_query  = mysql_query($works_sql);
         </td>
     </tr>
 </table>
+<div style="font-size: 12px;">
+<?
+$messages_sql = "SELECT * FROM `order_messages` WHERE order_messages.order_number = '$number' ORDER BY order_messages.date_in_message DESC";
+$messages_array = mysql_query($messages_sql);
+echo "Заметки к заказу:<br>";
+while ($messages_data = mysql_fetch_array($messages_array)) {
+echo $messages_data['message']."<Br>";
+}
+
+?>
+<? if ($order_data['delivery'] <> 0) {?>
+<br>
+<br>
+Полные контакты:<br>
+<?
+echo $contragent_data['contacts']."<br>Реквизиты:<br>";
+echo $contragent_data['fullinfo']."<br>Адрес доставки:<br>";
+echo $contragent_data['address']."<br>";
+}
+?>
+</div>
 </body>
 </html>

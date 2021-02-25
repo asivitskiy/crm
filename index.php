@@ -124,7 +124,8 @@ for	($i = 0; $i <= 8; $i++) {
     <?
     $dynamic_margin_top = '0';
     $dynamic_margin_left = '20';
-    if (($_GET['action']<>'redact') and ($_GET['action']<>'new')) {
+/*    if (($_GET['action']<>'redact') and ($_GET['action']<>'new')) {*/
+    if (isset($_GET['showlist']) or ($_GET['action'] == 'showlist')) {
         $dynamic_margin_top = '55';
         $dynamic_margin_left = '0';
         include("final_design/web_inc/top_control_panel.php");
