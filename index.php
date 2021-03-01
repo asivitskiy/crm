@@ -21,16 +21,18 @@
 <SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
 <link rel="stylesheet" href="jquery-ui.css">
 <link rel="stylesheet" href="_workrow.css">
-<link rel="stylesheet" type="text/css" href="truestyle.css" />
+<link rel="stylesheet" type="text/css" href="truestyle.css?<? echo rand();?>" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./inc/jquery.timepicker.css" />
 <SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
 
         <!--стили и шрифты от final_design листа заказов-->
-        <link rel="stylesheet" href="final_design/web_inc/__css.css?sadsa2d">
+        <link rel="stylesheet" href="final_design/web_inc/__css.css?<? echo rand();?>>">
         <script language="javascript" src="final_design/web_inc/__scripts.js"></script>
 
-    <meta name = "viewport" content = "width=1800">
+    <!--<meta name = "viewport" content = "width=1200">-->
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
+    <meta name="viewport" content="initial-scale=0.63, width=device-width">
 <meta charset="utf-8">
     <!--JS autocomplete для странички с формированием заказа + еще какой то, непонять зачем -->
     <? include 'inc/_js_in_php.php'; ?>

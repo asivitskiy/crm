@@ -127,11 +127,11 @@
                     <? echo $data_row_data['name']; ?>
                 </div>
 
-                <div class="maintable-row-block maintable-row-block-dash">&nbsp;</div>
+
                 <div class="maintable-row-block maintable-row-block-description">
                     <? echo $data_row_data['order_description']; ?>
                 </div>
-                <div class="maintable-row-block maintable-row-block-dash">&nbsp;</div>
+
                 <div class="maintable-row-block maintable-row-block-date">
                     <? echo dig_to_d($data_row_data['date_in']).".".dig_to_m($data_row_data['date_in']); ?>
                     <? echo "> ".dig_to_d($data_row_data['datetoend']).".".dig_to_m($data_row_data['datetoend']); ?>
@@ -148,7 +148,7 @@
                             $add = "trafficlights-red";
                             break;
                     } ?>
-                <div class="maintable-row-block trafficlights trafficlights-green <? echo $add; ?>">раб</div>
+                <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">раб</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     if ($data_row_data['order_vars-design_flag'] == 2)
@@ -229,9 +229,8 @@
                     } ?>
                    <!-- <div class="maintable-row-block trafficlights trafficlights-roud"></div>-->
                     <div class="maintable-row-block trafficlights-spacer"></div>
-                    <div class="maintable-row-block trafficlights-spacer"></div>
-                    <div class="maintable-row-block trafficlights-spacer"></div>
-                    <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>">ПЗК</div>
+
+                    <div class="maintable-row-block trafficlights-pzk trafficlights trafficlights-roud <? echo $add; ?>">ПЗК</div>
                     <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     $add = '';
@@ -244,7 +243,7 @@
                             break;
                     } ?>
 
-                    <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>" style="border-radius: 50%; height: 28px; width: 28px;">ОШБ</div>
+                    <div class="maintable-row-block trafficlights trafficlights-osh trafficlights-roud <? echo $add; ?>">ОШБ</div>
 
                 <!--</div>-->
             </div>
