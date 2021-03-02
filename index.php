@@ -56,12 +56,12 @@
 
 <div class="header" style=" <?
 						   if (isset($_SESSION['manager'])) { echo 'display:none;';} ?> ">
-	<div style="margin-top: 5px;">
+<!--	<div style="margin-top: 5px;">
 		<h2>admix </h2>
 		<h3 style="font-size: 10px; color:rgba(0,56,123,1.00);">C</h3>
 		<h3 style="font-size: 10px;color:rgba(65,0,65,1.00)">R</h3>
 		<h3 style="font-size: 10px; color: rgba(44,50,0,1.00)">M</h3>
-	</div>
+	</div>-->
 		<? if (!isset($_SESSION['manager'])) {?>
 		<div class="auth">
 			<form action="login.php" method="post"><input type="text" name="login"><input type="password" name="password"><input type="submit"></form>

@@ -166,8 +166,8 @@ a:hover {text-decoration: underline;}
 	color:red;
 }
 .auth {
-	float: left;
-	margin-left: 600px;
+	margin-top: 5px;
+	margin-left: 25px;
 	display: inline-block;
 	margin-right: 15px;
 }
