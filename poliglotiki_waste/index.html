@@ -27,31 +27,7 @@
         </div>
 
         <div class="list">
-<!--            <div class="list__group" id="group-1">
-                Плакаты
-            </div>
 
-            <div class="list__item" id="item-2">
-                <div class="list__item-name">
-                    <input type="hidden" name="item_id">
-                    Flashcards Level 1 Формат А5 (148*210мм)
-                </div>
-                <div class="list__item-price">
-                    <input type="hidden" name="item_price" value="1440">
-                    1440 р.
-                </div>
-                <div class="list__item-count">
-                    <div class="checkid" onclick="fff(this,'remove')" style="color: darkgray">-</div>
-                    <input class="list__item-input" type="text" value="0">
-                    <div class="checkid" onclick="fff(this,'add')">+</div>
-                </div>
-                <div class="list__item-amount">
-                    [ <span>0</span> р. ]
-                </div>
-                <div class="list__item-descr">
-                    комплект 130шт
-                </div>
-            </div>-->
         </div>
 
         <div id= "basket" class="basket">
@@ -114,10 +90,6 @@
         }
 
         var listItems = [];
-        /*listItems.push(new ItemCounstructor(true,"group-1","item-1","Плакаты 600*1000мм. 24 вида",null,null,null,null));*/
-
-
-        console.log(listItems);
 
         function renderList(target) {
             var targetBlock = document.querySelector(target);
@@ -168,7 +140,7 @@
                 }
             }
 
-            console.log(targetBlock);
+
         }
         listItems.push(new ItemCounstructor(true,"group-1","item-1","Плакаты 600*1000мм. 24 вида","null","",null));
         listItems.push(new ItemCounstructor(false,"group-1","item-2","Family",225,"Постер 150 гр",null));

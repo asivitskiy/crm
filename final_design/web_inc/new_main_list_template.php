@@ -15,7 +15,7 @@
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
-	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
+	SELECT order.paymethod,order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
     ".$joiner_fields."	
@@ -188,7 +188,12 @@
                             break;
 
                     } ?>
-                <div class="maintable-row-block trafficlights <? echo $add; ?>">выст</div>
+                <div class="maintable-row-block trafficlights <? echo $add; ?>">
+                    <?  if ($data_row_data['paymethod'] == "ООО") { echo "ООО";} 
+                        else if ($data_row_data['paymethod'] == "ИП") { echo "ИП";} 
+                        else { echo "Выст";} 
+                        ?> <!-- выставлен не выставлен и с каких реквизитов -->
+                </div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     switch(true) {
