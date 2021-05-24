@@ -282,8 +282,12 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 	  		<table style="border: 1px dotted #D99798; border-radius: 3px; height:105px; padding-left: 4px; padding-right: 4px;" class="autoClear">
             		<tr>
             			<td><input style="text-align: center; width: 80px; height: 35px;" class="checkRow" onkeyup="checkRow(this)" onKeyUp="doublesumm()"  type="text" value="<? echo($main_table_data['work_price']); ?>" name="work_price[]" id="item_price" placeholder="цена"></td>
-            			<td><input style="text-align: center; width: 80px; height: 35px;" class="item_quantities number checkRow recountDeal" onkeyup="checkRow(this)" onMouseMove="checkRow(this)" type="text" value="<? echo($main_table_data['work_count']); ?>" name="work_count[]" id="item_count" placeholder="кол."></td>
-            			<td><input style="width: 80px; height: 35px; text-align: center; font-weight: 700"  type="text" value="<? echo number_format($main_table_data['work_count']*$main_table_data['work_price'],2,'.',''); ?>" name="result[]" readonly></td>
+            			<td><input style="text-align: center; width: 80px; height: 35px;" class="item_quantities number checkRow recountDeal" onkeyup="checkRow(this);raskladka(this)" onMouseMove="checkRow(this)" type="text" value="<? echo($main_table_data['work_count']); ?>" onClick="raskladka(this)" name="work_count[]" id="item_count" placeholder="кол."></td>
+            			<td>
+                            <input style="width: 80px; height: 35px; text-align: center; font-weight: 700"  type="text"  value="<? echo number_format($main_table_data['work_count']*$main_table_data['work_price'],2,'.',''); ?>" name="result[]" readonly>
+                            <input type="hidden" name="work_sheets[]">
+                        </td>
+
             					<td style="width: 37px;">
             				<? if (($_GET['action'] == 'redact') and ($order_redact_data['deleted'] <> '1')) { ?>
             					
@@ -316,7 +320,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
             			</select>
             			
             			<input type=hidden name="123work_rashod_list[]" style="width: 169px; height: 35px; text-align: center"  type="text" value="<? echo($main_table_data['work_rashod_list']); ?>" placeholder="счет расхода"></td>
-            			
+
        
             		</tr>
             		
@@ -331,7 +335,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 	  	</td>
 	  	<td colspan="5">
 	  			<textarea style="width: 82%; height: 55px;" tabindex="4" name="work_postprint[]" placeholder="постпечатная обработка"><? echo($main_table_data['work_postprint']); ?></textarea>
-	  	<textarea style="width: 13%; height: 55px; font-size: 16px;" name="work_rasklad[]" onClick="raskladka(this)"><? echo($main_table_data['work_rasklad']); ?></textarea></td>
+	  	<textarea wrap="off" style=" overflow-x: hidden; overflow-y: hidden; width: 13%; height: 55px; font-size: 16px;" name="work_rasklad[]" onClick="raskladka(this)"><? echo($main_table_data['work_rasklad']); ?></textarea></td>
 	  </tr>
 	  	
 	

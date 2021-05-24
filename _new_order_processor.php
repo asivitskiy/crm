@@ -109,6 +109,7 @@ $work_postprint	= $_POST['work_postprint'];
 $work_rasklad	= $_POST['work_rasklad'];
 
 $work_count		= $_POST['work_count'];
+$work_sheets	= $_POST['work_sheets'];
 $work_price		= $_POST['work_price'];
 $work_rashod	= $_POST['work_rashod'];
 $work_rashod_list	= $_POST['work_rashod_list'];
@@ -333,6 +334,7 @@ $work_mediai=$work_media[$i];
 $work_postprinti=$work_postprint[$i];
 $work_raskladi=$work_rasklad[$i];
 $work_counti=$work_count[$i];
+$work_sheetsi=round($work_sheets[$i]);
 $work_pricei=str_replace(',','.',$work_price[$i]);
 $work_rashodi=str_replace(',','.',$work_rashod[$i])*1;$work_rashodi=number_format($work_rashodi,2,'.','');
 $work_rashod_listi=$work_rashod_list[$i];
@@ -360,8 +362,8 @@ $work_rashod_listi=$work_rashod_list[$i];
 					mysql_query($sq4);
 				}
 		
-$work_add_sql = "INSERT INTO `works` (work_order_manager,work_order_number,work_name,work_description,work_vis,work_shir,work_color,work_media,work_tech,work_price,work_count,work_postprint,work_rashod,work_rashod_list,work_rasklad) 
-VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$work_visi','$work_shiri','$work_colori','$work_mediai','$work_techi','$work_pricei','$work_counti','$work_postprinti','$work_rashodi','$work_rashod_listi','$work_raskladi')";
+$work_add_sql = "INSERT INTO `works` (work_order_manager,work_order_number,work_name,work_description,work_vis,work_shir,work_color,work_media,work_tech,work_price,work_count,work_sheets,work_postprint,work_rashod,work_rashod_list,work_rasklad) 
+VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$work_visi','$work_shiri','$work_colori','$work_mediai','$work_techi','$work_pricei','$work_counti','$work_sheetsi','$work_postprinti','$work_rashodi','$work_rashod_listi','$work_raskladi')";
 		mysql_query($work_add_sql);
 			}
 
