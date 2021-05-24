@@ -102,9 +102,10 @@ $imager_array = mysql_query($imager_sql);
 $managers_array[] = 'Ю';
 $managers_array[] = 'Н';
 $managers_array[] = 'А';
+$managers_array[] = 'Е';
 
 //начало перебора менеджеров	
-for ($i=0; $i<=2;$i++) {
+for ($i=0; $i<=3;$i++) {
 $managerrrr = $managers_array[$i];	
 
 $zp_sql = "
@@ -179,6 +180,7 @@ $printer_amount[$year_of_ready][$month_of_ready] = $printer_amount[$year_of_read
 $managers_array[] = 'Ю';
 $managers_array[] = 'Н';
 $managers_array[] = 'А';
+$managers_array[] = 'Е';
 
 //начало перебора менеджеров	
 ?>
@@ -199,7 +201,7 @@ $managers_array[] = 'А';
 </tr>
 <?
 
-for ($i=0; $i<=2;$i++) {
+for ($i=0; $i<=3;$i++) {
 $managerrrr = $managers_array[$i];	
 ?> <tr><td style='border:1px solid black; padding:5px;' colspan=4><? echo $managerrrr; ?></td></tr><?
 

@@ -2,7 +2,9 @@
         function raskladka(_el){
             var _element = $(_el).parents('.workrow');
             var _counts = $(_element).find('[name="work_shir[]"]').val();
+            var _kol = $(_element).find('[name="work_count[]"]').val();
 			_counts *=1;
+            _kol *=1;
             var _price = $(_element).find('[name="work_vis[]"]').val();
 			_price *=1;
             var _col11 = Math.trunc(440/ (_counts + 2));
@@ -26,9 +28,13 @@
 			var _lamcol = Math.max(_cntlam1,_cntlam2);
 			if (_cntlam1>_cntlam2) {var _shirinalam = _lam11; var _visotalam=_lam12;} else {var _shirinalam = _lam21; var _visotalam=_lam22;}
 			//\n[" + _shirina +"x" +_visota + " / "+_shirinalam+"x"+_visotalam+"]
-			var _textcol = "[" + _col + " / " +_lamcol + "]";
+			    var _textcol333 = "[" + _col + " / " +_lamcol + "]";
+            /*Math.max(10, 20);*/
+			    var _textcol = "[" + Math.round(_col) + "]налист\n";
+			    var _textcol = _textcol  + "[" + Math.round(_kol/_col) + "]лст";
 			$(_element).find('[name="work_rasklad[]"]').val((_textcol));
-         	
+			$(_element).find('[name="work_sheets[]"]').val((_kol/_col));
+
         }
       
 	function matchformat(_el2){
