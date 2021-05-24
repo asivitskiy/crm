@@ -7,9 +7,9 @@
     $hrefs[1][1] = "img/icons/newspaper, article, headline, journal, news.png";
     $hrefs[1][2] = "Все заказы";
 
-    $hrefs[2][0] = "/?action=showlist&filter=manager&argument=".$_SESSION['manager'];
-    $hrefs[2][1] = "img/icons/menu, more, detail, list, interface.png";
-    $hrefs[2][2] = "Мои заказы";
+    $hrefs[2][0] = "/_work_flow.php";
+    $hrefs[2][1] = "img/icons/calendar,%20schedule,%20month,%20date,%20event.png";
+    $hrefs[2][2] = "График";
 
     $hrefs[3][0] = "/?action=cashbox&date=".date("Y")."-".date("m")."-".(date("d"));
     $hrefs[3][1] = "img/icons/money, dollar, cash, finance, payment.png";

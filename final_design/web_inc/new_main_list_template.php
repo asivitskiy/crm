@@ -15,7 +15,7 @@
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
-	SELECT order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
+	SELECT order.paymethod,order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
     ".$joiner_fields."	
@@ -102,6 +102,7 @@
                 <div  class=" maintable-row-wrapper-date ">
                         <? echo (dig_to_d($data_row_data['date_in'])); ?> / <? echo (dig_to_m($data_row_data['date_in'])); ?> / <? echo (dig_to_y($data_row_data['date_in'])); ?>
                 </div>
+
             <? }
             if ($data_row_data['deleted'] == '1') {
                 $row_corrector_1 = 'maintable-row-wrapper-ready'; } else {$row_corrector_1 = '';}
@@ -126,15 +127,16 @@
                     <? echo $data_row_data['name']; ?>
                 </div>
 
-                <div class="maintable-row-block maintable-row-block-dash">&nbsp;</div>
+
                 <div class="maintable-row-block maintable-row-block-description">
                     <? echo $data_row_data['order_description']; ?>
                 </div>
-                <div class="maintable-row-block maintable-row-block-dash">&nbsp;</div>
+
                 <div class="maintable-row-block maintable-row-block-date">
                     <? echo dig_to_d($data_row_data['date_in']).".".dig_to_m($data_row_data['date_in']); ?>
                     <? echo "> ".dig_to_d($data_row_data['datetoend']).".".dig_to_m($data_row_data['datetoend']); ?>
                 </div>
+                <div class="maintable-row-block trafficlights-spacer" style="width: 5px;">&nbsp;</div>
                 <!--светофор-->
                 <!--<div class="trafficlights-wrapper">-->
                     <?
@@ -146,7 +148,7 @@
                             $add = "trafficlights-red";
                             break;
                     } ?>
-                <div class="maintable-row-block trafficlights trafficlights-green <? echo $add; ?>">раб</div>
+                <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">раб</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     if ($data_row_data['order_vars-design_flag'] == 2)
@@ -186,7 +188,12 @@
                             break;
 
                     } ?>
-                <div class="maintable-row-block trafficlights <? echo $add; ?>">выст</div>
+                <div class="maintable-row-block trafficlights <? echo $add; ?>">
+                    <?  if ($data_row_data['paymethod'] == "ООО") { echo "ООО";} 
+                        else if ($data_row_data['paymethod'] == "ИП") { echo "ИП";} 
+                        else { echo "Выст";} 
+                        ?> <!-- выставлен не выставлен и с каких реквизитов -->
+                </div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     switch(true) {
@@ -196,6 +203,7 @@
                         case ($data_row_data['delivery'] > 1):
                             $add = "trafficlights-green";
                             break;
+                        case ($data_row_data['delivery'] == 0):
                         case ($data_row_data['delivery'] == 0):
                             $add = "trafficlights-gray";
                             break;
@@ -224,9 +232,10 @@
                             $add = "noscreen";
                             break;
                     } ?>
-                    <div class="maintable-row-block trafficlights trafficlights-roud"></div>
+                   <!-- <div class="maintable-row-block trafficlights trafficlights-roud"></div>-->
                     <div class="maintable-row-block trafficlights-spacer"></div>
-                    <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>">ПЗК</div>
+
+                    <div class="maintable-row-block trafficlights-pzk trafficlights trafficlights-roud <? echo $add; ?>">ПЗК</div>
                     <div class="maintable-row-block trafficlights-spacer"></div>
                     <?
                     $add = '';
@@ -239,7 +248,7 @@
                             break;
                     } ?>
 
-                    <div class="maintable-row-block trafficlights trafficlights-roud <? echo $add; ?>" style="border-radius: 50%; height: 28px; width: 28px;">ОШБ</div>
+                    <div class="maintable-row-block trafficlights trafficlights-osh trafficlights-roud <? echo $add; ?>">ОШБ</div>
 
                 <!--</div>-->
             </div>

@@ -184,7 +184,7 @@ $works_query  = mysql_query($works_sql);
         <td class="works-header works__cell works__cell--size"      >Форм</td>
         <td class="works-header works__cell works__cell--tech"      >Техника</td>
         <td class="works-header works__cell works__cell--color"     >Цвет</td>
-        <td class="works-header works__cell works__cell--media"     >Матераиал</td>
+        <td class="works-header works__cell works__cell--media"     >Материал</td>
         <td class="works-header works__cell works__cell--price"     >Цена</td>
         <td class="works-header works__cell works__cell--count"     >Кол</td>
         <td class="works-header works__cell works__cell--amount"    >Сумма</td>
@@ -245,5 +245,26 @@ $works_query  = mysql_query($works_sql);
         </td>
     </tr>
 </table>
+<div style="font-size: 12px;">
+<?
+$messages_sql = "SELECT * FROM `order_messages` WHERE order_messages.order_number = '$number' ORDER BY order_messages.date_in_message DESC";
+$messages_array = mysql_query($messages_sql);
+echo "Заметки к заказу:<br>";
+while ($messages_data = mysql_fetch_array($messages_array)) {
+echo $messages_data['message']."<Br>";
+}
+
+?>
+<? if ($order_data['delivery'] <> 0) {?>
+<br>
+<br>
+Полные контакты:<br>
+<?
+echo $contragent_data['contacts']."<br>Реквизиты:<br>";
+echo $contragent_data['fullinfo']."<br>Адрес доставки:<br>";
+echo $contragent_data['address']."<br>";
+}
+?>
+</div>
 </body>
 </html>

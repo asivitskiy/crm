@@ -13,6 +13,8 @@
 ::-webkit-resizer { background-color: #666;}*/
 
 .header_wrapper_showlist {
+	display: flex;
+	white-space: nowrap;
 	position: fixed;
 	padding: 10px;
 	z-index: 100000;
@@ -61,7 +63,7 @@
 }
 .maintable {
 	margin: 5px;
-	width: 100%px;
+	width: 100%;
 /*	display: block;*/
 	overflow: hidden;
 }
@@ -81,7 +83,7 @@
 	line-height: 26px;
 	display: table;
 	table-layout: fixed;
-	width: 99.2%;
+	width: 97%;
 	border-bottom: 1px dotted #8c8c8c;
 }
 
@@ -133,9 +135,10 @@ white-space: normal;
 	overflow: hidden;
 }
 .maintable-row-details {
-	width: 100%;
+	/*width: 100%;*/
 	/*background-color: #c2dbff;*/
 	margin-left: 11px;
+	margin-right: 10px;
 
 }
 .maintable-row-details-inner {
@@ -153,22 +156,30 @@ white-space: normal;
 }
 
 .maintable-row-block-word {
-	width: 17px;
+	font-family: monospace!important;
+	padding-left: 1px;
+	font-size: 16px;
+	width: 12px;
 	font-weight: 600;
 }
 .maintable-row-block-date {
-	width: 87px;
+	font-family: Monospace;
+	width: 93px;
+	padding-left:5px;
+	padding-right:5px;
 	white-space: nowrap;
-	overflow: hidden;
+/*	overflow: hidden;*/
 	font-size: 12px;
 	font-weight: 300;
 }
 
 .maintable-row-block-dash {
+	font-family: monospace!important;
 	width: 9px;
-	font-weight: 300;
+	font-weight: 600;
 }
 .maintable-row-block-number {
+	font-family: monospace!important;
 	width: 50px;
 	font-weight: 600;
 }
@@ -182,17 +193,19 @@ white-space: normal;
 /*	display: block!important;*/
 	white-space: nowrap;
 	overflow: hidden;
+	overflow: hidden;
 
 /*width: 350px;*/
 }
 
 .trafficlights {
-	font-weight: 500;
+	font-weight: 300;
 	text-align: center;
 	font-size: 10px;
+	font-family: monospace;
 	text-transform: uppercase;
-	width: 35px;
-	min-width: 25px;
+	width: 28px;
+	border-radius: 30%;
 }
 .trafficlights-wrapper{
 	flex: 0 0 351px;
@@ -215,19 +228,22 @@ white-space: normal;
 	background-color: #eeeeee;
 }
 .trafficlights-roud {
-	width: 28px;
-	height: 28px;
-	border-radius: 50%;
+/*	width: 28px;
+	height: 28px;*/
+	border-radius: 30%;
 	font-weight: 600;
 	color: gray;
 }
 .maintable-row-block-summ {
+	font-family: monospace;
+	font-size: 15px;
 	padding-right: 5px;
 	box-sizing: border-box;
 	min-width: 85px;
 	width: 85px;
 	text-align: right;
 	white-space: nowrap;
+	border-radius: 8px;
 }
 .read-less, .read-less:hover {
 	background-color: #c2dbff!important;
@@ -459,6 +475,7 @@ white-space: normal;
 
 .details-ajax__orderdesc{
 	width: 100%;
+	font-size: 12px!important;
 	background: none!important;
 	padding-left: 15px;
 	border-left: 5px solid red;

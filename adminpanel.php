@@ -57,7 +57,7 @@ if ($_GET['filter'] == 'add_demand') {
                                                               GROUP BY works.work_order_number"));
         $sss3 = number_format($order_amount_calc_array['ssmm'],2, '.', ' ');
 
-		echo '<tr><td height="30" border="1"><input type="checkbox" style="height:20px; width:20px;margin-top: 4px; margin-right: 15px;" name="names['.$sss.']"></td><td>
+		echo '<tr><td height="30" border="1" style="white-space: nowrap"><input type="checkbox" style="height:20px; width:20px;margin-top: 4px; margin-right: 15px;" name="names['.$sss.']"></td><td>
 		<a style="display: inline-block; width:65px;"
 		href=?action=redact&order_number='.$sss.'>'.$sss2.'-'.$sss.'
 		</a> <div style="width: 90px; display: inline-block; text-align: left; margin-right: 15px; margin-left: 5px;white-space: nowrap;"> '.$sss3.'</div>'.$main_data['name'].' ==> '.$main_data['order_description'].'</td></tr>';
@@ -293,9 +293,9 @@ if ($_GET['filter'] == 'demand_list_first') {
 		if ((abs($paycheck - $order_amount)<0.1) and ($paycheck > 0)) {$colorflag = "color:black";$colorflag2 = "background-color: #C4D9C4"; /*echo '<b>'.$paycheck.' / '.$order_amount.'</b>';*/}
 			?>
 
-			<div class="paylist_row" style=" <? echo($colorflag2); ?>">
+			<div class="paylist_row" style="white-space: nowrap; <? echo($colorflag2); ?>">
 
-			<a class="adminpanel_a"  style="width: 170px;<? echo $colorflag; ?>;" href="?searchstring=<? echo $main_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist=">
+			<a class="adminpanel_a"  style="overflow: hidden; width: 185px;<? echo $colorflag; ?>" href="?searchstring=<? echo $main_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist=">
 				<b><? echo $main_data['paylist'] ; ?></b>
 			</a>
 
@@ -310,8 +310,8 @@ if ($_GET['filter'] == 'demand_list_first') {
 				Отменить оплату
 
 			</a>-->
-			<div style="display:inline-block;">
-			<? echo " ("; echo implode(',',$order_numbers).')';/* echo '  '.$order_contragent_name.'---'; echo $order_amount;*/?></div>
+			<div style="display:inline-block; ">
+			<? echo " ("; echo implode(', ',$order_numbers).')';/* echo '  '.$order_contragent_name.'---'; echo $order_amount;*/?></div>
 			<div style="display: inline-block; width: 5px; height: 0px;">&nbsp;</div>
 
 			</div>

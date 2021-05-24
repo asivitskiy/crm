@@ -68,7 +68,7 @@
 	<input type="text" name="order_manager" readonly value="<? echo $order_manager; ?>" style="width:25px; ">-<input name="nomer_blanka" readonly type="text" value="<? echo $order_number; ?>" style="width:50px;"> 
 	<input type="text" name="order_description" placeholder="описние заказа" style="width: 745px; margin-top: 10px;" value="<?
 echo $order_redact_data['order_description']; ?>"><br>
-	<div style="display: inline; margin-left: 85px;">Сдача :</div><input type="date" style="margin-top: 5px; margin-left: 5px;" name="datetoend" value="<? echo $plan_date; ?>"><input type="time" style="margin-top: 5px;" name="timetoend" value="<? echo $plan_time; ?>" >
+	<div style="display: inline; margin-left: 85px;">Сдача :</div><input type="date" style="margin-top: 5px; margin-left: 5px;" name="datetoend" value="<? echo $plan_date; ?>"><input class="timeselect" autocomplete="off" type="text"  name="timetoend" value="<? echo $plan_time; ?>">
 <br>
  
 <div class="contragent_block" style="float: left; margin: 0px auto; padding: 5px;">Заказчик<br>
@@ -146,7 +146,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 ?><br>
 Счет: 
 					<b>
-					<a style="white-space: normal" href="?action=showlist&filter=contragent_paydemand&argument=<? echo $order_redact_data['paylist'] ;?>"><? echo $order_redact_data['paylist'] ;?></a>
+					<a style="white-space: normal" href="?searchstring=<? echo $order_redact_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist="><? echo $order_redact_data['paylist'] ;?></a>
 					<? /*echo $order_redact_data['paylist'];*/?>
 					</b>
 
@@ -215,7 +215,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 	  	</td>
 	  	<td>
 	  		<select  name="work_tech[]">
-     								<option style="display: none"></option>
+     								<option style=""></option>
      								<? // $main_table_data['work_tech']  - в этой переменной вид работы, хзаписанный уже в базе ?>
      								<? 	
 										$worktype_array  = mysql_query("SELECT * FROM `work_types` ORDER by `id`");

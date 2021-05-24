@@ -19,17 +19,20 @@
 
 <SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></SCRIPT>
 <SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
-<SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
 <link rel="stylesheet" href="jquery-ui.css">
 <link rel="stylesheet" href="_workrow.css">
-<link rel="stylesheet" type="text/css" href="truestyle.css" />
+<link rel="stylesheet" type="text/css" href="truestyle.css?<? echo rand();?>" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./inc/jquery.timepicker.css" />
+<SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
 
         <!--стили и шрифты от final_design листа заказов-->
-        <link rel="stylesheet" href="final_design/web_inc/__css.css">
+        <link rel="stylesheet" href="final_design/web_inc/__css.css?<? echo rand();?>>">
         <script language="javascript" src="final_design/web_inc/__scripts.js"></script>
 
-    <meta name = "viewport" content = "width = device-width">
+    <!--<meta name = "viewport" content = "width=1200">-->
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
+    <meta name="viewport" content="initial-scale=0.63, width=device-width">
 <meta charset="utf-8">
     <!--JS autocomplete для странички с формированием заказа + еще какой то, непонять зачем -->
     <? include 'inc/_js_in_php.php'; ?>
@@ -53,12 +56,12 @@
 
 <div class="header" style=" <?
 						   if (isset($_SESSION['manager'])) { echo 'display:none;';} ?> ">
-	<div style="margin-top: 5px;">
+<!--	<div style="margin-top: 5px;">
 		<h2>admix </h2>
 		<h3 style="font-size: 10px; color:rgba(0,56,123,1.00);">C</h3>
 		<h3 style="font-size: 10px;color:rgba(65,0,65,1.00)">R</h3>
 		<h3 style="font-size: 10px; color: rgba(44,50,0,1.00)">M</h3>
-	</div>
+	</div>-->
 		<? if (!isset($_SESSION['manager'])) {?>
 		<div class="auth">
 			<form action="login.php" method="post"><input type="text" name="login"><input type="password" name="password"><input type="submit"></form>
@@ -123,7 +126,8 @@ for	($i = 0; $i <= 8; $i++) {
     <?
     $dynamic_margin_top = '0';
     $dynamic_margin_left = '20';
-    if (($_GET['action']<>'redact') and ($_GET['action']<>'new')) {
+/*    if (($_GET['action']<>'redact') and ($_GET['action']<>'new')) {*/
+    if (isset($_GET['showlist']) or ($_GET['action'] == 'showlist')) {
         $dynamic_margin_top = '55';
         $dynamic_margin_left = '0';
         include("final_design/web_inc/top_control_panel.php");
@@ -184,7 +188,12 @@ for	($i = 0; $i <= 8; $i++) {
 		}
 		?>
 
-<?/* $time = microtime(true) - $start; echo $time; */?>
+<?/* $time = microtime(true) - $start; echo $time;
+ ?&myorder=0&noready=1&showlist=&delivery=1
+ !isset($_GET) or
+ */
+/*if (isset($_GET)) {echo "321321321"; } */
+?>
 
 	</div>
 </div>
@@ -195,6 +204,18 @@ for	($i = 0; $i <= 8; $i++) {
 
 
 <? }?>
-
+<script>
+    $('.timeselect').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 30,
+        minTime: '10',
+        maxTime: '7:00pm',
+/*        defaultTime: '10',*/
+        startTime: '10:00',
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+    });
+</script>
 </body>
 </html>
