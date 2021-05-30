@@ -35,7 +35,10 @@ $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
         <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_data_data['order_number']; ?>" target="_blank">PDF</a>
         <a target="_blank" class="a_orderrow" href="./_pdf_engine/?order_number=<? echo $order_data_data['order_number']; ?>" target="_blank">Печать</a>
         <a target="_blank" class="a_orderrow" style="margin-left: 100px;" href="_new_order_statuscheck.php?order_number=<? echo $order_data_data['order_number']; ?>&paystatus=paystatuschange" target="_blank">Запросить счет</a>
+        <? if (strlen($order_data_data['notification_status']) <> 12) {?>
+            <a target="_blank" class="a_orderrow" style="margin-left: 100px;" href="_new_order_statuscheck.php?order_number=<? echo $order_data_data['order_number']; ?>&send_notification=sendmessage" target="_blank">Сообщение</a>
         <!--<a target="_blank" class="a_orderrow" href="./_pdf_engine/?order_number=<?/* echo $order_data_data['order_number']; */?>" target="_blank">Прямая печать</a>-->
+        <? } ?>
     </div>
 
     <div class="details-ajax__orderdesc">

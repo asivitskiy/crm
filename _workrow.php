@@ -71,17 +71,34 @@ echo $order_redact_data['order_description']; ?>"><br>
 	<div style="display: inline; margin-left: 85px;">Сдача :</div><input type="date" style="margin-top: 5px; margin-left: 5px;" name="datetoend" value="<? echo $plan_date; ?>"><input class="timeselect" autocomplete="off" type="text"  name="timetoend" value="<? echo $plan_time; ?>">
 <br>
  
-<div class="contragent_block" style="float: left; margin: 0px auto; padding: 5px;">Заказчик<br>
+<div class="contragent_block" style="float: left; margin: 0px auto; padding: 5px;"><!--Заказчик<br>-->
   <div class="posRelative">
-	<input name="contragent_id" type="hidden" data-column="id" value="<? echo $contragent_id; ?>"> 
+	<input name="contragent_id" type="hidden" data-column="id" value="<? echo $contragent_id; ?>">
 	<input name="contragent_name" type="text" placeholder="Заказчик" style="width: 300px;" data-column="name" value='<? echo($contragent_redact_data['name']); ?>' autocomplete="disabled">
   </div>
 	<div class="posRelative" style="margin-left: 30px;">
 		<input type="button" value="++" onclick="disp(document.getElementById('omnisearch'))" /><input type="text" id="omnisearch" style=" padding-left: 6px; display: none" placeholder="поиск клиента" onkeyup="searchClient(this, event)" autocomplete="off">
 		<div class="searchResults" style="display:none"></div>
 	</div>
-	<br>
-	<textarea name="contragent_contacts" style="height: 130px; width: 99%; resize: none; margin-top: 5px;" placeholder="Контактные данные" data-column="contacts" autocomplete="disabled"><? echo($contragent_redact_data['contacts']); ?></textarea>
+    <div style="display: block; width: 100%; height: 1px;"></div>
+    <!--<div style="height: 60px; padding: 0px; margin: 0px; display: block;">-->
+    <br>
+    <br>
+    <div class="posRelative">
+        <textarea name="notification_number" style="line-height: 35px; height: 35px; width: 170px; resize: none; margin-top: 5px; padding-left: 3px;" placeholder="whatsapp" data-column="notification_number" autocomplete="disabled"><? echo($contragent_redact_data['notification_number']); ?></textarea>
+    </div>
+    <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
+        <? if ($order_redact_data['notification_status'] == '') {?>
+            <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Отправить сообщение">
+        <? } else { echo "Отправлено ";echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
+                    ?>
+        <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Повторная отправка">
+         <? }  ?>
+    </div>
+
+
+    <!--</div>-->
+    <textarea name="contragent_contacts" style="height: 130px; width: 99%; resize: none; margin-top: 5px;" placeholder="Контактные данные" data-column="contacts" autocomplete="disabled"><? echo($contragent_redact_data['contacts']); ?></textarea>
 	<textarea name="contragent_fullinfo" style="height: 130px; width: 99%; resize: none; margin-top: 5px;" placeholder="Реквизиты" data-column="fullinfo" autocomplete="disabled"><? echo($contragent_redact_data['fullinfo']); ?></textarea>
 	<textarea name="contragent_address" style="height: 80px; width: 99%; resize: none; margin-top: 5px;" placeholder="Адрес доставки" data-column="address" autocomplete="disabled"><? echo($contragent_redact_data['address']); ?></textarea>
 </div>

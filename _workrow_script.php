@@ -191,6 +191,7 @@ function selectSearchRow(_next) {
 function hoverSearchRow(_index) {
 	$.each(window.results[_index], function(_index, _element){
 		$('body').find('[data-column="' + _index + '"]').val(_element);
+		/*console.log(_index);*/
 	});
 }
 			
@@ -199,5 +200,9 @@ function clickSearchRow(_index) {
 		$('body').find('[data-column="' + _index + '"]').val(_element);
 		$('.searchResults').html('').hide();
 	});
+}
+
+function addToWhatssappQueue(_orderNumber) {
+
 }
 </script>

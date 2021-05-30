@@ -15,7 +15,7 @@
         //----------------------------конструктор запросов
         //------------------------------------------------
         $common_part_sql = "
-	SELECT order.paymethod,order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
+	SELECT order.notification_status,contragents.notification_number,order.paymethod,order.preprint,order.preprinter,order.soglas,order.date_of_end,order.datetoend,order.order_number, order.order_manager, order.contragent, order.order_description, order.date_in, order.deleted,
 	works.work_price, works.work_count, (select SUM(works.work_price * works.work_count) from `works` where works.work_order_number=order.order_number) as amount_order,
 	contragents.name,contragents.id contragent_id,order.paystatus,order.delivery,order.paylist,order.preprint,
     ".$joiner_fields."	
@@ -150,6 +150,16 @@
                     } ?>
                 <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">раб</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
+                    <?
+                    if (($data_row_data['notification_status']) == ''){
+                        if (strlen($data_row_data['notification_number']) == 11) {$add = "trafficlights-yellow";}
+                        if (strlen($data_row_data['notification_number']) <> 11) {$add = "trafficlights-gray";}
+                    } else {$add = "trafficlights-green";}
+                    ?>
+
+                <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">W</div>
+                <div class="maintable-row-block trafficlights-spacer"></div>
+
                     <?
                     if ($data_row_data['order_vars-design_flag'] == 2)
                         {$add = "trafficlights-green";}

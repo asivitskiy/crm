@@ -7,7 +7,7 @@
 set_time_limit(0);
 ?>
 <? include 'dbdump.php'; // подключение отправки бэкапа на сервер и на почту?>
-
+<? include '_whatsapp.php'; ?>
 
 <?  //отправка счетов и прочего на почту
 	$ip_sender_array = mysql_query("SELECT * FROM `ip_sender` LIMIT 1");

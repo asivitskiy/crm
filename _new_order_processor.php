@@ -14,6 +14,7 @@ $action = $_POST['action'];
 //echo $action;
 //данные по контрагенту
 $contragent_address	= ($_POST['contragent_address']);
+$contragent_notification_number	= ($_POST['notification_number']);
 $contragent_fullinfo	= ($_POST['contragent_fullinfo']);
 $contragent_contacts	= ($_POST['contragent_contacts']);
 $contragent_name	= ($_POST['contragent_name']);
@@ -39,6 +40,7 @@ $order_pre_check_data = mysql_fetch_array($order_pre_check_array);
 	//там может быть либо ничего, либо 12-значное число - дата
 	
 	$paystatus = $order_pre_check_data['paystatus'];
+	$notification_status = $order_pre_check_data['notification_status'];
 	$date_of_end = $order_pre_check_data['date_of_end'];
 
 	//УСЛОВИЯ УБИРАЮТ КОСЯК С ПЕРЕЗАПИСЬЮ ДАТЫ ГОТОВНОСТИ ЭТАПА НА ТЕКУЩУЮ ПРИ РЕДАКТИРОВАНИИ
@@ -122,6 +124,7 @@ if (($contragent_id == "new")) {
 	$contragent_check_sql = "SELECT * FROM `contragents` WHERE (`name` = '$contragent_name')";
 	$contragent_check_query = mysql_query($contragent_check_sql);
 	$doublecontragentcount = mysql_num_rows($contragent_check_query);
+			$contragent_notification_number		= addslashes($contragent_notification_number);
 			$contragent_address		= addslashes($contragent_address);
 			$contragent_fullinfo	= addslashes($contragent_fullinfo);
 			$contragent_contacts	= addslashes($contragent_contacts);
@@ -129,11 +132,12 @@ if (($contragent_id == "new")) {
 			$contragent_id			= addslashes($contragent_id);
 	if ($doublecontragentcount == 0) {
 	$contragent_sql = "INSERT INTO `contragents` 
-		(name,address,fullinfo,contacts) 
+		(name,address,fullinfo,contacts,notification_number) 
 		VALUES 
-		('$contragent_name','$contragent_address','$contragent_fullinfo','$contragent_contacts')";
+		('$contragent_name','$contragent_address','$contragent_fullinfo','$contragent_contacts','$contragent_notification_number')";
 		mysql_query($contragent_sql);}} 
-else { 	
+else {
+			$contragent_notification_number		= addslashes($contragent_notification_number);
 			$contragent_address		= addslashes($contragent_address);
 			$contragent_fullinfo	= addslashes($contragent_fullinfo);
 			$contragent_contacts	= addslashes($contragent_contacts);
@@ -144,7 +148,7 @@ else {
 /*		$contragents_changes_sql = "INSERT INTO `contragents_changes` (old_id,name,address,fullinfo,contacts) SELECT `id`,`name`,`address`,`fullinfo`,`contacts` FROM `contragents` WHERE (`id`='$contragent_id')";
 		mysql_query($contragents_changes_sql);*/
 	//обновление данных
-		$update_old_contragent_sql = "UPDATE `contragents` SET `name`='$contragent_name',`address`='$contragent_address',`fullinfo` ='$contragent_fullinfo',`contacts`='$contragent_contacts' WHERE (`id`='$contragent_id')";
+		$update_old_contragent_sql = "UPDATE `contragents` SET `name`='$contragent_name',`address`='$contragent_address',`fullinfo` ='$contragent_fullinfo',`contacts`='$contragent_contacts',`notification_number`='$contragent_notification_number' WHERE (`id`='$contragent_id')";
 		mysql_query($update_old_contragent_sql);
 		
 
@@ -266,6 +270,7 @@ $order_sql = "INSERT INTO `order` (
 			paylist,
 			preprinter,
 			paystatus,
+			notification_status,
 			date_of_end,
 			date_in)
 			VALUES (
@@ -284,6 +289,7 @@ $order_sql = "INSERT INTO `order` (
 			'$paylist',
 			'$preprinter',
 			'$paystatus',
+			'$notification_status',
 			'$date_of_end',
 			'$date_in')";
 mysql_query($order_sql);
@@ -386,6 +392,20 @@ if ($_POST['paystatus'] == "Запросить счет") {
 											$readyqueryps = "UPDATE `order` SET `paystatus` = '$pscurenttime' WHERE (`order_number` = '$order_number')";
 											mysql_query($readyqueryps);
 											}
+
+if (($_POST['notification_status'] == "Отправить сообщение")) {
+	$current_contragent = $order_pre_check_data['contragent'];
+	$current_contragent_data = mysql_fetch_array(mysql_query("SELECT * FROM `contragents` WHERE contragents.id = '$current_contragent' LIMIT 1"));
+		if (strlen($current_contragent_data['notification_number']) == 11) {
+			$readyqueryps = "UPDATE `order` SET `notification_status` = '1' WHERE (`order_number` = '$order_number')";
+			mysql_query($readyqueryps);
+		}
+}
+
+if ($_POST['notification_status'] == "Повторная отправка") {
+	$readyqueryps = "UPDATE `order` SET `notification_status` = '2' WHERE (`order_number` = '$order_number')";
+	mysql_query($readyqueryps);
+}
 
 //проверка этого заказа на готовность (если готов - поставить в делитед единичку)	$order_number
 //чтоб не было ошибок - заново полностью его извлекаем, смотрим, считаем, проставляем значение

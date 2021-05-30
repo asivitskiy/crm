@@ -20,3 +20,5 @@ while ($result = mysql_fetch_array($query_result))
 
 header('Content-type: application/json');
 echo JSON_encode($rows);
+?>
+
