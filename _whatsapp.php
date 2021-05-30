@@ -9,7 +9,7 @@ $mng_words_array['П'] = 'Юрий';
 $messages_sql ="SELECT *,SUM(works.work_count*works.work_price) as ordersumm FROM `order`
                 LEFT JOIN `contragents` ON contragents.id = order.contragent
                 LEFT JOIN `works` ON works.work_order_number = order.order_number
-                WHERE ((order.deleted <> 1) and (contragents.notification_number <> '') and ((order.notification_status = 1) or (order.notification_status = 2)))
+                WHERE ((contragents.notification_number <> '') and ((order.notification_status = 1) or (order.notification_status = 2)))
                 GROUP BY order.order_number";
 $messages_array = mysql_query($messages_sql);
 while($messages_data = mysql_fetch_array($messages_array)) {
