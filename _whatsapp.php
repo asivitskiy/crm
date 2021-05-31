@@ -25,7 +25,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg_string .= 'Ваш менеджер '.$manager.$br;
     $cur_msg_string .= 'Типография АДМИКС'.$br;
     $cur_msg_string .= 'Гурьевская, 78 (левый цоколь)'.$br;
-    $cur_msg_string .= 'тел.+7(383)207-56-42'.$br.'сот. +7(923)240-10-20'.$br;
+    $cur_msg_string .= 'тел. +7(383)207-56-42'.$br.'сот. +7(923)240-10-20'.$br;
     $cur_msg_string .= 'zakaz@admixprint.ru';
     $cur_msg = urlencode($cur_msg_string);
     $cur_getpage = 'https://wamm.chat/api2/msg_to/f0sZ7BuL/?phone='.$cur_phone.'&text='.$cur_msg;
