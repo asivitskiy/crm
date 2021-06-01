@@ -213,7 +213,7 @@ function formattingNumbers(b) {
     var a = "79138957956",
 		d = [],
         c = b.value.match(/\d/g);
-        if(!c) return b.value = "+ 7 ";
+        //if(!c) return b.value = "7";
         a = a.replace(/\d/g, function () {
             return c.shift() || "#"
         });
