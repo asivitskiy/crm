@@ -206,3 +206,19 @@ function addToWhatssappQueue(_orderNumber) {
 
 }
 </script>
+
+
+<script>
+function formattingNumbers(b) {
+    var a = "79138957956",
+		d = [],
+        c = b.value.match(/\d/g);
+        if(!c) return b.value = "+ 7 ";
+        a = a.replace(/\d/g, function () {
+            return c.shift() || "#"
+        });
+	d = a;
+	
+    b.value = '7' + d.replace(/#.*/, "").slice(1);
+
+};</script>

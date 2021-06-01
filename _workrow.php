@@ -85,7 +85,7 @@ echo $order_redact_data['order_description']; ?>"><br>
     <br>
     <br>
     <div class="posRelative">
-        <textarea name="notification_number" style="line-height: 35px; height: 35px; width: 170px; resize: none; margin-top: 5px; padding-left: 3px;" placeholder="whatsapp" data-column="notification_number" autocomplete="disabled"><? echo($contragent_redact_data['notification_number']); ?></textarea>
+        <textarea  onkeyup="formattingNumbers( this )" name="notification_number" style="line-height: 35px; height: 35px; width: 170px; resize: none; margin-top: 5px; padding-left: 3px;" placeholder="whatsapp" data-column="notification_number" autocomplete="disabled"><? echo($contragent_redact_data['notification_number']); ?></textarea>
     </div>
     <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
         <? if ($order_redact_data['notification_status'] == '') {?>
