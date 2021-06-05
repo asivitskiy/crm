@@ -80,6 +80,8 @@
 												or 
 											(contragents.fullinfo LIKE '%$searchstring%') 
 												or 
+											(contragents.notification_number LIKE '%$searchstring%') 
+												or 
 											(contragents.contacts LIKE '%$searchstring%')";
 
 

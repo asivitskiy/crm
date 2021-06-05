@@ -379,10 +379,14 @@ VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$wo
 
 //Кнопки обновления статуса готовности:
 if ($_POST['ready_button'] == "Отпечатано") {
-											if ((strlen($order_pre_check_data['date_of_end'])) == '12') {$curenttimerd = '';} else {$curenttimerd = date("YmdHi");}
+											if ((strlen($order_pre_check_data['date_of_end'])) == '12') {$curenttimerd = '';$notofocation_of_end='';} else {$curenttimerd = date("YmdHi");$notofocation_of_end='1';}
 											
 											$readyquery = "UPDATE `order` SET `date_of_end` = '$curenttimerd' WHERE (`order_number` = '$order_number')";
 											mysql_query($readyquery);
+
+											$readyquery = "UPDATE `order` SET `notification_of_end_status` = '$notofocation_of_end' WHERE (`order_number` = '$order_number')";
+											mysql_query($readyquery);
+
 											}
 
 

@@ -9,6 +9,7 @@ FROM  `contragents`
 WHERE  `name` LIKE  '%$search%'
 OR  `address` LIKE  '%$search%'
 OR  `fullinfo` LIKE  '%$search%'
+OR  `notification_number` LIKE  '%$search%'
 OR  `contacts` LIKE  '%$search%'";
 
 $query_result = mysql_query($query);

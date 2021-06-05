@@ -103,9 +103,10 @@ $managers_array[] = 'Ю';
 $managers_array[] = 'Н';
 $managers_array[] = 'А';
 $managers_array[] = 'Е';
+$managers_array[] = 'П';
 
 //начало перебора менеджеров	
-for ($i=0; $i<=3;$i++) {
+for ($i=0; $i<=4;$i++) {
 $managerrrr = $managers_array[$i];	
 
 $zp_sql = "
@@ -177,10 +178,11 @@ $printer_amount[$year_of_ready][$month_of_ready] = $printer_amount[$year_of_read
 //конец перебора менеджеров
     ob_flush();
 
-$managers_array[] = 'Ю';
-$managers_array[] = 'Н';
-$managers_array[] = 'А';
-$managers_array[] = 'Е';
+//$managers_array[] = 'Ю';
+//$managers_array[] = 'Н';
+//$managers_array[] = 'А';
+//$managers_array[] = 'Е';
+//$managers_array[] = 'П';
 
 //начало перебора менеджеров	
 ?>
@@ -201,7 +203,7 @@ $managers_array[] = 'Е';
 </tr>
 <?
 
-for ($i=0; $i<=3;$i++) {
+for ($i=0; $i<=4;$i++) {
 $managerrrr = $managers_array[$i];	
 ?> <tr><td style='border:1px solid black; padding:5px;' colspan=4><? echo $managerrrr; ?></td></tr><?
 
@@ -240,9 +242,30 @@ $managerrrr = $managers_array[$i];
 		for ($im=01;$im<=12;$im++) {
 			echo "<td style='border:1px solid black; padding:5px;'>";
 			$str = str_pad($im, 2, 0, STR_PAD_LEFT);
+			//вот тут вставляется юрин оборот от менеджеров (сувенирка которую скинули)
+			//формируются две даты для фильтра в запросе
+			$jur_start = $iy.$str.'000000';
+			$ttt = $str+1;
+			$jur_end = $iy.str_pad($ttt, 2, 0, STR_PAD_LEFT).'000000';
+			//echo $jur_start.'->'.$jur_end;
+			if ($managerrrr == 'П') {
+
+				$jur_sql_text = "SELECT SUM(works.work_count*works.work_price) as `jur_summ` FROM `works`
+				LEFT JOIN `order` ON order.order_number = works.work_order_number
+				WHERE (((works.work_tech = 'Юра')or (works.work_tech = 'Сувенирка')) and (order.date_of_end > '$jur_start') and (order.date_of_end < '$jur_end'))
+				";
+				$jur_data = mysql_fetch_array(mysql_query($jur_sql_text));
+				echo 'От_манагеров <br>0,1/0,25/0,2<br>';
+				echo $jur_data['jur_summ'];
+				echo '<br>';
+			}		else {	
+
+
+			//а вот тут не для юры блок а для остальных менеджеров
 			$strr = $str.'';$iyr = $iy.'';
 			echo 1*$design_part_of_order[$managerrrr][$iyr][$strr]."<br>";
 			/*echo "<b>".$diz_counter[$imager][$iyr][$strr]."</b>";*/
+			}
 			echo "</td>";
 		} echo "</tr>";
 		
