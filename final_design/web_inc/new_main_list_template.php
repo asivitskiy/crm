@@ -25,7 +25,6 @@
 	LEFT JOIN `contragents` ON order.contragent = contragents.id
 	LEFT JOIN `works` ON order.order_number = works.work_order_number";
         $end_part_of_sql = "GROUP BY order.order_number ORDER BY order.date_in DESC";
-
         $filter = $_GET['argument'];
 
         /*		switch ($_GET['filter'])	{
