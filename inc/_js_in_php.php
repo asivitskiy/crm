@@ -70,3 +70,9 @@ function disp(form)     {
 
     };
 </script>
+
+<script>
+    function unblock(){
+       $(".paydemand_button").removeAttr("disabled");
+    }
+</script>

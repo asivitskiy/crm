@@ -1,7 +1,0 @@
-AuthType Basic
-AuthName "pizdov poluchish"
-AuthUserFile \\home\\192.168.1.221\\www\\protected.htpasswd
-Require valid-user
-<Files .htpasswd>
-    deny from all #deny browser access to .htpasswd
-</Files>

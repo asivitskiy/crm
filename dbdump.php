@@ -97,9 +97,61 @@ function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user
 					$zip->close(); //Завершаем работу с архивом
 				sleep(4);
 				unlink($filename.'.sql');
-		
-		
+
+
+
+                            //запись в таблицу backups данных о последней отправке бекапа на поучту)
+                            $cur_date = date('YmdHi')*1;
+                            $cur_time = time()*1;
+                            $timeout_sql = "SELECT * FROM `backups` WHERE `backup_type`='mail'  ORDER BY `id` DESC LIMIT 0,1";
+                            $timeout_array = mysql_query($timeout_sql);
+                            $timeout_data = mysql_fetch_array($timeout_array);
+                            if (((time())*1 - ($timeout_data['backup_time'])*1) > $timeout_of_mail_file ) {
+                                mysql_query("INSERT INTO `backups` (backup_time,
+                                                                backup_type,
+                                                                backup_date,
+                                                                backup_place) 
+                                                                VALUES (
+                                                                '$cur_time',
+                                                                'mail',
+                                                                '$cur_date',
+                                                                '')
+                                                                ");
+                                $filename_inner = "backup.zip"; //Имя файла для прикрепления
+                                $to = "sivikmail@gmail.com"; //Кому
+                                $from = "admixcrm@gmail.com"; //От кого
+                                $subject = "backUP!"; //Тема
+                                $message = "Резервная копия базы"; //Текст письма
+                                $boundary = "---"; //Разделитель
+                                /* Заголовки */
+                                $headers = "From: $from\nReply-To: $from\n";
+                                $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"";
+                                $body = "--$boundary\n";
+                                /* Присоединяем текстовое сообщение */
+                                $body .= "Content-type: text/html; charset='utf-8'\n";
+                                $body .= "Content-Transfer-Encoding: quoted-printablenn";
+                                $body .= "Content-Disposition: attachment; filename=".$filename_inner."\n\n";
+                                $body .= $message."\n";
+                                $body .= "--$boundary\n";
+                                $file = fopen($filename.".zip", "r"); //Открываем файл
+                                $text = fread($file, filesize($filename.".zip")); //Считываем весь файл
+                                fclose($file); //Закрываем файл
+                                /* Добавляем тип содержимого, кодируем текст файла и добавляем в тело письма */
+                                $body .= "Content-Type: application/octet-stream; name=".$filename_inner."\n";
+                                $body .= "Content-Transfer-Encoding: base64\n";
+                                $body .= "Content-Disposition: attachment; filename=".$filename_inner."\n\n";
+                                $body .= chunk_split(base64_encode($text))."\n";
+                                $body .= "--".$boundary ."--\n";
+                                mail($to, $subject, $body, $headers); //Отправляем письмо
+
+
+
+                            }
+
+
 		}
+
+
 		
 	
 	
