@@ -1,5 +1,6 @@
 <div class="clientblock"><h3>Список клиентов</h3> (долги/обороты обновляются раз в 30 минут)<br><br>
     <?
+    if (($_SESSION['manager'] == 'Марина')) {
 if (!isset($_GET['red_num'])) {
 
 $client_list_sql = "SELECT * FROM `contragents` ORDER by `contragent_dolg` DESC";
@@ -46,7 +47,7 @@ $contragent_id = $client_list_data['id'];
 ?>
     <!--<tr><td colspan="6" class="clientlist_table__spacer"></td></tr>-->
 	<tr>
-		<td style="width: 500px;" class="clientlist_table__header"><? echo $client_list_data['name']; ?></td>
+        <td style="width: 500px;" class="clientlist_table__header"><a href = ?action=client_list&red_num=<? echo $client_list_data['id']; ?>><? echo $client_list_data['name']; ?></a></td>
 		<td align="center"><div>всего заказов</div></td>
 		<!--<td align="center"><div></div></td>-->
 		<td align="center"><div>в работе</div></td>
@@ -80,12 +81,14 @@ $client_list_data = mysql_fetch_array($client_list_array);
 	?>
 	<form method="post" action="_contragent_redactor.php">
 		<input type="hidden" name="id" value="<? echo $client_list_data['id']; ?>">
-<textarea name="name"><? echo($client_list_data['name']); ?></textarea>	<textarea name="contacts"><? echo($client_list_data['contacts']); ?></textarea><br>
+        <textarea name="name"><? echo($client_list_data['name']); ?></textarea>	<textarea name="contacts"><? echo($client_list_data['contacts']); ?></textarea><br>
 		<textarea name="address" style="width: 500px; height: 50px;"><? echo($client_list_data['address']); ?></textarea><br>
 		<textarea name="fullinfo" style="width: 500px; min-height: 200px;"><? echo($client_list_data['fullinfo']); ?></textarea><br>
 		<input type="submit">
 	</form>
 	<?
 }
+    }
 ?>
 </div>
+

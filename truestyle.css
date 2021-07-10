@@ -667,3 +667,36 @@ text-decoration: none;
 		width: 350px!important;
 	}
 }
+.paydemand_col_wrapper {
+	float: left;
+	display: inline-block;
+	width: 350px;
+	height: 400px;
+	overflow-y: scroll;
+}
+
+.paydemand_col_wrapper#form_show {
+	padding: 10px;
+}
+
+.paydemand_contragent_list_element {
+
+	clear: left;
+	cursor: pointer;
+	margin: 8px 8px 8px 8px;
+	padding: 5px;
+	border-radius: 1px;
+	border: 2px solid white;
+	font-size: 18px;
+	outline: 1px solid gray;
+}
+.paydemand_contragent_list_element:hover {
+	border-color: #0f0f0f;
+}
+.paydemand_contragent_list_element_not_clicked {
+	background-color: white;
+}
+.paydemand_contragent_list_element_clicked {
+	background-color: rgba(176,227,182,0.57);
+	border-color: #4A9166;
+}

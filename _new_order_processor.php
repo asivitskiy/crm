@@ -1,7 +1,8 @@
 <?php
 //формирование записай в базу данных о новом заказе, либо обновление строк по нему
-session_start();
 include "dbconnect.php";
+session_start();
+
 //вывод массива POST
 $arr=array();
 $arr=$_POST;
