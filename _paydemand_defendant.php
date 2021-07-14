@@ -3,7 +3,7 @@
 include 'dbconnect.php';
 if (isset($_GET['outerContragentId']) and isset($_GET['req'])) {
     $selectet_contragent = $_GET['outerContragentId'];
-    $array = mysql_query("SELECT * FROM `outcontragent_req` WHERE `outcontragent_id` = '$selectet_contragent'");
+    $array = mysql_query("SELECT * FROM `outcontragent_req` WHERE ((`outcontragent_id` = '$selectet_contragent') AND (`outcontragent_req_deleted` <> '1'))");
     while ($data = mysql_fetch_array($array)) {
         ?>
         <div class="paydemand_contragent_list_element paydemand_contragent_list_element_not_clicked pd_req_block" 
@@ -18,7 +18,7 @@ if (isset($_GET['outerContragentId']) and isset($_GET['req'])) {
     }
     ?>  
         <br><br>
-        <a href=_new_paydemands_red.php?outcontragent_id=<? echo $selectet_contragent; ?>>
+        <a href=_new_paydemands_red.php?red_req=new&outcontragent_id=<? echo $selectet_contragent; ?>>
         <div class="paydemand_contragent_list_element paydemand_contragent_list_element_not_clicked pd_req_block">
             Добавить новые реквизиты
         </div> 

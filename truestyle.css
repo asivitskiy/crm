@@ -668,15 +668,16 @@ text-decoration: none;
 	}
 }
 .paydemand_col_wrapper {
+	border: 2px solid #bbb;
 	float: left;
 	display: inline-block;
 	width: 350px;
-	height: 400px;
+	height: 650px;
 	overflow-y: scroll;
 }
 
 .paydemand_col_wrapper#form_show {
-	padding: 10px;
+	//padding: 10px;
 }
 
 .paydemand_contragent_list_element {
@@ -699,4 +700,93 @@ text-decoration: none;
 .paydemand_contragent_list_element_clicked {
 	background-color: rgba(176,227,182,0.57);
 	border-color: #4A9166;
+}
+
+.outcontragent_red_wrapper{
+	width: 800px;
+	border:2px solid #8c8c8c;
+	border-radius: 3px;
+	display: block;
+	margin: 10px;
+	padding: 10px;
+}
+.outcontragent_red_wrapper:hover{
+	//background-color: #efefef;
+}
+
+.outcontragent_red_card_head{
+	font-size: 26px;
+
+}
+.addreq_href, .addreq_href:hover {
+	margin-left: 10px;
+	float: right;
+	text-decoration: none;
+	color: gray;
+	padding: 4px;
+	border-radius: 5px;
+	border: 1px solid black;
+	font-size: 14px;
+}
+.addreq_href:hover {
+	border-color: indianred;
+}
+.outcontragent_red_req_wrapper {
+	
+	margin: 5px;
+	margin-left: 30px;
+	border-radius: 3px;
+	padding: 3px;
+	font-size: 14px;
+	border: 1px dotted #ccc;
+
+}
+.outcontragent_red_req_inn {
+	font-weight: 900;
+	font-size: 15px;
+	display: block;
+}
+
+.req_button {
+	padding: 1px;
+	padding-left: 3px;
+	padding-right: 3px;
+	line-height: 25px;
+	border-radius: 3px;
+}
+.req_button:hover {
+	text-decoration: none;
+}
+.req_button_redact {
+	background-color: #3A3A3A;
+	color: white;
+}
+.req_button_redact:hover {
+	color:#DDD;
+}
+
+.req_button_delete:hover {
+	background-color: red;
+	color: white;
+	
+}
+.req_button_delete {
+	background-color: white;
+	color: red;
+	margin-left: 10px;
+}
+
+.outcontragent_red_req_wrapper_deleted {
+	background-color: #ccc;
+}
+.outcontragent_visible {
+	border:1px solid #4A9166;
+	color: #4A9166;
+	font-weight: 600;
+}
+
+.outcontragent_invisible {
+	border:1px solid #fa625c;
+	color: #fa625c;
+	font-weight: 600;
 }

@@ -21,7 +21,7 @@
 <SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
 <link rel="stylesheet" href="jquery-ui.css">
 <link rel="stylesheet" href="_workrow.css">
-<link rel="stylesheet" type="text/css" href="truestyle.css?<? echo rand();?>" />
+<link rel="stylesheet" type="text/css" href="truestyle.css?<? //echo rand();?>" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./inc/jquery.timepicker.css" />
 <SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
