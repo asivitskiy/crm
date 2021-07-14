@@ -2,7 +2,7 @@
 include "./dbconnect.php";
 $sql = "SELECT * FROM `order`
         LEFT JOIN `works` ON works.work_order_number = order.order_number
-        LEFT JOIN `work_types` ON works.work_tech = work_types.name
+        LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname
         WHERE order.deleted <> 1
         ";
 $array = mysql_query($sql);

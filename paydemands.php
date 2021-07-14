@@ -23,35 +23,7 @@ while ($paylist_demand_data = mysql_fetch_array($paylist_demand_query)) {
 
 <div class="cashbox_wrapper">
 
-	<h3>Регистрация счетов от поставщиков</h3>
-
-	<form action="paydemands_processor.php" method="post">
-		<input type="hidden" name="paylist_flag" value="1">
-
-		<div style="width: 200px; display: inline-block">Поставщик</div>
-
-		<select name="paylist_demand_owner" style="width: 204px;">
-			<option selected ></option>
-			<?
-			$work_types_sql = "SELECT * FROM `work_types` WHERE `id`>'5'";
-			$work_types_query = mysql_query($work_types_sql);
-			while ($work_types_data = mysql_fetch_array($work_types_query)) {
-			?>
-			<option><? echo $work_types_data['name']; ?></option>
-
-			<? } ?>
-		</select>
-
-		<br><br>
-		<div style="width: 204px; display: inline-block;">Номер входящего счета</div><input autocomplete="off" type="text" name="paylist_demand_number" placeholder="номер">
-		<br><br>
-		<div style="width: 204px; display: inline-block;">Юрлицо</div><input autocomplete="off" type="text" name="paylist_demand_payer" placeholder="юрлицо (куда платить)">
-		<br><br>
-		<div style="width: 204px; display: inline-block">Сумма по счету</div><input autocomplete="off" type="text" placeholder="сумма" name="paylist_demand_summ">
-		<br><br>
-		<input type="submit" value="Зарегистрировать счет" name="submit_flag" style="margin-left: 204px;">
-		<br>
-	</form>
+	
 
 
 
@@ -79,7 +51,10 @@ while ($paylist_demand_data = mysql_fetch_array($paylist_demand_query)) {
 
 		//все видят только незакрытые счета, чтобы изменить - нужно что то придумать
 		/*if ($_SESSION['supervisor'] == 1) {*/
-		$paylist_demands_sql = "SELECT * FROM `paylist_demands` ORDER by `checked` ASC , `closed` ASC, `owner` DESC";
+		$paylist_demands_sql = "SELECT * FROM `paylist_demands` 
+								LEFT JOIN `outcontragent_req` ON outcontragent_req.outcontragent_req_id = paylist_demands.paylist_demand_payer
+								ORDER by `checked` ASC , `closed` ASC, `owner` DESC";
+								echo $paylist_demands_sql;
         /*}*/
 /*		if ($_SESSION['supervisor'] <> 1) {$paylist_demands_sql = "SELECT * FROM `paylist_demands` WHERE `closed` <> 1 ORDER by `owner` DESC";}*/
 
@@ -101,7 +76,7 @@ while ($paylist_demand_data = mysql_fetch_array($paylist_demand_query)) {
 				}
 						//поиск id поставщика
 						$owner = $paylist_demands_data['owner'];
-						$post_array = mysql_query("SELECT * FROM `work_types` WHERE `name` = '$owner' LIMIT 1");
+						$post_array = mysql_query("SELECT * FROM `outcontragent` WHERE `outcontragent_fullname` = '$owner' LIMIT 1");
 						$post_array_data = mysql_fetch_array($post_array);
 						$owner_id = $post_array_data['id'];
 
@@ -120,7 +95,13 @@ while ($paylist_demand_data = mysql_fetch_array($paylist_demand_query)) {
 						<? echo $paylist_demands_data['number']; ?>
 					</a>
 				 </td>
-				<td style="width: 200px;" align="right"><? echo $paylist_demands_data['paylist_demand_payer']; ?></td>
+				<td style="width: 200px;" align="right"><? 
+														if ($paylist_demands_data['outcontragent_demand_new_flag'] == 1) {
+															echo $paylist_demands_data['outcontragent_req_inn'];		
+														} else {
+															echo $paylist_demands_data['paylist_demand_payer']; }
+														?>
+				</td>
 				<td style="width: 100px;" align="right"><? echo $paylist_demands_data['summ']; ?></td>
 				<td style="width: 100px;" align="right"><? echo $amount_work_of_paylists; ?></td>
 				<td style="width: 100px;" align="right"><? echo number_format(abs($paylist_demands_data['summ']*1 - $amount_work_of_paylists*1),2,'.',''); ?></td>

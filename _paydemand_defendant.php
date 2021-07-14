@@ -10,7 +10,7 @@ if (isset($_GET['outerContragentId']) and isset($_GET['req'])) {
         onclick="paydemand_form_generator('<? echo $data['outcontragent_req_id'];?>',this)">
         
         <?
-        echo "ИНН: ".$data['outcontragent_req_inn'].'<br><br>'.$data['outcontragent_req_full'];
+        echo "Юрлицо: ".$data['outcontragent_req_inn'].'<br><br>'.$data['outcontragent_req_full'];
         ?>
         </div>
         

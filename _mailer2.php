@@ -139,7 +139,7 @@ $check_array = mysql_query($check_sql);
 while ($check_data = mysql_fetch_array($check_array)) {
     $current_order_number = $check_data['order_number'];
     $work_check_array = mysql_query("    SELECT * FROM `works`
-                                               LEFT JOIN `work_types` ON works.work_tech = work_types.name 
+                                               LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname 
                                                WHERE `work_order_number` = '$current_order_number'");
 
     $dis_flag = 0;
@@ -147,13 +147,13 @@ while ($check_data = mysql_fetch_array($check_array)) {
     $reorder_flag = 0;
 
     while ($work_check_data = mysql_fetch_array($work_check_array)) {
-        if ($work_check_data['group'] == 'outer') {$reorder_flag = 1;}
-        if ($work_check_data['group'] == 'design') {$dis_flag = 1;}
-        if (($work_check_data['group'] == 'design') and (strlen($check_data['preprint']) == 12)) {$dis_flag = 2;}
-        if (($work_check_data['group'] == 'design') and ($check_data['preprint'] == 'Нет')) {$dis_flag = 2;}
+        if ($work_check_data['outcontragent_group'] == 'outer') {$reorder_flag = 1;}
+        if ($work_check_data['outcontragent_group'] == 'design') {$dis_flag = 1;}
+        if (($work_check_data['outcontragent_group'] == 'design') and (strlen($check_data['preprint']) == 12)) {$dis_flag = 2;}
+        if (($work_check_data['outcontragent_group'] == 'design') and ($check_data['preprint'] == 'Нет')) {$dis_flag = 2;}
         if ($work_check_data['work_tech'] == '') {$error_flag = 1;}
         if (
-            ($work_check_data['group'] == 'outer')
+            ($work_check_data['outcontragent_group'] == 'outer')
             and
             (($work_check_data['work_rashod_list'] == '' ) or ($work_check_data['work_rashod'] == 0))
         )
@@ -242,13 +242,13 @@ while($contragent_data = mysql_fetch_array($contragent_array)) {
 /*phpinfo();*/
 $sql = "SELECT * FROM `order`
         LEFT JOIN `works` ON works.work_order_number = order.order_number
-        LEFT JOIN `work_types` ON works.work_tech = work_types.name
+        LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname
         WHERE order.deleted <> 1
         ";
 $array = mysql_query($sql);
 while ($data = mysql_fetch_array($array)) {
     echo $data['order_number']."<br>";
-    if (($data['group'] == "books") or ($data['alias'] == "XEROX")) {
+    if (($data['outcontragent_group'] == "books") or ($data['outcontragent_alias'] == "XEROX")) {
         $curorder = $data['order_number'];
         echo $data['order_number']." имеет XEROX либо тетрадки"."<br>";
         mysql_query ("UPDATE `order` SET order.order_has_digital = '1' WHERE order.order_number = '$curorder'");

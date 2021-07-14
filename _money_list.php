@@ -132,7 +132,7 @@ while ($zp_data = mysql_fetch_array($zp_array)) {
 				$order_details_sql = "
 				SELECT * FROM `works`
 				LEFT JOIN `order` ON works.work_order_number=order.order_number
-				LEFT JOIN `work_types` ON works.work_tech=work_types.name
+				LEFT JOIN `outcontragent` ON works.work_tech=outcontragent.outcontragent_fullname
 				WHERE works.work_order_number='$temporary_order_number'
 										";
 				$order_details_array = mysql_query($order_details_sql);
@@ -142,7 +142,7 @@ while ($zp_data = mysql_fetch_array($zp_array)) {
 				while ($order_details_data = mysql_fetch_array($order_details_array)) {
 				//расчет всех значений работ (перезаказы, расходы, типы работ и прочее)	
 				$errorwork = 0;
-				if ($order_details_data['group'] == 'outer') {
+				if ($order_details_data['outcontragent_group'] == 'outer') {
 				// все внешние заказы (все готовые перезаказы)
 					if (($order_details_data['work_rashod_list'] == '') or ($order_details_data['work_rashod'] < 0.1)) {
 					$errorwork = 1; /*echo $order_details_data['order_number']."<br>";*///вычисление перезаказов без счетов расхода (тутже можно и посчитать их коилчество)
@@ -150,7 +150,7 @@ while ($zp_data = mysql_fetch_array($zp_array)) {
 				}		
 
 					if ($errorwork <> 1) {
-					switch ($order_details_data['group']) {
+					switch ($order_details_data['outcontragent_group']) {
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  case 'digital':$digital_part_of_order[$managerrrr][$year_of_ready][$month_of_ready] = $digital_part_of_order[$managerrrr][$year_of_ready][$month_of_ready] + $order_details_data['work_count']*$order_details_data['work_price'];
 $printer_amount[$year_of_ready][$month_of_ready] = $printer_amount[$year_of_ready][$month_of_ready] + $order_details_data['work_count']*$order_details_data['work_price'];

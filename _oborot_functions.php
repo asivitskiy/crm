@@ -36,8 +36,8 @@ function obsh_oborot2($period_start,$period_end) {
 function obsh_cifra($period_start,$period_end) {
     $sql = "SELECT *,SUM(works.work_price*works.work_count) as ordersum FROM `order` 
             LEFT JOIN `works` ON order.order_number = works.work_order_number
-            LEFT JOIN `work_types` ON works.work_tech = work_types.name
-            WHERE ((order.date_in > '$period_start') and (order.date_in < '$period_end') and ((work_types.group = 'digital')or(work_types.group = 'books')or(work_types.group = 'design')))";
+            LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname
+            WHERE ((order.date_in > '$period_start') and (order.date_in < '$period_end') and ((outcontragent.outcontragent_group = 'digital')or(outcontragent.outcontragent_group = 'books')or(outcontragent.outcontragent_group = 'design')))";
     $array = mysql_query($sql);
     while ($data = mysql_fetch_array($array)) {
         $amount = $amount + $data['ordersum'];
@@ -52,8 +52,8 @@ function obsh_cifra($period_start,$period_end) {
 function obsh_perezakaz($period_start,$period_end) {
     $sql = "SELECT *,SUM(works.work_price*works.work_count) as ordersum FROM `order` 
             LEFT JOIN `works` ON order.order_number = works.work_order_number
-            LEFT JOIN `work_types` ON works.work_tech = work_types.name
-            WHERE ((order.date_in > '$period_start') and (order.date_in < '$period_end') and ((work_types.group = 'outer')))";
+            LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname
+            WHERE ((order.date_in > '$period_start') and (order.date_in < '$period_end') and ((outcontragent.outcontragent_group = 'outer')))";
     $array = mysql_query($sql);
     while ($data = mysql_fetch_array($array)) {
         $amount = $amount + $data['ordersum'];

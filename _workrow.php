@@ -235,10 +235,10 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
      								<option style=""></option>
      								<? // $main_table_data['work_tech']  - в этой переменной вид работы, хзаписанный уже в базе ?>
      								<? 	
-										$worktype_array  = mysql_query("SELECT * FROM `work_types` ORDER by `id`");
+										$worktype_array  = mysql_query("SELECT * FROM `outcontragent` WHERE `outcontragent_blank_visible`=1 ORDER by `outcontragent_id`");
 																							
 											while ($worktype_data = mysql_fetch_array($worktype_array)) {?>
-							<option <? if ($main_table_data['work_tech'] == $worktype_data['name']) {echo('selected');} ?> value="<? echo $worktype_data['name'];?>"><? echo $worktype_data['name'];?></option>
+							<option <? if ($main_table_data['work_tech'] == $worktype_data['outcontragent_fullname']) {echo('selected');} ?> value="<? echo $worktype_data['outcontragent_fullname'];?>"><? echo $worktype_data['outcontragent_fullname'];?></option>
 											<? } ?>
     								<?//<option <? if ($main_table_data['work_tech'] == 'XEROX') {echo('selected');}  value="XEROX">XEROX</option>
       								//<option <? if ($main_table_data['work_tech'] == 'Latex') {echo('selected');}  value="Latex">Latex</option>
@@ -331,13 +331,24 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 									
 									if (($main_table_data['work_rashod_list'] <> $paylist_demand_data['number']) and ($paylist_demand_data['closed'] <> 1)) 
 										{ echo "<option>".$paylist_demand_data['number']."</option>"; }
-							}}
+							}
+						
+						
+							}
+							//LEGACY (тут список уже из новых счетов расхода. ту часть, что выше находится - удалить после выработки старых счетов)
+							//ПОКА НЕ ВКЛЮЧЕНО! И СКОРЕЕ ВСЕГО И НЕ БУДЕТ ВКЛЮЧАТЬСЯ
+							$new_demands_sql = "SELECT * FROM `outcontragent_demand`
+												LEFT JOIN `outcontragent` ON outcontragent_demand.demand_outcontragent_id = outcontragent.outcontragent_id
+												WHERE outcontragent.outcontragent_fullname = '$current_work_tech'";
+							$new_demands_array = mysql_query($new_demands_sql);
+							while ($new_demands_data = mysql_fetch_array($new_demands_array)) {
+								//echo "<option>".$new_demands_data['demand_number']."</option>";	
+							}
 							?>
 
             			</select>
             			
-            			<input type=hidden name="123work_rashod_list[]" style="width: 169px; height: 35px; text-align: center"  type="text" value="<? echo($main_table_data['work_rashod_list']); ?>" placeholder="счет расхода"></td>
-
+            			
        
             		</tr>
             		

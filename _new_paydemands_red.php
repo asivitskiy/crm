@@ -43,8 +43,14 @@
         if (isset($_POST['addOutcontragent'])) {
 
             $outcontragent_fullname = $_POST['outcontragent_fullname'];
-            $outcontragent_alias = $_POST['outcontragent_alias'];
+            $outcontragent_alias = $_POST['alias'];
             $outcontragent_blank_visible = $_POST['outcontragent_blank_visible'];
+            if (($outcontragent_blank_visible == 'on')or($outcontragent_blank_visible == 1)) {
+                $outcontragent_blank_visible = 1;
+            }
+            if (($outcontragent_blank_visible == 'off')or($outcontragent_blank_visible == 0)) {
+                $outcontragent_blank_visible == 0;
+            }
             
             $sssql = "INSERT INTO `outcontragent` (
         
@@ -117,7 +123,7 @@ if (isset($_GET['outcontragent_id'])) {
                 <form method=post action="_new_paydemands_red.php">
                     <input type="hidden" name="addreq" value="new">
                     <input type="hidden" name="addreq_outcontragent_id" value="<? echo $outcontragent_to_add_req; ?>">
-                    ИНН<br><input type=text name=outcontragent_inn><br>
+                    Юрлицо (как в карточке)<br><input type=text name=outcontragent_inn><br>
                     Полные реквизиты<br>
                     <textarea name=outcontragent_req_full rows="10" cols="50"></textarea>
                     <br><br>
@@ -140,7 +146,7 @@ if (isset($_GET['outcontragent_id'])) {
             <form method=post action="_new_paydemands_red.php">
                 <input type="hidden" name="addreq" value="<? echo $req_data['outcontragent_req_id']; ?>">
                 <input type="hidden" name="addreq_outcontragent_id" value="<? echo $outcontragent_to_red_req; ?>">
-                ИНН<br><input type=text name=outcontragent_inn value="<? echo $req_data['outcontragent_req_inn'];?>"><br>
+                Юрлицо (как в карточке)<br><input type=text name=outcontragent_inn value="<? echo $req_data['outcontragent_req_inn'];?>"><br>
                 Полные реквизиты<br>
                 <textarea name=outcontragent_req_full rows="10" cols="50"><? echo $req_data['outcontragent_req_full'];?></textarea>
                 <br><br>
@@ -163,10 +169,10 @@ if (isset($_GET['newOutcontragent'])) {
        
             Синоним<br>
             <select name="alias">
-                <option>Широкоформат</option>
-                <option>Офсет</option>
-                <option>Сувениры</option>
-                <option>Расходка</option>
+                <option value="ШФ">Широкоформат</option>
+                <option value="ОФСЕТ">Офсет</option>
+                <option value="СУВЕНИР">Сувениры</option>
+                <option value="РАСХ">Расходка</option>
             </select>
             <br><br>
             <input name="outcontragent_blank_visible" type="checkbox" checked>Виден в редакторе бланков
@@ -206,7 +212,7 @@ if (isset($_GET['newOutcontragent'])) {
                     $req_del_flag = "outcontragent_red_req_wrapper_deleted";
                 }   else {$req_del_flag = "";}
                 echo "<div class='outcontragent_red_req_wrapper ".$req_del_flag."'>";
-                echo "<div class=outcontragent_red_req_inn>ИНН:".$req_data['outcontragent_req_inn']." </div>";
+                echo "<div class=outcontragent_red_req_inn>Юрлицо (как в карточке):".$req_data['outcontragent_req_inn']." </div>";
                 echo $req_data['outcontragent_req_full']."<br>";
                 echo "<a class='req_button req_button_redact' href=_new_paydemands_red.php?outcontragent_id=".$req_data['outcontragent_id']."&red_req=".$req_data['outcontragent_req_id'].">Изменить</a>";
                         

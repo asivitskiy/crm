@@ -348,11 +348,11 @@ $work_rashod_listi=$work_rashod_list[$i];
 			
 			
 			//удаление счета перезаказа для любогй работы, где производитель не перезаказ
-			$work_tech_check_sql 	= "SELECT * FROM `work_types` WHERE `name` = '$work_techi'";
+			$work_tech_check_sql 	= "SELECT * FROM `outcontragent` WHERE `outcontragent_fullname` = '$work_techi'";
 			$work_tech_check_array 	= mysql_query($work_tech_check_sql);
 			$work_tech_check_data 	= mysql_fetch_array($work_tech_check_array);
 			//вот тут получена группа, к которой относится работа (для понимания - нужно нам или нет удалить счет расхода)
-			$work_tech_group = $work_tech_check_data['group'];
+			$work_tech_group = $work_tech_check_data['outcontragent_group'];
 			//снос счета расхода (если вдруг производителем стала цифра)
 			
 		if ($work_tech_group <> 'outer') {
