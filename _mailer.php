@@ -4,7 +4,7 @@
 
 <?  include 'dbconnect.php'; 
 	include './inc/global_functions.php';
-    include './inc/config_reader.php';
+   // include './inc/config_reader.php';
 set_time_limit(0);
 ?>
 <? include 'dbdump.php'; // подключение отправки бэкапа на сервер и на почту?>
