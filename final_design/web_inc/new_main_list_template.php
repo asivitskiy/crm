@@ -1,10 +1,10 @@
 <div>
     <? //массив названий работ для поиска из странички поставщиков
-    $worktypes_sql = "SELECT * FROM `work_types`";
+    $worktypes_sql = "SELECT * FROM `outcontragent`";
     $worktypes_array = mysql_query($worktypes_sql);
     while ($worktypes_data = mysql_fetch_array($worktypes_array)) {
-        $cur_id = $worktypes_data['id'];
-        $cur_name = $worktypes_data['name'];
+        $cur_id = $worktypes_data['outcontragent_id'];
+        $cur_name = $worktypes_data['outcontragent_fullname'];
         $work_types[$cur_id] = $cur_name;
     }
 

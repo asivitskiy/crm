@@ -170,8 +170,8 @@ for	($i = 0; $i <= 8; $i++) {
 		<? if ($action == 'administrating') { include "adminpanel.php"; } ?>
 		<? if ($action == 'rashodka') { include "_rashodka_forma.php"; } ?>
 		<? if ($action == 'delete') { include "deleter.php"; } ?>
-		<? if ($action == 'paydemands') { include "paydemands.php"; } ?>
-		<? if ($action == 'paydemands2') { include "_new_paydemands.php"; } ?>
+		<? if ($action == 'paydemands2') { include "paydemands.php"; } ?>
+		<? if ($action == 'paydemands') { include "_new_paydemands.php"; } ?>
 		<? if ($action == 'messages') { include "_message_list.php"; } ?>
 		<? if ($action == 'cashbox') { include "cashbox.php"; } ?>
 		<? if ($action == 'client_list') { include "_main_client_list.php"; } ?>

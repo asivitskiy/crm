@@ -19,7 +19,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $br = '%0A';
 
     $manager = $mng_words_array[$messages_data['order_manager']];
-    $ordernumber = $messages_data[order_number];
+    $ordernumber = $messages_data['order_number'];
     $cur_msg_string = 'Добрый день!'.$br;
         if ($messages_data['notification_status'] == 2) {$cur_msg_string .= 'Данные заказа обновлены'.$br;}
     $cur_msg_string .= 'Номер вашего заказа '.$ordernumber.$br;
@@ -36,7 +36,9 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $today=date(YmdHi);
     $update_query = "UPDATE `order` SET `notification_status` = '$today' WHERE (`order_number` = '$ordernumber')";
     mysql_query($update_query);
+    sleep(5);
 }
+
 
 //оповещение о готовности заказа
 $messages_sql ="SELECT *,SUM(works.work_count*works.work_price) as ordersumm FROM `order`
@@ -44,6 +46,7 @@ $messages_sql ="SELECT *,SUM(works.work_count*works.work_price) as ordersumm FRO
                 LEFT JOIN `works` ON works.work_order_number = order.order_number
                 WHERE ((contragents.notification_number <> '') and (order.notification_of_end_status = 1))
                 GROUP BY order.order_number";
+                echo $messages_sql;
 $messages_array = mysql_query($messages_sql);
 while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_phone = $messages_data['notification_number'];
@@ -67,6 +70,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $today=date(YmdHi);
     $update_query = "UPDATE `order` SET `notification_of_end_status` = '$today' WHERE (`order_number` = '$ordernumber')";
     mysql_query($update_query);
+    sleep(5);
 }
 
 

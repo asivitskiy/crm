@@ -36,7 +36,7 @@
                 WHERE `outcontragent_req_id` ='$req_id'";
             }
                     mysql_query($sssql);
-            header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?action=paydemands2');
+            header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?action=paydemands');
         }
 
         //добавляет нового поставщика
@@ -66,7 +66,7 @@
                     'outer'
                 )";
                 mysql_query($sssql);
-                header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?action=paydemands2');
+                header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?action=paydemands');
             
             }
 
@@ -111,7 +111,7 @@
 <SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
 </head>
 <body>
-    <a href="index.php?action=paydemands2"><div style="margin: 10px; margin-top:10px; width:100px; height:25px; display:inline-block; line-height:25px;text-align:center; border:1px solid gray;"><<Возврат</div></a>
+    <a href="index.php?action=paydemands"><div style="margin: 10px; margin-top:10px; width:100px; height:25px; display:inline-block; line-height:25px;text-align:center; border:1px solid gray;"><<Возврат</div></a>
 <?
 if (isset($_GET['outcontragent_id'])) {
     if ($_GET['red_req'] == 'new') {
@@ -233,8 +233,6 @@ if (isset($_GET['newOutcontragent'])) {
     
 }
 
-//переадресация обратно
-//header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?action=paydemands2');
 
 ?>
 </body>
