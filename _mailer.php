@@ -4,18 +4,20 @@
 
 <?  include 'dbconnect.php'; 
 	include './inc/global_functions.php';
+    include './inc/config_reader.php';
 set_time_limit(0);
 ?>
 <? include 'dbdump.php'; // подключение отправки бэкапа на сервер и на почту?>
 <? include '_whatsapp.php'; ?>
 
 <?  //отправка счетов и прочего на почту
+
 	$ip_sender_array = mysql_query("SELECT * FROM `ip_sender` LIMIT 1");
 	$ip_sender_data = mysql_fetch_array($ip_sender_array);
 	$current_ip = $ip_sender_data['ip'];
 		if (((date("YmdHi")*1) - ($ip_sender_data['last_try']*1)) >= 1) {
             
-			$ip = file_get_contents('https://api.ipify.org');
+			$ip = file_get_contents('http://api.ipify.org');
             if ($ip == '') {
                 $ip = file_get_contents('http://ip-api.com/php/?fields=query');
                 $pos = strripos($ip,':"');
@@ -34,28 +36,28 @@ set_time_limit(0);
 					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers);
+					//mail($to, $subject, $message, $headers);
 					
 					$to  = "marina@admixprint.ru" ;
 					$subject = "Обновление IP адреса";
 					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers);
+					//mail($to, $subject, $message, $headers);
 					
 					$to  = "zakaz@admixprint.ru" ;
 					$subject = "Обновление IP адреса";
 					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers);
+					//mail($to, $subject, $message, $headers);
 					
 					$to  = 'sivikmail@gmail.com' ;
 					$subject = "Обновление IP адреса";
 					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers);
+					//mail($to, $subject, $message, $headers);
 					
 					/* $to  = 'buh@ametansk.ru' ;
 					$subject = "Обновление IP адреса";
@@ -69,7 +71,7 @@ set_time_limit(0);
 					$message = "Текущий IP-адрес:".$ip;
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers);
+					//mail($to, $subject, $message, $headers);
 			}
 		}
 ?>
@@ -86,7 +88,7 @@ set_time_limit(0);
 					$message = "Регистрация счета расхода (".$paylist_sender_data['number'].") - (".$paylist_sender_data['owner'].")";
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers);
+					//mail($to, $subject, $message, $headers);
 					mysql_query("UPDATE `paylist_demands` SET `paylist_demands_mailed`=1 WHERE (`id`='$id')");
 			
 		}
@@ -116,7 +118,7 @@ set_time_limit(0);
 					$headers1  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers1 .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
 					echo $subject1;
-					mail($to, $subject1, $message1, $headers1);
+					//mail($to, $subject1, $message1, $headers1);
 			}
    }
 
