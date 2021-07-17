@@ -1466,8 +1466,8 @@ $order_summ = 0;
 while ($works_data = mysql_fetch_array($works_query)) {	
 //ищем синоним изготовления, чтобы не палить его в бланке<br>
 	$ssss = $works_data['work_tech'];
-	$work_type_alias_data = mysql_fetch_array(mysql_query("SELECT `alias` FROM `work_types` WHERE `name` = '$ssss'"));
-	$work_tech = $work_type_alias_data['alias'];
+	$work_type_alias_data = mysql_fetch_array(mysql_query("SELECT `outcontragent_alias` FROM `outcontragent` WHERE `outcontragent_fullname` = '$ssss'"));
+	$work_tech = $work_type_alias_data['outcontragent_alias'];
 ?> 
 
   <tr class=xl666347 >
