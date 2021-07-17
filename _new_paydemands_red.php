@@ -173,6 +173,7 @@ if (isset($_GET['newOutcontragent'])) {
                 <option value="ОФСЕТ">Офсет</option>
                 <option value="СУВЕНИР">Сувениры</option>
                 <option value="РАСХ">Расходка</option>
+                <option value="РАСХ">Цифра</option>
             </select>
             <br><br>
             <input name="outcontragent_blank_visible" type="checkbox" checked>Виден в редакторе бланков
