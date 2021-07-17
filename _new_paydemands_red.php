@@ -189,7 +189,7 @@ if (isset($_GET['newOutcontragent'])) {
 
     if (isset($_GET['outcontragentList'])) {
         //вывод всего списка и редактирование его
-        $outListSql = "SELECT * FROM `outcontragent` WHERE `outcontragent_id`>1 AND `outcontragent_group`='outer'";
+        $outListSql = "SELECT * FROM `outcontragent` WHERE `outcontragent_group`='outer'";
         $outListArray = mysql_query($outListSql);
         while($outListData = mysql_fetch_array($outListArray)) {
             

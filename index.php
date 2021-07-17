@@ -8,6 +8,7 @@
 <? require_once  './inc/global_functions.php'; ?>
 <? require_once  './_oborot_functions.php'; ?>
 <? require_once  './inc/cfg.php'; ?>
+<? require_once  './inc/config_reader.php'; ?>
 <? $action = $_GET['action']; ?>
 <? $current_manager = $_SESSION['manager']; ?>
 <!doctype html>
