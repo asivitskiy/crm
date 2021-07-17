@@ -3,7 +3,9 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . "./dompdf/");
 
 require_once "dompdf_config.inc.php";
-
+require '../dbconnect.php';
+require '../inc/config_reader.php';
+print_r($cfg);
 $dompdf = new DOMPDF();
 
 /*$html = <<<'ENDHTML'
@@ -23,8 +25,8 @@ $dompdf->render();
 $output = $dompdf->output();
 /*$dompdf->stream($order_number.'-'.date("YmdHi").'.pdf',array("Attachment" => false));*/
 
-file_put_contents('./_toprint/'.$order_number.'-'.date("YmdHi").'-'.rand(111, 999).'.pdf', $output);
-file_put_contents('//192.168.1.112/server_1/_reserved/_pdf-storage/'.$order_number.'-'.date("YmdHi").'-'.rand(111, 999).'.pdf', $output);
+file_put_contents($cfg['pdf_print_path'].$order_number.'-'.date("YmdHi").'-'.rand(111, 999).'.pdf', $output);
+file_put_contents($cfg['pdf_arch_path'].$order_number.'-'.date("YmdHi").'-'.rand(111, 999).'.pdf', $output);
 
 ?>
 <script>window.close()</script>

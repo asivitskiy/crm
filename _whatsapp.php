@@ -30,7 +30,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg_string .= 'тел. +7(383)207-56-42'.$br.'сот. +7(923)240-10-20'.$br;
     $cur_msg_string .= 'zakaz@admixprint.ru';
     $cur_msg = urlencode($cur_msg_string);
-    $cur_getpage = 'https://wamm.chat/api2/msg_to/f0sZ7BuL/?phone='.$cur_phone.'&text='.$cur_msg;
+    $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$cfg['whatsapp_token'].'/?phone='.$cur_phone.'&text='.$cur_msg;
     $homepage = file_get_contents(($cur_getpage));
     echo $ordernumber.' отправлен <br>';
     $today=date(YmdHi);
@@ -46,7 +46,7 @@ $messages_sql ="SELECT *,SUM(works.work_count*works.work_price) as ordersumm FRO
                 LEFT JOIN `works` ON works.work_order_number = order.order_number
                 WHERE ((contragents.notification_number <> '') and (order.notification_of_end_status = 1))
                 GROUP BY order.order_number";
-                echo $messages_sql;
+                //echo $messages_sql;
 $messages_array = mysql_query($messages_sql);
 while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_phone = $messages_data['notification_number'];
@@ -64,7 +64,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg_string .= 'тел. +7(383)207-56-42'.$br.'сот. +7(923)240-10-20'.$br;
     $cur_msg_string .= 'zakaz@admixprint.ru';
     $cur_msg = urlencode($cur_msg_string);
-    $cur_getpage = 'https://wamm.chat/api2/msg_to/f0sZ7BuL/?phone='.$cur_phone.'&text='.$cur_msg;
+    $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$cfg['whatsapp_token'].'/?phone='.$cur_phone.'&text='.$cur_msg;
     $homepage = file_get_contents(($cur_getpage));
     echo $ordernumber.' отправлен <br>';
     $today=date(YmdHi);

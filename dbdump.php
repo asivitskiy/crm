@@ -1,7 +1,5 @@
 <?
-
-
-function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user,$pass,$name,$tables = '*')
+function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user,$pass,$name,$tables = '*',$cfg)
 {
 	$timeout_of_create_file = $timeout_of_create_file*60*60;
 	$timeout_of_mail_file = $timeout_of_mail_file*60*60;
@@ -82,7 +80,7 @@ function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user
 												'')
 												");
 			
-			$filename = '/\\192.168.1.112\server_1\_reserved\base_backup\dbb-'.date('YmdHi').'-'.time();
+			$filename = $cfg['path_to_backup'].'dbb-'.date('YmdHi').'-'.time();
 			/*echo $filename;*/
 			$handle = fopen($filename.'.sql','w+t');
 			fwrite($handle,$return);
@@ -118,7 +116,7 @@ function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user
                                                                 '')
                                                                 ");
                                 $filename_inner = "backup.zip"; //Имя файла для прикрепления
-                                $to = "sivikmail@gmail.com"; //Кому
+                                
                                 $from = "admixcrm@gmail.com"; //От кого
                                 $subject = "backUP!"; //Тема
                                 $message = "Резервная копия базы"; //Текст письма
@@ -142,7 +140,8 @@ function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user
                                 $body .= "Content-Disposition: attachment; filename=".$filename_inner."\n\n";
                                 $body .= chunk_split(base64_encode($text))."\n";
                                 $body .= "--".$boundary ."--\n";
-                                mail($to, $subject, $body, $headers); //Отправляем письмо
+                                mail($cfg['admin_mail'], $subject, $body, $headers); //Отправляем письмо админу
+								mail($cfg['owner_mail'], $subject, $body, $headers); //Отправляем письмо владельцу
 
 
 
@@ -166,7 +165,7 @@ $pass1 = '';
 $name1 = 'admix';
 $tocf = 1; //период создания файла бэкапа на сервере (часы)
 $tomf = 24; //период отправки файла мне на почту (часы)
-backup_tables($tocf,$tomf,$host1,$user1,$pass1,$name1,$tables1 = '*');
+backup_tables($tocf,$tomf,$host1,$user1,$pass1,$name1,$tables1 = '*',$cfg);
 
 
 

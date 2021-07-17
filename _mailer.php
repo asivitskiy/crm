@@ -4,11 +4,14 @@
 
 <?  include 'dbconnect.php'; 
 	include './inc/global_functions.php';
-   // include './inc/config_reader.php';
+    include './inc/config_reader.php';    
+   
+
+
 set_time_limit(0);
 ?>
-<? include 'dbdump.php'; // подключение отправки бэкапа на сервер и на почту?>
-<? include '_whatsapp.php'; ?>
+<? require 'dbdump.php'; // подключение отправки бэкапа на сервер и на почту?>
+<?  if ($cfg['whatsapp'] == '1'){ include '_whatsapp.php'; } ?>
 
 <?  //отправка счетов и прочего на почту
 
@@ -29,49 +32,19 @@ set_time_limit(0);
 			$last_try = date("YmdHi");
 			mysql_query("UPDATE `ip_sender` SET `ip`='$ip',`last_try`='$last_try' WHERE (`id`=1)");
 			if (($ip <> $ip_sender_data['ip']) and ($ip <> '')) { 
-				
-				
-					$to  = $ip_sender_data['mailed'] ;
-					$subject = "Обновление IP адреса";
-					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
-					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
-					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					//mail($to, $subject, $message, $headers);
-					
-					$to  = "marina@admixprint.ru" ;
-					$subject = "Обновление IP адреса";
-					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
-					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
-					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					//mail($to, $subject, $message, $headers);
-					
-					$to  = "zakaz@admixprint.ru" ;
-					$subject = "Обновление IP адреса";
-					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
-					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
-					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					//mail($to, $subject, $message, $headers);
-					
-					$to  = 'sivikmail@gmail.com' ;
-					$subject = "Обновление IP адреса";
-					$message = "Текущий IP-адрес:".$ip."<br>Ссылка для доступа в базу: <a href=http://".$ip.":3030>База</a>";
-					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
-					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					//mail($to, $subject, $message, $headers);
-					
-					/* $to  = 'buh@ametansk.ru' ;
+					$to  = $cfg['admin_mail'] ;
 					$subject = "Обновление IP адреса";
 					$message = "Текущий IP-адрес:".$ip;
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					mail($to, $subject, $message, $headers); */
+					mail($to, $subject, $message, $headers);
 
-                    $to  = '89231040308@yandex.ru' ;
+                    $to  =  $cfg['owner_mail'] ;
 					$subject = "Обновление IP адреса";
 					$message = "Текущий IP-адрес:".$ip;
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					//mail($to, $subject, $message, $headers);
+					mail($to, $subject, $message, $headers);
 			}
 		}
 ?>
@@ -83,12 +56,11 @@ set_time_limit(0);
 		if ($paylist_sender_data['paylist_demands_mailed'] == 0) {
 				
 					$id = $paylist_sender_data['id'];
-					$to  = "sales10@admixprint.ru" ;
 					$subject = "Регистрация счета расхода (".$paylist_sender_data['number'].") - (".$paylist_sender_data['owner'].")";
 					$message = "Регистрация счета расхода (".$paylist_sender_data['number'].") - (".$paylist_sender_data['owner'].")";
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-					//mail($to, $subject, $message, $headers);
+					mail($cfg['money_man'], $subject, $message, $headers);
 					mysql_query("UPDATE `paylist_demands` SET `paylist_demands_mailed`=1 WHERE (`id`='$id')");
 			
 		}
@@ -97,7 +69,7 @@ set_time_limit(0);
 
 
 
-<? $to = 'sales10@admixprint.ru';
+<? 
    $mail_sender_sql = "SELECT * FROM `order` 
    					   LEFT JOIN `contragents` ON contragents.id = order.contragent
 					   WHERE ((`paystatus` <> '') and (`paylist` = ''))";
@@ -118,21 +90,11 @@ set_time_limit(0);
 					$headers1  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers1 .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
 					echo $subject1;
-					//mail($to, $subject1, $message1, $headers1);
+					mail($cfg['money_man'], $subject1, $message1, $headers1);
 			}
    }
 
-
-//TODO actualizer
-//перепроверка-пересчет базы заказов и клиентов (обновление статусов по дизайну/перезаказам/по оплате и может по чему то еще
-/*include  "_actualizer.php";*/
-
-
-
-?>
-
-
-<? //actualizer - статусы меняет заказам (работает по таблице ордеров)
+//actualizer - статусы меняет заказам (работает по таблице ордеров)
 set_time_limit(0);
 
 $check_sql = "SELECT `order_number`,`preprint` FROM `order` WHERE `order_status-check` = 0";
@@ -140,9 +102,9 @@ $check_array = mysql_query($check_sql);
 
 while ($check_data = mysql_fetch_array($check_array)) {
     $current_order_number = $check_data['order_number'];
-    $work_check_array = mysql_query("    SELECT * FROM `works`
-                                               LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname 
-                                               WHERE `work_order_number` = '$current_order_number'");
+    $work_check_array = mysql_query("   SELECT * FROM `works`
+                                        LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fullname 
+                                        WHERE `work_order_number` = '$current_order_number'");
 
     $dis_flag = 0;
     $error_flag = 0;
