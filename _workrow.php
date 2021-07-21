@@ -89,10 +89,10 @@ echo $order_redact_data['order_description']; ?>"><br>
     </div>
     <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
         <? if ($order_redact_data['notification_status'] == '') {?>
-            <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Отправить сообщение">
-        <? } else { echo "Отправлено ";echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
+            <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Оповестить о оформлении">
+        <? } else { echo ">";echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
                     ?>
-        <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Повторная отправка">
+        <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Оповестить об изменениях">
          <? }  ?>
     </div>
 

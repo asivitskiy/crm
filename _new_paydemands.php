@@ -32,7 +32,7 @@ while ($work_types_list_data = mysql_fetch_array($work_types_list_array)) {
 
 </div>
 
-<div class="paydemand_col_wrapper" id = "req_show">
+<div class="paydemand_col_wrapper" style="width: 550px;" id = "req_show">
     <!--средний столбец-->
 </div>
 

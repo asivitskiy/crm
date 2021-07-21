@@ -36,7 +36,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $today=date(YmdHi);
     $update_query = "UPDATE `order` SET `notification_status` = '$today' WHERE (`order_number` = '$ordernumber')";
     mysql_query($update_query);
-    sleep(5);
+    sleep(1);
 }
 
 
@@ -70,7 +70,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $today=date(YmdHi);
     $update_query = "UPDATE `order` SET `notification_of_end_status` = '$today' WHERE (`order_number` = '$ordernumber')";
     mysql_query($update_query);
-    sleep(5);
+    sleep(1);
 }
 
 

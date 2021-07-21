@@ -381,7 +381,7 @@ VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$wo
 //Кнопки обновления статуса готовности:
 if ($_POST['ready_button'] == "Отпечатано") {
 											$notofocation_of_end = '';
-											if ((strlen($order_pre_check_data['date_of_end'])) == '12') {$curenttimerd = '';$notofocation_of_end='';} else {$curenttimerd = date("YmdHi");$notofocation_of_end='1';}
+											if ((strlen($order_pre_check_data['date_of_end'])) == 12) {$curenttimerd = '';$notofocation_of_end='';} else {$curenttimerd = date("YmdHi");$notofocation_of_end='1';}
 											
 											$readyquery = "UPDATE `order` SET `date_of_end` = '$curenttimerd' WHERE (`order_number` = '$order_number')";
 											mysql_query($readyquery);
@@ -393,13 +393,13 @@ if ($_POST['ready_button'] == "Отпечатано") {
 
 
 if ($_POST['paystatus'] == "Запросить счет") {
-											if (strlen($order_pre_check_data['paystatus']) == '12') {$pscurenttime = ''; } else {$pscurenttime = date("YmdHi"); }
+											if (strlen($order_pre_check_data['paystatus']) == 12) {$pscurenttime = ''; } else {$pscurenttime = date("YmdHi"); }
 											
 											$readyqueryps = "UPDATE `order` SET `paystatus` = '$pscurenttime' WHERE (`order_number` = '$order_number')";
 											mysql_query($readyqueryps);
 											}
 
-if (($_POST['notification_status'] == "Отправить сообщение")) {
+if (($_POST['notification_status'] == "Оповестить о оформлении")) {
 	$current_contragent = $order_pre_check_data['contragent'];
 	$current_contragent_data = mysql_fetch_array(mysql_query("SELECT * FROM `contragents` WHERE contragents.id = '$current_contragent' LIMIT 1"));
 		if (strlen($current_contragent_data['notification_number']) == 11) {
@@ -408,7 +408,7 @@ if (($_POST['notification_status'] == "Отправить сообщение")) 
 		}
 }
 
-if ($_POST['notification_status'] == "Повторная отправка") {
+if ($_POST['notification_status'] == "Оповестить об изменениях") {
 	$readyqueryps = "UPDATE `order` SET `notification_status` = '2' WHERE (`order_number` = '$order_number')";
 	mysql_query($readyqueryps);
 }
