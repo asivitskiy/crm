@@ -118,7 +118,7 @@ function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user
                                 $filename_inner = "backup.zip"; //Имя файла для прикрепления
                                 
                                 $from = "admixcrm@gmail.com"; //От кого
-                                $subject = "backUP!"; //Тема
+                                $subject = "backUP! ".$cfg['base_name']; //Тема
                                 $message = "Резервная копия базы"; //Текст письма
                                 $boundary = "---"; //Разделитель
                                 /* Заголовки */

@@ -24,7 +24,7 @@ $ip_sender_array = mysql_query("SELECT * FROM `ip_sender` LIMIT 1");
 					mail($to, $subject, $message, $headers);
 
                     $to  =  $cfg['owner_mail'] ;
-					$subject = "Обновление IP адреса";
+					$subject = "Обновление IP адреса для ".$cfg['base_name'];
 					$message = "Текущий IP-адрес:".$ip;
 					$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
 					$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
