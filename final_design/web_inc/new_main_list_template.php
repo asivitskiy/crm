@@ -151,7 +151,8 @@
                     } ?>
                 <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">раб</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-                    <?
+                
+                <? if ($cfg['whatsapp'] == 1) {
                     if (($data_row_data['notification_status']) == ''){
                         if (strlen($data_row_data['notification_number']) == 11) {$add = "trafficlights-yellow";}
                         if (strlen($data_row_data['notification_number']) <> 11) {$add = "trafficlights-gray";}
@@ -160,7 +161,7 @@
 
                 <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">W</div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
-
+                <? } ?>
                     <?
                     if ($data_row_data['order_vars-design_flag'] == 2)
                         {$add = "trafficlights-green";}
