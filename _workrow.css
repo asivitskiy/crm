@@ -53,6 +53,7 @@
 		
 	}
 	.searchResults{
+		z-index: 10000!important;
 		width: 400px;
 		position: absolute;
 		left: 0;
