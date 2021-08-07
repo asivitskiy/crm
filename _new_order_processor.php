@@ -41,13 +41,15 @@ $order_pre_check_data = mysql_fetch_array($order_pre_check_array);
 	//там может быть либо ничего, либо 12-значное число - дата
 	
 	$paystatus = $order_pre_check_data['paystatus'];
+	$price_change_flag = $order_pre_check_data['price_change_flag'];
 	$notification_status = $order_pre_check_data['notification_status'];
+	$notification_of_end_status = $order_pre_check_data['notification_of_end_status'];
 	$date_of_end = $order_pre_check_data['date_of_end'];
 
 	//УСЛОВИЯ УБИРАЮТ КОСЯК С ПЕРЕЗАПИСЬЮ ДАТЫ ГОТОВНОСТИ ЭТАПА НА ТЕКУЩУЮ ПРИ РЕДАКТИРОВАНИИ
 	//проверка что было в согласовании (чтобы дата не перезаписывалась при каждом обновлении заказа!!!!! первое условие - перебор всех условий кроме даты)
 	$soglas	= $_POST['soglas'];
-	if ((($order_pre_check_data['soglas']==0)or($order_pre_check_data['soglas']==1))and($soglas == "set_ok")) { $soglas = date("YmdHi");}
+	if ((($order_pre_check_data['soglas']==0)or($order_pre_check_data['soglas']==1))and($soglas == "set_ok")) { $soglas = date("YmdHi");$soglas_change_flag = 1;}
 	if ((($order_pre_check_data['soglas']<>1)and($order_pre_check_data['soglas']<>0))and($soglas == "set_ok")) { $soglas = $order_pre_check_data['soglas'];}
 	
 	//проверка что было в допечатке (чтобы дата не перезаписывалась при каждом обновлении заказа)
@@ -272,8 +274,10 @@ $order_sql = "INSERT INTO `order` (
 			preprinter,
 			paystatus,
 			notification_status,
+			notification_of_end_status,
 			date_of_end,
-			date_in)
+			date_in,
+			price_change_flag)
 			VALUES (
 			'$contragent_id',
 			'$order_description',
@@ -291,8 +295,10 @@ $order_sql = "INSERT INTO `order` (
 			'$preprinter',
 			'$paystatus',
 			'$notification_status',
+			'$notification_of_end_status',
 			'$date_of_end',
-			'$date_in')";
+			'$date_in',
+			'$price_change_flag')";
 mysql_query($order_sql);
 
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\///
@@ -378,6 +384,48 @@ VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$wo
 ////вставка работ окончена////
 //////////////////////////////
 
+//переустанавливаем признак изменения цены, если бланк возвращен в работу из ожидания (нужно для корректной работы вацап рассыльщика)
+if ($soglas_change_flag == 1) {
+	mysql_query("UPDATE `order` SET `price_change_flag`='1' WHERE (`order_number`='$order_number')");
+}
+
+
+//////////////////////////////
+///пишем историю цен бланка///
+//////////////////////////////
+
+//$prev_price - цена текущей версии заказа уже после обновления
+		$history_sql = "SELECT SUM(works.work_price*works.work_count) as `smm` FROM `order` 
+						LEFT JOIN `works` ON works.work_order_number = order.order_number
+						WHERE `order_number`='$order_number'";
+		$history_array = mysql_query($history_sql);
+		$history_data = mysql_fetch_array($history_array);
+		$prev_price = $history_data['smm'];
+
+//достаём из истории последнюю запись по этому бланку $last_checked_price
+		$checked_price_sql = "SELECT * FROM `order_price_history` WHERE `order_price_history_order_number` = '$order_number' ORDER BY order_price_history_id DESC LIMIT 1";
+		$checked_price_array = mysql_query($checked_price_sql);
+		if (mysql_num_rows($checked_price_array)>0) {
+			$checked_price_data = mysql_fetch_array($checked_price_array);
+			$last_checked_price = $checked_price_data['order_price_history_price'];
+		} else {$last_checked_price = 0;
+				 
+		}
+		
+
+		//echo $checked_price_data['order_price_history_id'];
+//условие изменения цены, либо нуля
+if (($last_checked_price == 0) or (abs($prev_price - $last_checked_price)>1)) {
+	mysql_query("UPDATE `order` SET `price_change_flag` = 1 WHERE (`order_number` = '$order_number')");
+}
+mysql_query("INSERT INTO `order_price_history` (order_price_history_order_number,order_price_history_price) VALUES ('$order_number','$prev_price')");
+
+
+
+
+
+
+
 //Кнопки обновления статуса готовности:
 if ($_POST['ready_button'] == "Отпечатано") {
 											$notofocation_of_end = '';
@@ -399,19 +447,6 @@ if ($_POST['paystatus'] == "Запросить счет") {
 											mysql_query($readyqueryps);
 											}
 
-if (($_POST['notification_status'] == "Оповестить о оформлении")) {
-	$current_contragent = $order_pre_check_data['contragent'];
-	$current_contragent_data = mysql_fetch_array(mysql_query("SELECT * FROM `contragents` WHERE contragents.id = '$current_contragent' LIMIT 1"));
-		if (strlen($current_contragent_data['notification_number']) == 11) {
-			$readyqueryps = "UPDATE `order` SET `notification_status` = '1' WHERE (`order_number` = '$order_number')";
-			mysql_query($readyqueryps);
-		}
-}
-
-if ($_POST['notification_status'] == "Оповестить об изменениях") {
-	$readyqueryps = "UPDATE `order` SET `notification_status` = '2' WHERE (`order_number` = '$order_number')";
-	mysql_query($readyqueryps);
-}
 
 //проверка этого заказа на готовность (если готов - поставить в делитед единичку)	$order_number
 //чтоб не было ошибок - заново полностью его извлекаем, смотрим, считаем, проставляем значение

@@ -24,9 +24,63 @@ $dompdf->render();
 
 $output = $dompdf->output();
 /*$dompdf->stream($order_number.'-'.date("YmdHi").'.pdf',array("Attachment" => false));*/
+//старый кусок для механизма оповещения о оформлении заказа
+//if (($_POST['notification_status'] == "Оповестить о оформлении")) {
+//	$current_contragent = $order_pre_check_data['contragent'];
+//	$current_contragent_data = mysql_fetch_array(mysql_query("SELECT * FROM `contragents` WHERE contragents.id = '$current_contragent' LIMIT 1"));
+//		if (strlen($current_contragent_data['notification_number']) == 11) {
+//			$readyqueryps = "UPDATE `order` SET `notification_status` = '1' WHERE (`order_number` = '$order_number')";
+//			mysql_query($readyqueryps);
+//		}
+//}
+//
+//if ($_POST['notification_status'] == "Оповестить об изменениях") {
+//	$readyqueryps = "UPDATE `order` SET `notification_status` = '2' WHERE (`order_number` = '$order_number')";
+//	mysql_query($readyqueryps);
+//}
+
+//---------------------------
+//новый кусок для активации статусов вацапа
+//---------------------------
+
+
+//шаг1 - проверка изменилась ли цена
+$summ_data = mysql_fetch_array(mysql_query("SELECT SUM(works.work_price*works.work_count) as smm FROM `order`
+                LEFT JOIN `works` ON works.work_order_number = order.order_number
+                WHERE order.order_number='$order_number'"));
+$summ = $summ_data['smm'];
+
+$wa_status_check_array = mysql_query("   SELECT * FROM `order` 
+                                         LEFT JOIN `contragents` ON order.contragent = contragents.id
+                                         WHERE `order_number` = '$order_number'
+                                         LIMIT 1");
+$wa_status_check_data = mysql_fetch_array($wa_status_check_array);
+echo strlen($wa_status_check_data['notification_status']);
+echo strlen($wa_status_check_data['notification_number']);
+if (
+    ( strlen($wa_status_check_data['notification_status']) == 12) 
+        and 
+    (strlen($wa_status_check_data['notification_number']) == 11) 
+        and 
+    ($wa_status_check_data['price_change_flag'] == 1) 
+        and 
+    (strlen($wa_status_check_data['soglas']) == 12)
+        and
+    ($summ > 0)
+    ) {
+    mysql_query("UPDATE `order` SET `notification_status` = 2 WHERE `order_number` = '$order_number'");
+    mysql_query("UPDATE `order` SET `price_change_flag` = 0 WHERE (`order_number` = '$order_number')");
+}
+
+if ((strlen($wa_status_check_data['soglas']) == 12) and ($wa_status_check_data['notification_status'] == '') and (strlen($wa_status_check_data['notification_number']) == 11) and (strlen($wa_status_check_data['soglas']) == 12) and ($summ > 0)) {
+    mysql_query("UPDATE `order` SET `notification_status` = 1 WHERE `order_number` = '$order_number'");
+    mysql_query("UPDATE `order` SET `price_change_flag` = 0 WHERE (`order_number` = '$order_number')");
+}
+
+
 
 file_put_contents($cfg['pdf_print_path'].$order_number.'-'.date("YmdHi").'-'.rand(111, 999).'.pdf', $output);
 file_put_contents($cfg['pdf_arch_path'].$order_number.'-'.date("YmdHi").'-'.rand(111, 999).'.pdf', $output);
 
 ?>
-<script>window.close()</script>
+<script>window.close(); </script>

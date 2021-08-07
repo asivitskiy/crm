@@ -92,6 +92,7 @@
         $dynamic_query_string = $common_part_sql." WHERE "."((".$where_or.")".$where_and." )"." ".$end_part_of_sql."";
 
         /*echo $dynamic_query_string;*/
+        //echo $dynamic_query_string;
         $data_row_array = mysql_query($dynamic_query_string);
 
         ?><div class="maintable"><?

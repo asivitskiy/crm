@@ -15,7 +15,7 @@
 $outcontragent_req_id = $_POST['outcontragent_req_id'];
 $outcontragent_id = $_POST['outcontragent_id'];
 $paylist_demand_number = $_POST['paylist_demand_number'];
-$paylist_demand_summ = $_POST['paylist_demand_summ'];
+$paylist_demand_summ = str_replace(",",".",$_POST['paylist_demand_summ']);
 $paylist_demand_date = $_POST['paylist_demand_date'];
 $paylist_demand_date = str_replace("-", "", $paylist_demand_date)."0000";
 $outcontragent_data = mysql_fetch_array(mysql_query("SELECT * FROM `outcontragent` WHERE `outcontragent_id` = '$outcontragent_id'"));

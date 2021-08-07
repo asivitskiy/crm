@@ -5,6 +5,25 @@ $mng_words_array['А'] = 'Анна';
 $mng_words_array['Е'] = 'Екатерина';
 $mng_words_array['Марина'] = 'Марина';
 $mng_words_array['П'] = 'Юрий';
+$mng_words_array['Ч'] = 'Юлия Казакова';
+
+//функция проверяет ответ от вамчата, что там пришло. разбирает строку в массив, получает ошибку, получает номер, пишет в базу это
+function checkerror($json_responce,$blank_number,$message) {
+    $checkerror_string = $json_responce;
+    $checkerror_string = str_replace('{','',$checkerror_string);
+    $checkerror_string = str_replace('}','',$checkerror_string);
+
+    $arr = explode(',',$checkerror_string);
+
+    $err_array = explode(':',$arr[0]);
+    $msg_number_array = explode(':',$arr[1]);
+    //echo $blank_number."-> id ".$msg_number_array[1]."<br>";
+    $cur_date = date('YmdHi')*1;
+    mysql_query("INSERT INTO `whatsapp_messages` (`error_w` , `order_number_w` , `text`, `message_id`, `date_w`)
+    VALUES ('$err_array[1]'  ,'$blank_number' , '$message',  '$msg_number_array[1]',' $cur_date')");
+    return $err_array[1];
+}
+
 
 
 //входное оповещение о создании или изменении заказа
@@ -21,7 +40,9 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $manager = $mng_words_array[$messages_data['order_manager']];
     $ordernumber = $messages_data['order_number'];
     $cur_msg_string = 'Добрый день!'.$br;
-        if ($messages_data['notification_status'] == 2) {$cur_msg_string .= 'Данные заказа обновлены'.$br;}
+    $cur_msg_string .= 'Это автоматическое сообщение о статусе заказа.'.$br;
+        $mess_alert_for_mailer = ' (оформление)';
+        if ($messages_data['notification_status'] == 2) {$cur_msg_string .= 'Данные заказа обновлены'.$br;$mess_alert_for_mailer = ' (обновление)';}
     $cur_msg_string .= 'Номер вашего заказа '.$ordernumber.$br;
     $cur_msg_string .= 'Сумма к оплате: '.number_format($messages_data['ordersumm'], 2, ',', ' ').' руб.'.$br;
     $cur_msg_string .= 'Ваш менеджер '.$manager.$br;
@@ -32,11 +53,15 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg = urlencode($cur_msg_string);
     $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$cfg['whatsapp_token'].'/?phone='.$cur_phone.'&text='.$cur_msg;
     $homepage = file_get_contents(($cur_getpage));
-    echo $ordernumber.' отправлен <br>';
+    echo $ordernumber.' отправлен'.$mess_alert_for_mailer.'<br>';
     $today=date(YmdHi);
     $update_query = "UPDATE `order` SET `notification_status` = '$today' WHERE (`order_number` = '$ordernumber')";
-    mysql_query($update_query);
-    sleep(1);
+    if (checkerror($homepage,$ordernumber,$cur_msg_string) == 0) {
+        mysql_query($update_query);
+ 
+    }
+    sleep(2);
+
 }
 
 
@@ -55,6 +80,7 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $manager = $mng_words_array[$messages_data['order_manager']];
     $ordernumber = $messages_data['order_number'];
     $cur_msg_string = 'Добрый день!'.$br;
+    $cur_msg_string .= 'Это автоматическое сообщение о статусе заказа.'.$br;
     $cur_msg_string .= 'Ваш заказ готов.'.$br;
     $cur_msg_string .= 'Номер вашего заказа '.$ordernumber.$br;
     $cur_msg_string .= 'Сумма к оплате: '.number_format($messages_data['ordersumm'], 2, ',', ' ').' руб.'.$br;
@@ -66,11 +92,15 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg = urlencode($cur_msg_string);
     $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$cfg['whatsapp_token'].'/?phone='.$cur_phone.'&text='.$cur_msg;
     $homepage = file_get_contents(($cur_getpage));
-    echo $ordernumber.' отправлен <br>';
+    echo $ordernumber.' отправлен (готовность)<br>';
     $today=date(YmdHi);
     $update_query = "UPDATE `order` SET `notification_of_end_status` = '$today' WHERE (`order_number` = '$ordernumber')";
+    
+    if (checkerror($homepage,$ordernumber,$cur_msg_string) == 0) {
     mysql_query($update_query);
-    sleep(1);
+    }
+    
+    sleep(2);
 }
 
 

@@ -85,15 +85,12 @@ echo $order_redact_data['order_description']; ?>"><br>
     <br>
     <br>
     <div class="posRelative">
-        <textarea  onkeyup="formattingNumbers( this )" name="notification_number" style="line-height: 35px; height: 35px; width: 170px; resize: none; margin-top: 5px; padding-left: 3px;" placeholder="whatsapp" data-column="notification_number" autocomplete="disabled"><? echo($contragent_redact_data['notification_number']); ?></textarea>
+        <textarea  onchange="formattingNumbers( this )"  onkeyup="formattingNumbers( this )" name="notification_number" style="line-height: 35px; height: 35px; width: 170px; resize: none; margin-top: 5px; padding-left: 3px;" placeholder="whatsapp" data-column="notification_number" autocomplete="disabled"><? echo($contragent_redact_data['notification_number']); ?></textarea>
     </div>
     <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
-        <? if ($order_redact_data['notification_status'] == '') {?>
-            <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Оповестить о оформлении">
-        <? } else { echo ">";echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
-                    ?>
-        <input style=" height: 35px; padding: 5px;" type="submit" name="notification_status" value="Оповестить об изменениях">
-         <? }  ?>
+        WA -> <? 	echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
+        ?>
+         <a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end" style="line-height:20px;">Открыть Whatsapp</a>
     </div>
 
 
