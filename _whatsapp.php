@@ -1,3 +1,9 @@
+<?  //блок настроек
+    include_once 'dbconnect.php';        
+    include_once './inc/global_functions.php'; 
+    include_once './inc/config_reader.php';     
+    ?>
+
 <?php
 $mng_words_array['Ю'] = 'Юлия';
 $mng_words_array['Н'] = 'Наталья';
@@ -80,8 +86,10 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $manager = $mng_words_array[$messages_data['order_manager']];
     $ordernumber = $messages_data['order_number'];
     $cur_msg_string = 'Добрый день!'.$br;
+    $cur_msg_string .= '---------------------'.$br;
+    $cur_msg_string .= 'ВАШ ЗАКАЗ ГОТОВ'.$br;
+    $cur_msg_string .= '---------------------'.$br;
     $cur_msg_string .= 'Это автоматическое сообщение о статусе заказа.'.$br;
-    $cur_msg_string .= 'Ваш заказ готов.'.$br;
     $cur_msg_string .= 'Номер вашего заказа '.$ordernumber.$br;
     $cur_msg_string .= 'Сумма к оплате: '.number_format($messages_data['ordersumm'], 2, ',', ' ').' руб.'.$br;
     $cur_msg_string .= 'Ваш менеджер '.$manager.$br;
@@ -103,5 +111,5 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     sleep(2);
 }
 
-
+echo "Whatsapp sender end of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";
 ?>

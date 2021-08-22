@@ -471,9 +471,14 @@ while ($ready_money_checker_data = mysql_fetch_array($ready_money_checker_array)
 
 //собственно, сама проверка закзаа
 if (((strlen($ready_checker_data['delivery'])==12) or (strlen($ready_checker_data['handing'])==12)) and (abs($amount_order - $order_summ)<0.1)) {
-	
+	$current_time = date('YmdHi');
+	mysql_query("UPDATE `order` SET `date_of_end`='$current_time' WHERE `order_number` = '$order_number'");
+	mysql_query("UPDATE `order` SET `preprint`='$current_time' WHERE `order_number` = '$order_number'");
 	mysql_query("UPDATE `order` SET `deleted`='1' WHERE `order_number` = '$order_number'");
-} else {mysql_query("UPDATE `order` SET `deleted`='0' WHERE `order_number` = '$order_number'");}
+} else {
+	mysql_query("UPDATE `order` SET `deleted`='0' WHERE `order_number` = '$order_number'");
+		
+}
 
 
 //конец проверки заказа на готовность

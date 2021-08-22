@@ -1,41 +1,32 @@
-<!--Файл - рассыльщик, стоит на автозапуске раз в пять минут -->
+<?  //блок настроек
+    include_once 'dbconnect.php';        
+    include_once './inc/global_functions.php'; 
+    include_once './inc/config_reader.php';     
+    //include_once 'dbdump.php';
+    ?>
+    
 
-<?  //подключение к базе
-    include 'dbconnect.php';        
-    
-    
-    //всякие мелкие функции
-	include './inc/global_functions.php'; 
-    
-    
-    //чтение пользовательских нстроек в переменную $cfg[''];
-    include './inc/config_reader.php';     
-
-    
-    // подключение отправки бэкапа на сервер и на почту
-    include 'dbdump.php';
-    
-    
+ <?   
     //рассыльщик вацапа (всё касамо вацапа только тут)
     //wamm.chat
-    if ($cfg['whatsapp'] == '1'){ include './_whatsapp.php'; }
+    //if ($cfg['whatsapp'] == '1'){ include './_whatsapp.php'; }
     
     //wazzup24
     //if ($cfg['whatsapp'] == '1'){include './_wazzup/index.php'; }
    
     //ip_checker проверяет ip адрес и присылает его на ящик cfg['admin_mail'] и cfg['owner_mail]
-    include './_mailer_inc_ip_checker.php';
+    //include './_mailer_inc_ip_checker.php';
 	
 
     //письмо о регистрации счетов расхода
-    include './_mailer_inc_demand_mailer.php';
+    //include './_mailer_inc_demand_mailer.php';
 
 
     //письмо о запросе счета
-    include './_mailer_inc_paylist_mailer.php';
+    //include './_mailer_inc_paylist_mailer.php';
 
     //проверка статуса разосланных сообщений + поиск неверных вацапинок
-    include './_whatsapp_status.php';
+    //include './_whatsapp_status.php';
 
 
 //actualizer - статусы меняет заказам (работает по таблице ордеров)
@@ -166,6 +157,7 @@ while ($data = mysql_fetch_array($array)) {
         echo "нет цифры <br>";
     }
 }
+
 
 
 ?>

@@ -1,10 +1,5 @@
-<?
-    require_once  'dbconnect.php'; ?>
+<? require_once  'dbconnect.php'; ?>
 <? session_start(); ?>
-<?  // 't' - указывает взять последний день
-    /*$last_day_this_month  = date('t',strtotime('2020-02-17'));
-    echo $first_day_this_month;print'<->';echo $last_day_this_month;*/
-?>
 <? require_once  './inc/global_functions.php'; ?>
 <? require_once  './_oborot_functions.php'; ?>
 <? require_once  './inc/cfg.php'; ?>

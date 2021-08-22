@@ -1,3 +1,8 @@
+<?  //блок настроек
+    include_once 'dbconnect.php';        
+    include_once './inc/global_functions.php'; 
+    include_once './inc/config_reader.php';     
+    ?>
 <?
 $mail_sender_sql = "SELECT * FROM `order` 
    					   LEFT JOIN `contragents` ON contragents.id = order.contragent
@@ -22,5 +27,5 @@ $mail_sender_sql = "SELECT * FROM `order`
 					mail($cfg['money_man'], $subject1, $message1, $headers1);
 			}
    }
-
+   echo "Paylistmailer sender end of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";
    ?>

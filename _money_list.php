@@ -102,7 +102,7 @@ $imager_array = mysql_query($imager_sql);
 $managers_array[] = 'Ю';
 $managers_array[] = 'Н';
 $managers_array[] = 'А';
-$managers_array[] = 'Е';
+$managers_array[] = 'Ч';
 $managers_array[] = 'П';
 
 //начало перебора менеджеров	

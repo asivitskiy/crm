@@ -1,5 +1,11 @@
+<?  //блок настроек
+    include_once 'dbconnect.php';        
+    include_once './inc/global_functions.php'; 
+    include_once './inc/config_reader.php';     
+    ?>
+
 <?
-$ip_sender_array = mysql_query("SELECT * FROM `ip_sender` LIMIT 1");
+	$ip_sender_array = mysql_query("SELECT * FROM `ip_sender` LIMIT 1");
 	$ip_sender_data = mysql_fetch_array($ip_sender_array);
 	$current_ip = $ip_sender_data['ip'];
 		if (((date("YmdHi")*1) - ($ip_sender_data['last_try']*1)) >= 1) {
@@ -31,4 +37,5 @@ $ip_sender_array = mysql_query("SELECT * FROM `ip_sender` LIMIT 1");
 					mail($to, $subject, $message, $headers);
 			}
 		}
+		echo "ipchecker end of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";
         ?>

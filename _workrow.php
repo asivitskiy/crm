@@ -280,7 +280,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 	  	<td>	<select name="work_media[]"  style="width: 197px;">
                 //пустой дефолтный матераиал
                 <option value=""></option>
-	  			<? 		$media_type_query  = mysql_query("SELECT * FROM `media_types` ORDER by `id`");
+	  			<? 		$media_type_query  = mysql_query("SELECT * FROM `media_types` ORDER by `desc1`");
 							while ($media_type_data = mysql_fetch_array($media_type_query)) {?>
 							<option <? if ($main_table_data['work_media'] == $media_type_data['name']) {echo('selected');} ?> value="<? echo $media_type_data['name'];?>"><? echo $media_type_data['name'];?></option>
 											<? } ?>
@@ -385,11 +385,15 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
         <a target="_blank" class="a_orderrow" href="_small_pdf_maker.php?order=<?/* echo $order_data_data['order_number']; */?>" target="_blank">PDF</a>
     </div>-->
 <div>
-	<input type="submit" class="final" value="Оформить / обновить" >
-	<input type="submit" style="margin-left: 150px;" class="111" name="doubleflag" value="Дублировать заказ">
-	<input type="submit" class="oldBlank" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк" <? if ($plan_time == '') {echo "disabled";} ?>>
-    <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank" >PDF</a>
-    <a target="_blank" class="a_orderrow printerButton" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
+	<input type="submit" class="final blank_buttons" value="Оформить / обновить" >
+	<input type="submit" style="margin-left: 150px;" class="111 blank_buttons" name="doubleflag" value="Дублировать заказ">
+	<input type="submit" class="oldBlank blank_buttons" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк" <? if ($plan_time == '') {echo "disabled";} ?>>
+    <a target="_blank" class="a_orderrow blank_buttons" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank" >PDF</a>
+    <!--<a target="_blank" class="a_orderrow printerButton" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
+	-->
+	<input class="blank_buttons" id="printBtn" type="button" onclick="printblank(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Печать" >
+	
+
 	<input type="submit" formaction="index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>" value="Удалить заказ">
 </div>
 <br>
@@ -413,3 +417,4 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
     }
 </script>
 <? include("_workrow_script.php"); ?>
+

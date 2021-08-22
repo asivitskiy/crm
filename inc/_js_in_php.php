@@ -76,3 +76,12 @@ function disp(form)     {
        $(".paydemand_button").removeAttr("disabled");
     }
 </script>
+
+<script>
+function printblank(ordernumber) {
+    $.get('http://192.168.1.221/_printengine.php?order_number=' + ordernumber + '&addtoquery=1');
+    $("#printBtn").text("...отправлено");
+    $("#printBtn").val("...отправлено");
+    $("#printBtn").css("outline" , "2px solid green");
+}
+</script>

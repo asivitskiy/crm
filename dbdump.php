@@ -1,4 +1,8 @@
 <?
+ include_once 'dbconnect.php';        
+ include_once './inc/global_functions.php'; 
+ include_once './inc/config_reader.php';     
+
 function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user,$pass,$name,$tables = '*',$cfg)
 {
 	$timeout_of_create_file = $timeout_of_create_file*60*60;
@@ -173,5 +177,5 @@ backup_tables($tocf,$tomf,$host1,$user1,$pass1,$name1,$tables1 = '*',$cfg);
 
 
 
-
+echo "Dbdump complete ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";
 ?>

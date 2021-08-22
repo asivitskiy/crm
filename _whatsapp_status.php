@@ -1,5 +1,10 @@
+<?  //блок настроек
+    include_once 'dbconnect.php';        
+    include_once './inc/global_functions.php'; 
+    include_once './inc/config_reader.php';     
+    ?>
 <?
-
+//по id сообщения и токену возвращает текущий вацап статус (отправлено, доставлено и т.д.) плюс выводит резальтат работы ид-статус 
 function whatsapp_message_status($message_id,$token) {
     $string = file_get_contents(("https://wamm.chat/api2/msg_state/".$token."/?msg_id=".$message_id));;
     $start_pos = strripos($string,'{');
@@ -12,8 +17,9 @@ function whatsapp_message_status($message_id,$token) {
     return $message_status;
 }
 
+//проверяет все новые либо недоставленные сообщения
 function whataspp_message_status_checker($token) {
-    $sql = "SELECT * FROM `whatsapp_messages` WHERE ((`status_w` <> 'viewed') and ((`status_w` <> 'NoAccount')))";
+    $sql = "SELECT * FROM `whatsapp_messages` WHERE ((`status_w` <> 'delivered') and (`status_w` <> 'viewed') and ((`status_w` <> 'NoAccount')))";
     $arr = mysql_query($sql);
     while ($data = mysql_fetch_array($arr)) {
         $cur_id = $data['message_id'];
@@ -49,4 +55,5 @@ function delete_noaccount_number($main_mail) {
 }
 delete_noaccount_number($cfg['main_mail']);
 whataspp_message_status_checker($cfg['whatsapp_token']);
+echo "WhatsappStatus end of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";
 ?>

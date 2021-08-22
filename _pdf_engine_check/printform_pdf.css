@@ -1,0 +1,1321 @@
+body {
+                                                  font-family: dompdf_tahoma, Tahoma;
+                                                  font-weight: 800;
+                                              }
+.c {
+    font-family: dompdf_tahoma, Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", "monospace";
+    height: 18px;
+
+    margin-top: -5px;
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    padding-top: 0px 0px 0px 0px;
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+}
+.c:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+    color: #a00;
+}<!--table
+     {mso-displayed-decimal-separator:"\,";
+         mso-displayed-thousand-separator:" ";}
+.xl656347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl666347
+{/*padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;*/
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:9.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl676347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:9.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:middle;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl686347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl696347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl706347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:middle;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl716347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:12.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl726347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:9.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:left;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl736347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:12.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl746347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:12.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:0;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl756347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:12.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"dd\/mm\/yy\\ h\:mm\;\@";
+    text-align:left;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl766347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl776347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"h\:mm\;\@";
+    text-align:right;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl786347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"\[$-419\]dd\\ mmm\\ yy\;\@";
+    text-align:center;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl796347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:9.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl806347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0%;
+    text-align:left;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl816347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    background:silver;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl826347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl836347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl846347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:middle;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl856347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:middle;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl866347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:middle;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl876347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:red;
+    font-size:9.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:Standard;
+    text-align:right;
+    vertical-align:middle;
+    border:1.0pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:normal;}
+.xl886347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:6.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:1.0pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:none;
+    border-left:1.0pt solid windowtext;
+    background:silver;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl896347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:middle;
+    border-top:none;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:1.0pt solid windowtext;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl906347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:middle;
+    border-top:none;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:none;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl916347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:8.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:left;
+    vertical-align:middle;
+    border-top:none;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:none;
+    background:silver;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl926347
+{/*padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;*/
+    padding-left: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:9.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl936347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:9.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:Standard;
+    text-align:center;
+    vertical-align:middle;
+    border:.5pt solid windowtext;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl946347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:Standard;
+    text-align:general;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl956347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:Standard;
+    text-align:general;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:1.0pt solid windowtext;
+    border-left:none;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl966347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:9.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:.5pt solid windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl976347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl986347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:Standard;
+    text-align:general;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    background:white;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl996347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:bottom;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl1006347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:12.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0000;
+    text-align:left;
+    vertical-align:bottom;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1016347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:0;
+    mso-number-format:General;
+    text-align:right;
+    vertical-align:bottom;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl1026347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Arial, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:general;
+    vertical-align:bottom;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl1036347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"h\:mm\;\@";
+    text-align:right;
+    vertical-align:bottom;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    white-space:nowrap;}
+.xl1046347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:red;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0%;
+    text-align:center;
+    vertical-align:middle;
+    border-top:none;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:1.0pt solid windowtext;
+    background:white;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1056347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:red;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0%;
+    text-align:center;
+    vertical-align:middle;
+    border-top:none;
+    border-right:1.0pt solid windowtext;
+    border-bottom:1.0pt solid windowtext;
+    border-left:none;
+    background:white;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1066347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt hairline windowtext;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1076347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt hairline windowtext;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1086347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"Short Date";
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt hairline windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1096347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"Short Date";
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt hairline windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1106347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:9.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:1.0pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1116347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,"Arial Cyr";
+    mso-generic-font-family: dompdf_tahoma,auto;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:normal;}
+.xl1126347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,"Arial Cyr";
+    mso-generic-font-family: dompdf_tahoma,auto;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:.5pt solid windowtext;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:normal;}
+.xl1136347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl1146347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl1156347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:.5pt solid windowtext;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    white-space:nowrap;}
+.xl1166347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"Short Date";
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt hairline windowtext;
+    border-right:none;
+    border-bottom:.5pt hairline windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1176347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"Short Date";
+    text-align:center;
+    vertical-align:middle;
+    border-top:.5pt hairline windowtext;
+    border-right:none;
+    border-bottom:.5pt hairline windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1186347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:6.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:1.0pt solid windowtext;
+    border-right:.5pt hairline windowtext;
+    border-bottom:none;
+    border-left:1.0pt solid windowtext;
+    background:silver;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl1196347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:6.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:1.0pt solid windowtext;
+    border-right:.5pt hairline windowtext;
+    border-bottom:none;
+    border-left:.5pt hairline windowtext;
+    background:silver;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl1206347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:6.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:center;
+    vertical-align:middle;
+    border-top:1.0pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:none;
+    border-left:.5pt hairline windowtext;
+    background:silver;
+    mso-pattern:black none;
+    white-space:normal;}
+.xl1216347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:11.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0%;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+.xl1226347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:11.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0%;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1236347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:11.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:0%;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:.5pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1246347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"\[$-419\]dd\\ mmm\\ yy\;\@";
+    text-align:center;
+    vertical-align:bottom;
+    border-top:1.0pt solid windowtext;
+    border-right:none;
+    border-bottom:1.0pt solid windowtext;
+    border-left:1.0pt solid windowtext;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1256347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:"\[$-419\]dd\\ mmm\\ yy\;\@";
+    text-align:center;
+    vertical-align:bottom;
+    border-top:1.0pt solid windowtext;
+    border-right:1.0pt solid windowtext;
+    border-bottom:1.0pt solid windowtext;
+    border-left:none;
+    mso-background-source:auto;
+    mso-pattern:auto;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1266347
+{padding-top:1px;
+    padding-right:1px;
+    padding-left:1px;
+    mso-ignore:padding;
+    color:windowtext;
+    font-size:10.0pt;
+    font-weight:700;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:0;
+    mso-number-format:"dd\/mm\/yy\\ h\:mm\;\@";
+    text-align:left;
+    vertical-align:bottom;
+    background:#CCFFCC;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:nowrap;}
+.xl1276347
+{/*padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;*/
+    padding-left: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    mso-ignore:padding;
+    color:blue;
+    font-size:9.0pt;
+    font-weight:400;
+    font-style:normal;
+    text-decoration:none;
+    font-family: dompdf_tahoma,Tahoma, sans-serif;
+    mso-font-charset:204;
+    mso-number-format:General;
+    text-align:left;
+    vertical-align:middle;
+    border-top:.5pt solid windowtext;
+    border-right:none;
+    border-bottom:.5pt solid windowtext;
+    border-left:1.0pt solid windowtext;
+    background:white;
+    mso-pattern:black none;
+    mso-protection:unlocked visible;
+    white-space:normal;}
+
+td {
+
+
+}
+
+
