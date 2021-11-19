@@ -18,8 +18,11 @@ $paylist_demand_number = $_POST['paylist_demand_number'];
 $paylist_demand_summ = str_replace(",",".",$_POST['paylist_demand_summ']);
 $paylist_demand_date = $_POST['paylist_demand_date'];
 $paylist_demand_date = str_replace("-", "", $paylist_demand_date)."0000";
+$paylist_demand_date_for_sql = dig_to_d($paylist_demand_date).'.'.dig_to_m($paylist_demand_date).'.'.dig_to_y($paylist_demand_date);
 $outcontragent_data = mysql_fetch_array(mysql_query("SELECT * FROM `outcontragent` WHERE `outcontragent_id` = '$outcontragent_id'"));
 $outcontragent_fullname = $outcontragent_data['outcontragent_fullname'];
+$paylist_demand_number_for_sql = $paylist_demand_number.' от '.$paylist_demand_date_for_sql;
+
 //echo $outcontragent_req_id;
 //echo "<br>";
 //echo $outcontragent_id;
@@ -36,7 +39,7 @@ INSERT INTO `outcontragent_demand` (
     VALUES (
         '$outcontragent_id', 
         '$outcontragent_req_id', 
-        '$paylist_demand_date', 
+        '$paylist_demand_number_for_sql', 
         '$paylist_demand_summ',
         '$current_manager', 
         '$paylist_demand_number'
@@ -53,7 +56,7 @@ $paylist_demands_sql = "INSERT INTO `paylist_demands` (
 	`registrator`,
     `outcontragent_demand_new_flag`) 
 	VALUES (
-	'$paylist_demand_number',
+	'$paylist_demand_number_for_sql',
 	'$outcontragent_fullname',
 	'$paylist_demand_summ',
 	'$paylist_demand_date',

@@ -249,15 +249,31 @@ $managerrrr = $managers_array[$i];
 			$jur_end = $iy.str_pad($ttt, 2, 0, STR_PAD_LEFT).'000000';
 			//echo $jur_start.'->'.$jur_end;
 			if ($managerrrr == 'П') {
-
-				$jur_sql_text = "SELECT SUM(works.work_count*works.work_price) as `jur_summ` FROM `works`
-				LEFT JOIN `order` ON order.order_number = works.work_order_number
-				WHERE (((works.work_tech = 'Юра')or (works.work_tech = 'Сувенирка')) and (order.date_of_end > '$jur_start') and (order.date_of_end < '$jur_end'))
-				";
-				$jur_data = mysql_fetch_array(mysql_query($jur_sql_text));
-				echo 'От_манагеров <br>0,1/0,25/0,2<br>';
-				echo $jur_data['jur_summ'];
-				echo '<br>';
+//////////////////////юра//////////////////////////////
+				$month = $im;
+				$year = $iy;
+				$amount_summ_inner = 0;
+				$amount_summ_outer_rashod = 0;
+				$amount_summ_outer = 0;
+				$jur_sql = "
+				SELECT * FROM `order` 
+				LEFT JOIN `works` ON order.order_number = works.work_order_number
+				WHERE ((order.order_manager = 'П') and (order.date_in > ".$year.str_pad((string)$month*1, 2, '0', STR_PAD_LEFT)."000000) and (order.date_in < ".$year.str_pad((string)$month*1+1, 2, '0', STR_PAD_LEFT)."000000))";
+				$jur_array = mysql_query($jur_sql);
+				while ($jur_data = mysql_fetch_array($jur_array)) {
+					
+					if ($jur_data['work_rashod'] > 0) {
+						$amount_summ_outer = $amount_summ_outer + $jur_data['work_price'] * $jur_data['work_count'];
+						$amount_summ_outer_rashod = $amount_summ_outer_rashod + $jur_data['work_rashod'];
+					} 
+					else {
+						$amount_summ_inner = $amount_summ_inner + $jur_data['work_price'] * $jur_data['work_count'];
+					}
+				}
+				echo $amount_summ_outer; echo ' сумма перезаказных позиций <br>';
+				echo $amount_summ_outer_rashod; echo ' расход по перезаказным позициям <br>';
+				echo $amount_summ_inner; echo ' собственные заказы<br>';
+////////////////////////////////////////////////////////
 			}		else {	
 
 

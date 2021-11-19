@@ -80,8 +80,18 @@ function disp(form)     {
 <script>
 function printblank(ordernumber) {
     $.get('http://192.168.1.221/_printengine.php?order_number=' + ordernumber + '&addtoquery=1');
-    $("#printBtn").text("...отправлено");
-    $("#printBtn").val("...отправлено");
-    $("#printBtn").css("outline" , "2px solid green");
+    $("#printBtn").text("...ок...");
+    $("#printBtn").val("...ок...");
+    $("#printBtn").css("outline" , "1px solid green");
+    $("#printBtn").attr("onclick", "").unbind("click");
+}
+
+function printCopyCheck(ordernumber) {
+    $.get('http://192.168.1.221/_printengine.php?order_number=' + ordernumber + '&addtoquery=2');
+    $("#printBtnCopy").text("...ок...");
+    $("#printBtnCopy").val("...ок...");
+    $("#printBtnCopy").css("outline" , "1px solid green");
+    $("#printBtn").attr("onclick", "").unbind("click");
+    
 }
 </script>

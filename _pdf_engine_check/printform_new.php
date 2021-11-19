@@ -119,8 +119,7 @@
         }
     </style>
 </head>
-<body>
-<?
+<body><?
 //достаём данные заказа по менеджеру и номеру бланка
 
 $number = $_GET['number'];
@@ -136,24 +135,28 @@ $contragent_sql = "SELECT * FROM `contragents` WHERE ((`id`='$contragent_id')) L
 $contragent_query = mysql_query($contragent_sql);
 $contragent_data = mysql_fetch_array($contragent_query);
 //делаем запрос к базе работ по заказу, но не разбираем его, разбирать будем уже конкретно в таблице
-$works_sql = "SELECT * FROM `works` WHERE ((`work_order_number`='$number'))";
+//$works_sql = "  SELECT * FROM `works` 
+//                LEFT JOIN `outcontragent` ON outcontragent.outcontragent_fullname = works.work_tech
+//                WHERE ((`work_order_number`='$number') and ((outcontragent.outcontragent_group='books')or(outcontragent.outcontragent_group='digital')))";
+$works_sql = "  SELECT * FROM `works` 
+                LEFT JOIN `outcontragent` ON outcontragent.outcontragent_fullname = works.work_tech
+                WHERE ((`work_order_number`='$number'))";
 $works_query  = mysql_query($works_sql);
 
-?><div style="font-size: 120px; width:100%; text-align:center; line-height:120px;"><? echo $order_data['order_number'];?></div>
-    <? $cur_date = date('YmdHi');
+?><? $cur_date = date('YmdHi');
         $date = dig_to_h($cur_date).":".dig_to_minute($cur_date)."(".dig_to_y($cur_date)."/".dig_to_m($cur_date)."/".dig_to_d($cur_date).")";
     ?>
 <div style="line-height:20px; width:100%;font-size:8px;"                       ><? echo $date; ?></div>
 <div style="line-height:20px; width:100%; background-color:0f0f0f" >||||||||||||||||||||||||||||||||||||||||||||</div>
-<div style="line-height:20px; width:100%; background-color:0f0f0f" ><font>|||||||||||||||||    ЗАКАЗ    ||||||||||||||||||</font></div>
+<div style="line-height:20px; width:100%; background-color:0f0f0f" ><font>||||||||||||| КОПИЯ ЧЕКА ||||||||||||||</font></div>
 <div style="line-height:20px; width:100%; background-color:0f0f0f" >||||||||||||||||||||||||||||||||||||||||||||</div>
 
 
 <table class="works">
     <tr class="blank-header">
-        <td class="blank-header__cell blank-header__cell--order-number"><? echo $order_data['order_manager']; ?>-<? echo $order_data['order_number']; ?></td>
-        <td class="blank-header__cell blank-header__cell--order-datein"><? echo(dig_to_d($datein)); ?>.<? echo(dig_to_m($datein)); ?>.<? echo(dig_to_y($datein)); ?> <? echo(dig_to_h($datein)); ?>:<? echo(dig_to_minute($datein)); ?></td>
-        <td class="blank-header__cell blank-header__cell--order-datetoend"><? echo(dig_to_d($datetoend)); ?>.<? echo(dig_to_m($datetoend)); ?>.<? echo(dig_to_y($datetoend)); ?> <? echo(dig_to_h($datetoend)); ?>:<? echo(dig_to_minute($datetoend)); ?></td>
+        <td class="blank-header__cell blank-header__cell--order-number" COLSPAN="3">№: <? echo $order_data['order_manager']; ?>-<? echo $order_data['order_number']; ?></td>
+       <!-- <td class="blank-header__cell blank-header__cell--order-datein"><?/* echo(dig_to_d($datein)); */?>.<?/* echo(dig_to_m($datein)); */?>.<?/* echo(dig_to_y($datein)); */?> <?/* echo(dig_to_h($datein)); */?>:<?/* echo(dig_to_minute($datein)); */?></td>
+        <td class="blank-header__cell blank-header__cell--order-datetoend"><?/* echo(dig_to_d($datetoend)); */?>.<?/* echo(dig_to_m($datetoend)); */?>.<?/* echo(dig_to_y($datetoend)); */?> <?/* echo(dig_to_h($datetoend)); */?>:<?/* echo(dig_to_minute($datetoend)); */?></td>-->
     </tr>
 </table>
 <table class="works">
@@ -194,21 +197,22 @@ $works_query  = mysql_query($works_sql);
         $order_summ = $order_summ + $works_data['work_count']*$works_data['work_price'];
 ?>
     <div style="line-height:15px; width:100%; " >&nbsp;</div>
-    <div style="line-height:0px; width:100%; background-color:gray; " >&nbsp;</div>
-    <table class="works" style="border:0px solid black">
+    <div style="line-height:0px; width:100%;" >&nbsp;</div>
+    <table class="works" style="border:0px solid black;">
     
         
         
         <tr class="works__row">
-            <td class="works__cell works__cell--name" colspan=4>
+            <td class="works__cell works__cell--name" colspan=6>
                 <div style="font-size: 15px; ">
-                    <? if ($works_data['work_name'] == '') {echo "<div style=font-size:10px>".$works_data['work_description']."</div>";} else {echo $works_data['work_name']; }?>
+                    <? if ($works_data['work_name'] == '') {echo "<div style=font-size:10px>".$works_data['work_description']."</div>";} else {echo $works_data['work_name']; }
+                    if ($works_data['outcontragent_alias'] <> 'XEROX') {echo "(".$works_data['outcontragent_alias'].")";} ?>
                 </div>
                
             </td>
-            <td style="width:40px; text-align:center;" colspan="2">
-                <b><? echo number_format(($works_data['work_count'])*1,0,',',''); ?></b>
-            </td>
+<!--            <td style="width:40px; text-align:center;" colspan="3">
+                <b><?/* echo number_format(($works_data['work_count'])*1,0,',',''); */?></b>
+            </td>-->
         </tr>
         <? if ($works_data['work_name'] <> '') {?>
         <tr class="works__row">
@@ -217,25 +221,28 @@ $works_query  = mysql_query($works_sql);
         </tr>
         <? } ?>
         <tr class="works__row">
-            <td class="works__cell works__cell--postprint" style="background-color:#cfcfcf"  colspan="6"><b style="font-size: 12px"><? echo $works_data['work_postprint']; ?></b></td>
-
-        </tr>
-        <tr class="works__row">
-            <td class="works__cell works__cell--size; text-align:left" width=50>
-                <? echo $works_data['work_shir']; ?>*<? echo $works_data['work_vis'].'<br>';?>
-                
+            <td class="works__cell works__cell--postprint" style="background-color:#fcfcfc; text-align: right"  colspan="6">
+                <? echo $works_data['work_count'];?> шт.  X  <? echo $works_data['work_price']*1+0; ?> руб. = <b style="font-size: 16px"><? echo $works_data['work_count']*$works_data['work_price']; ?></b>
             </td>
 
-            <td class="works__cell"     ><? echo $works_data['work_color']; ?></td>
-            <td class="works__cell" colspan="1"><div style="font-size: 12px;"><? 
-            $rasklad = str_replace('Infinity','X',$works_data['work_rasklad']);
-            $rasklad = str_replace('34320','X',$rasklad);
-            $rasklad = str_replace('налист','н/л',$rasklad);
-            echo $rasklad; 
-            ?></div></td>
-            <td class="works__cell" colspan="3"><div style="font-size: 12px;"><? echo $works_data['work_media']; ?></div></td>
-
         </tr>
+
+        <!-- <tr class="works__row">
+             <td class="works__cell works__cell--size; text-align:left" width=50>
+                 <?/* echo $works_data['work_shir']; */?>*<?/* echo $works_data['work_vis'].'<br>';*/?>
+
+             </td>
+
+             <td class="works__cell"     ><?/* echo $works_data['work_color']; */?></td>
+             <td class="works__cell" colspan="1"><div style="font-size: 12px;"><?/*
+             $rasklad = str_replace('Infinity','X',$works_data['work_rasklad']);
+             $rasklad = str_replace('34320','X',$rasklad);
+             $rasklad = str_replace('налист','н/л',$rasklad);
+             echo $rasklad;
+             */?></div></td>
+             <td class="works__cell" colspan="3"><div style="font-size: 12px;"><?/* echo $works_data['work_media']; */?></div></td>
+
+         </tr>-->
        
 
         </table>
@@ -253,25 +260,8 @@ $works_query  = mysql_query($works_sql);
     </tr>
 </table>
 <div style="font-size: 12px;">
-<?
-$messages_sql = "SELECT * FROM `order_messages` WHERE order_messages.order_number = '$number' ORDER BY order_messages.date_in_message DESC";
-$messages_array = mysql_query($messages_sql);
-echo "Заметки к заказу:<br>";
-while ($messages_data = mysql_fetch_array($messages_array)) {
-echo $messages_data['message']."<Br>";
-}
 
-?>
-<? if ($order_data['delivery'] <> 0) {?>
-<br>
-<br>
-Полные контакты:<br>
-<?
-echo $contragent_data['contacts']."<br>Реквизиты:<br>";
-echo $contragent_data['fullinfo']."<br>Адрес доставки:<br>";
-echo $contragent_data['address']."<br>";
-}
-?>
+
 </div>
 </body>
 </html>

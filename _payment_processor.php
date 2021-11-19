@@ -1,4 +1,8 @@
-<? include 'dbconnect.php'; session_start(); ?>
+<?
+include 'dbconnect.php';
+session_start();
+include_once './inc/global_functions.php';
+?>
 <!--Обработчик для платежей из админпанели (внесение, првоерка заказа на готовность)-->
 <!--************************************************-->
 <!--************************************************-->
@@ -24,6 +28,9 @@ while ($order_data = mysql_fetch_array($order_array)) {
 	$current_manager = $order_data['order_manager'];
 	$current_paymethod = $order_data['paymethod'];
 	$current_date = date("YmdHi");
+
+	add_history_message('manager','Бух: заказ оплачен', $current_manager, $order_number);
+
 	//расчет стоимости заказа
 	$order_amount = 0;
 	

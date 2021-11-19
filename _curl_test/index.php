@@ -10,6 +10,8 @@ echo "Start of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(da
 <br>
 <br>
 <div id="printerOnlineStatusLoader"></div><br>
+<div id="qrGenerator"></div><br>
+<div id="printEngine"></div><br>
 <div id="printerOfflineStatusLoader"></div><br>
 <div id="whatsappLoader"></div><br>
 <div id="ipCheckerLoader"></div><br>
@@ -23,91 +25,35 @@ echo "Start of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(da
 <div id="mailerLoader"></div><br>
 
 <script type="text/javascript">
-function whatsappLoader() {
-    $('#whatsappLoader').load('http://192.168.1.221/_whatsapp.php');
-    console.log('whatsappLoader started ...');
-}
+function whatsappLoader()       { $('#whatsappLoader').load('../_whatsapp.php');}
+function ipCheckerLoader()      { $('#ipCheckerLoader').load('../_mailer_inc_ip_checker.php');}
+function demandMailerLoader()   { $('#demandMailer').load('../_mailer_inc_demand_mailer.php');}
+function paylistLoader()        { $('#paylistLoader').load('../_mailer_inc_paylist_mailer.php');}
+function whatsappStatusLoader() { $('#whatsappStatusLoader').load('../_whatsapp_status.php');}
+function dbdumpLoader()         { $('#dbdumpLoader').load('../dbdump.php');}
+function mailerLoader()         { $('#mailerLoader').load('../_mailer.php');}
+function orderCheckerLoader()   { $('#orderCheckerLoader').load('../_mailer_inc_order_checker.php');}
+function clientCheckerLoader()  { $('#clientCheckerLoader').load('../_mailer_inc_client_checker.php');}
+function digitalCheckerLoader() { $('#digitalCheckerLoader').load('../_mailer_inc_digital_checker.php');}
+//function qrGenerator()          { $('#qrGenerator').load('../_qr_autogenerator.php')}
+function printEngine()          { $('#printEngine').load('../_printengine_processor.php');}
+function printerOnlineStatusLoader()    { $('#printerOnlineStatusLoader').load('../_printer_status.php?setonline=1');}
+function printerOfflineStatusLoader()   { $('#printerOfflineStatusLoader').load('../_printer_status.php?setoffline=1');}
 
-function ipCheckerLoader() {
-    $('#ipCheckerLoader').load('http://192.168.1.221/_mailer_inc_ip_checker.php');
-    console.log('ipChecker started ...');
-}
 
-function demandMailerLoader() {
-    $('#demandMailer').load('http://192.168.1.221/_mailer_inc_demand_mailer.php');
-    console.log('demandMailer started ...');
-}
-
-function paylistLoader() {
-    $('#paylistLoader').load('http://192.168.1.221/_mailer_inc_paylist_mailer.php');
-    console.log('paylistLoader started ...');
-}
-
-function whatsappStatusLoader() {
-    $('#whatsappStatusLoader').load('http://192.168.1.221/_whatsapp_status.php');
-    console.log('whatsappStatusLoader started ...');
-}
-
-function dbdumpLoader() {
-    $('#dbdumpLoader').load('http://192.168.1.221/dbdump.php');
-    console.log('Dbdump started ...');
-}
-
-function mailerLoader() {
-    $('#mailerLoader').load('http://192.168.1.221/_mailer.php');
-    console.log('mailerLoader started ...');
-}
-
-function orderCheckerLoader() {
-    $('#orderCheckerLoader').load('http://192.168.1.221/_mailer_inc_order_checker.php');
-    console.log('orderCheckerLoader started ...');
-}
-
-function clientCheckerLoader() {
-    $('#clientCheckerLoader').load('http://192.168.1.221/_mailer_inc_client_checker.php');
-    console.log('clientCheckerLoader started ...');
-}
-
-function digitalCheckerLoader() {
-    $('#digitalCheckerLoader').load('http://192.168.1.221/_mailer_inc_digital_checker.php');
-    console.log('digitalCheckerLoader started ...');
-}
-
-function printerOnlineStatusLoader() {
-    $('#printerOnlineStatusLoader').load('http://192.168.1.221/_printer_status.php?setonline=1');
-    console.log('printerOnlineStatusLoader started ...');
-}
-
-function printerOfflineStatusLoader() {
-    $('#printerOfflineStatusLoader').load('http://192.168.1.221/_printer_status.php?setoffline=1');
-    console.log('printerOfflineStatusLoader started ...');
-}
-
-    console.log('timer start');
-    
-    whatsappLoader();
-    ipCheckerLoader();
-    demandMailerLoader();
-    paylistLoader();
-    whatsappStatusLoader();
-    dbdumpLoader();
-    orderCheckerLoader();
-    clientCheckerLoader();
-    digitalCheckerLoader();
-    printerOnlineStatusLoader();
-    printerOfflineStatusLoader();
-
-    setInterval(whatsappLoader,          10000);
-    setInterval(ipCheckerLoader,        290000);
-    setInterval(demandMailerLoader,     290000);
-    setInterval(paylistLoader,          290000);
-    setInterval(whatsappStatusLoader,    10000);
-    setInterval(dbdumpLoader,           550000);
-    setInterval(orderCheckerLoader,      30000);
-    setInterval(clientCheckerLoader,     30000);
-    setInterval(digitalCheckerLoader,    15000);
-    setInterval(printerOnlineStatusLoader,     35000);
-    setInterval(printerOfflineStatusLoader,     7000);
+whatsappLoader();               setInterval(whatsappLoader,           5000);
+ipCheckerLoader();              setInterval(ipCheckerLoader,        290000);
+demandMailerLoader();           setInterval(demandMailerLoader,     290000);
+paylistLoader();                setInterval(paylistLoader,          290000);
+whatsappStatusLoader();         setInterval(whatsappStatusLoader,    10000);
+dbdumpLoader();                 //setInterval(dbdumpLoader,           550000);
+orderCheckerLoader();           setInterval(orderCheckerLoader,      30000);
+clientCheckerLoader();          setInterval(clientCheckerLoader,     30000);
+digitalCheckerLoader();         setInterval(digitalCheckerLoader,    15000);
+printerOnlineStatusLoader();    setInterval(printerOnlineStatusLoader,     35000);
+printerOfflineStatusLoader();   setInterval(printerOfflineStatusLoader,     7000);
+//qrGenerator();                  setInterval(qrGenerator,     1500);
+printEngine();                  setInterval(printEngine,     1500);
 
 </script>
 </body>

@@ -19,7 +19,7 @@ function whatsapp_message_status($message_id,$token) {
 
 //проверяет все новые либо недоставленные сообщения
 function whataspp_message_status_checker($token) {
-    $sql = "SELECT * FROM `whatsapp_messages` WHERE ((`status_w` <> 'delivered') and (`status_w` <> 'viewed') and ((`status_w` <> 'NoAccount')))";
+    $sql = "SELECT * FROM `whatsapp_messages` WHERE ((`status_w` <> 'no info') and (`status_w` <> 'sent') and (`status_w` <> 'delivered') and (`status_w` <> 'viewed') and ((`status_w` <> 'NoAccount')))";
     $arr = mysql_query($sql);
     while ($data = mysql_fetch_array($arr)) {
         $cur_id = $data['message_id'];
@@ -53,6 +53,7 @@ function delete_noaccount_number($main_mail) {
     mysql_query("UPDATE `whatsapp_messages` SET `wrong_number_status` = '1' WHERE `message_id` = '$cur_id'");
     }
 }
+
 delete_noaccount_number($cfg['main_mail']);
 whataspp_message_status_checker($cfg['whatsapp_token']);
 echo "WhatsappStatus end of script ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";

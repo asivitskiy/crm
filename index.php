@@ -12,6 +12,9 @@
 <html>
 <head>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></SCRIPT>
 <SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
@@ -161,7 +164,9 @@ for	($i = 0; $i <= 8; $i++) {
 		<? if (($action == 'showlist')or(isset($_GET['myorder']))or(isset($_GET['noready']))) {
 			/*include "page_sorter.php";*/
 			/*include "main_list.php";*/
-		   include "final_design/index.php";
+		   include "final_design/index.php";?>
+        <div class="history_block" style="" id="historyBlock" onmouseenter="handlerOver();" onmouseleave = "handlerOut();">
+            <?
 		} ?>
 		<? if ($action == 'administrating') { include "adminpanel.php"; } ?>
 		<? if ($action == 'rashodka') { include "_rashodka_forma.php"; } ?>
@@ -201,6 +206,26 @@ for	($i = 0; $i <= 8; $i++) {
 
 
 <? }?>
+
+<!--    <div class="history_element" style="">
+        Ю-10111: готов
+    </div>
+    <div class="history_element" style="">
+        Ю-10111: оплачен
+    </div>
+    <div class="history_element" style="">
+        Ю-10111: счет выставлен
+    </div>-->
+</div>
+<!-- <script type="text/javascript">
+    function handlerOver() {
+        /*document.getElementById('historyBlock').style.width="500px";*/
+    }
+
+    function handlerOut() {
+       /* document.getElementById('historyBlock').style.width="250px";*/
+    }
+</script>-->
 <script>
     $('.timeselect').timepicker({
         timeFormat: 'HH:mm',
@@ -214,5 +239,32 @@ for	($i = 0; $i <= 8; $i++) {
         scrollbar: true
     });
 </script>
+<!--<script>
+    function historyLoader() {
+     $('#historyBlock').load('./_history_loader.php'); }
+    console.log('pre');
+    historyLoader();
+    setInterval(historyLoader,3000);
+    console.log('post');
+/*
+    console.log(contentPart);
+    $("#historyBlock").prepend(contentPart);*/
+/*function histLoader() {
+    $.ajax({
+        type: 'POST', //метод отправки запроса на сервер, пусть POST пофиг
+        url: './_history_loader.php', //собственно как файл на сервере будет исполнен. в общем файл где есть функция my();
+        data: {},//данные которые будут на сервер передаваться, в нашем случаи никаких, если нужно выполнить тупо еще раз функцию my без параметров.
+        success: function (data) {//собственно тут и надо разруливать данные присланные с сервера. функция будет вызываться при успешном ответе сервера. У ней есть параметр - data. В общем это те данные что пришли с сервера. В нашем случаи пришел хтмл код типа ((<div id="my" name="my">hello world<input type="button" value="Go" onClick="onChange_(this)"/></div>)). осталось только вставить его в нужно место на странице и все. я пустой блок с id="inner_block", в него и засунем то что пришло с сервера.
+            //$('#inner_block').append(data) // $('#inner_block') - находит на странице элемент с id=inner_block. append(data) - в конец этого элемента дописывает нашу data(данные пришедшие с сервера)
+
+            /!*console.log(data);*!/
+            $('#historyBlock').prepend(data);
+        }
+    });
+}
+setInterval(histLoader,2000);*/
+
+</script>
+!-->
 </body>
 </html>

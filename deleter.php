@@ -1,4 +1,8 @@
 <?
+include_once "dbconnect.php";
+include_once "./inc/global_functions.php";
+session_start();
+
 			$action = $_GET['action'];
 			$order_manager = $_GET['order_manager'];
 			$order_number = $_GET['order_number'];
@@ -6,7 +10,7 @@
 			//mysql_query("DELETE FROM `works` WHERE ((`work_order_manager` = '$order_manager') AND (`work_order_number` = '$order_number'))");
 ?>
 <? if (isset($_GET['confirmed'])) {
-		
+			hist_writer("order_delete",$order_number,"",$_SESSION['manager'],"");
 			mysql_query("DELETE FROM `order` WHERE ((`order_manager` = '$order_manager') AND (`order_number` = '$order_number'))");
 			mysql_query("DELETE FROM `works` WHERE ((`work_order_manager` = '$order_manager') AND (`work_order_number` = '$order_number'))"); 
 			mysql_query("DELETE FROM `money` WHERE (`parent_order_number` = '$order_number')"); 

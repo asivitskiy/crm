@@ -36,7 +36,7 @@ function checkerror($json_responce,$blank_number,$message) {
 $messages_sql ="SELECT *,SUM(works.work_count*works.work_price) as ordersumm FROM `order`
                 LEFT JOIN `contragents` ON contragents.id = order.contragent
                 LEFT JOIN `works` ON works.work_order_number = order.order_number
-                WHERE ((contragents.notification_number <> '') and ((order.notification_status = 1) or (order.notification_status = 2)))
+                WHERE ((order.deleted <> '1') and (contragents.notification_number <> '') and ((order.notification_status = 1) or (order.notification_status = 2)))
                 GROUP BY order.order_number";
 $messages_array = mysql_query($messages_sql);
 while($messages_data = mysql_fetch_array($messages_array)) {
@@ -55,7 +55,10 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg_string .= 'Типография АДМИКС'.$br;
     $cur_msg_string .= 'Гурьевская, 78 (левый цоколь)'.$br;
     $cur_msg_string .= 'тел. +7(383)207-56-42'.$br.'сот. +7(923)240-10-20'.$br;
-    $cur_msg_string .= 'zakaz@admixprint.ru';
+    $cur_msg_string .= 'Режим работы: Пн - Пт 10:00 - 19:00'.$br;
+    $cur_msg_string .= 'zakaz@admixprint.ru'.$br;
+    $cur_msg_string .= 'При проблемах с заказом:'.$br;
+    $cur_msg_string .= 'z@admixprint.ru (руководитель)';
     $cur_msg = urlencode($cur_msg_string);
     $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$cfg['whatsapp_token'].'/?phone='.$cur_phone.'&text='.$cur_msg;
     $homepage = file_get_contents(($cur_getpage));
@@ -96,8 +99,10 @@ while($messages_data = mysql_fetch_array($messages_array)) {
     $cur_msg_string .= 'Типография АДМИКС'.$br;
     $cur_msg_string .= 'Гурьевская, 78 (левый цоколь)'.$br;
     $cur_msg_string .= 'тел. +7(383)207-56-42'.$br.'сот. +7(923)240-10-20'.$br;
-    $cur_msg_string .= 'zakaz@admixprint.ru';
-    $cur_msg = urlencode($cur_msg_string);
+    $cur_msg_string .= 'Режим работы: Пн - Пт 10:00 - 19:00'.$br;
+    $cur_msg_string .= 'zakaz@admixprint.ru'.$br;
+    $cur_msg_string .= 'При проблемах с заказом:'.$br;
+    $cur_msg_string .= 'z@admixprint.ru (руководитель)';$cur_msg = urlencode($cur_msg_string);
     $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$cfg['whatsapp_token'].'/?phone='.$cur_phone.'&text='.$cur_msg;
     $homepage = file_get_contents(($cur_getpage));
     echo $ordernumber.' отправлен (готовность)<br>';

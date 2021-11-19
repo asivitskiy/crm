@@ -96,8 +96,9 @@ function backup_tables($timeout_of_create_file,$timeout_of_mail_file,$host,$user
 					$zip = new ZipArchive(); //Создаём объект для работы с ZIP-архивами
 					$zip->open($filename.".zip", ZIPARCHIVE::CREATE); //Открываем или создаем архив, если его не существует
 					$zip->addFile($filename.".sql"); //Добавляем в архив файл in.php
-					$zip->close(); //Завершаем работу с архивом
-				sleep(4);
+                    sleep(20);
+                    $zip->close(); //Завершаем работу с архивом
+				sleep(10);
 				unlink($filename.'.sql');
 
 

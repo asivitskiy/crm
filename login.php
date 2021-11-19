@@ -14,7 +14,7 @@
 	$_SESSION['supervisor'] = $auth_data['supervisor'];
 	}	
 	
-	header('Location: index.php?&myorder=0&noready=1&showlist=&delivery=1');
+	header('Location: index.php?&myorder=1&noready=1&showlist=&delivery=1');
 								}
 
 	if ($_GET['quit'] == 1) {session_destroy();header('Location: index.php');}

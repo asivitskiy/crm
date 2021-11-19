@@ -1,4 +1,78 @@
 <?
+function hist_writer ($hist_type,$hist_order,$hist_contragent,$hist_manager,$hist_order_amount) {
+	$works_count_data =  mysql_fetch_array(mysql_query("SELECT COUNT(id) as `cid` FROM `works` WHERE `work_order_number` = '$hist_order'"));
+	$works_count = $works_count_data['cid'];
+	$current_date = date("YmdHi");
+	switch ($hist_type) {
+		case "order_add":
+			$message = "Менеджер: ".$hist_manager." добавил заказ ".$hist_order.". Сумма заказа - ".$hist_order_amount.", количество работ ".$works_count;
+			break;
+		case "order_change":
+			$message = "Менеджер: ".$hist_manager." изменил заказ ".$hist_order.". Сумма заказа - ".$hist_order_amount.", количество работ ".$works_count;
+			break;
+		case "order_delete":
+			$message = "Менеджер: ".$hist_manager." удалил заказ ".$hist_order;
+			break;
+	}
+	mysql_query("INSERT INTO `admix`.`hist` (
+		`hist_date_in`,
+		`hist_order_owner`,
+		`hist_contragent_owner`,
+		`hist_manager_owner`,
+		`hist_message`,
+		`hist_type`,
+		`hist_order_summ`
+	) VALUES (
+		'$current_date',
+		'$hist_order',
+		'$hist_contragent',
+		'$hist_manager',
+		'$message',
+		'$hist_type',
+		'$hist_order_amount'
+	)");
+}
+
+function ghost_history_writer ($type_of_object,$content_of_object) {
+
+}
+function add_history_message ($type_of_message,$text_of_message,$cur_manager,$cur_order_number) {
+    $cur_date = date('YmdHi');
+    mysql_query("INSERT INTO `admix`.`action_history` (
+                                `history_type` ,
+                                `history_text` ,
+                                `history_order_manager` ,
+                                `history_order_number` ,
+                                `history_date`
+                                )
+                                VALUES (
+                                '$type_of_message', 
+                                '$text_of_message', 
+                                '$cur_manager', 
+                                '$cur_order_number', 
+                                '$cur_date'
+                                );");
+}
+function send_file($filename)
+{
+    if (file_exists($filename)) {
+// чтобы избежать переполнение буфера
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($filename));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filename));
+        readfile($filename);
+        exit;
+    }
+}
+
 function dig_to_y($digdig)
     {	if(!isset($digdig))
             return false;

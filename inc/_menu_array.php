@@ -3,7 +3,7 @@
     $hrefs[0][1] = "img/icons/file, data, document, interface, paper.png";
     $hrefs[0][2] = "Новый заказ";
 
-    $hrefs[1][0] = "/?action=showlist";
+    $hrefs[1][0] = "/?&myorder=0&noready=1&showlist=&delivery=1&manager=current";
     $hrefs[1][1] = "img/icons/newspaper, article, headline, journal, news.png";
     $hrefs[1][2] = "Все заказы";
 

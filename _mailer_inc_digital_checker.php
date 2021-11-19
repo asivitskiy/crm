@@ -11,17 +11,23 @@ LEFT JOIN `outcontragent` ON works.work_tech = outcontragent.outcontragent_fulln
 WHERE order.deleted <> 1
 ";
 $array = mysql_query($sql);
+        $digital_counter = 0;
+        $reorder_counter = 0;
 while ($data = mysql_fetch_array($array)) {
 //echo $data['order_number']."<br>";
-if (($data['outcontragent_group'] == "books") or ($data['outcontragent_alias'] == "XEROX")) {
 $curorder = $data['order_number'];
-//echo $data['order_number']." имеет XEROX либо тетрадки"."<br>";
-mysql_query ("UPDATE `order` SET order.order_has_digital = '1' WHERE order.order_number = '$curorder'");
+    if ($curorder <> $prev_order_number) {  $digital_counter = 0;
+                                            $reorder_counter = 0;}
+    if (($data['outcontragent_group'] == "books") or ($data['outcontragent_alias'] == "XEROX")) {
+        $digital_counter = $digital_counter + 1;
+       }
+    else {
+        $reorder_counter = $reorder_counter + 1;
+    }
 
-}
-else {
-//echo "нет цифры <br>";
-}
+    mysql_query ("UPDATE `order` SET order.order_has_digital = '$digital_counter' WHERE order.order_number = '$curorder'");
+    mysql_query ("UPDATE `order` SET order.order_has_reorder = '$reorder_counter' WHERE order.order_number = '$curorder'");
+    $prev_order_number = $curorder;
 }
 echo "digitalchecker ... ok || time - ".dig_to_d(date('YmdHi'))."/".dig_to_m(date('YmdHi'))." (".dig_to_h(date('YmdHi')).":".dig_to_minute(date('YmdHi')).")";
 ?>

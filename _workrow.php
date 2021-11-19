@@ -26,6 +26,7 @@
 
 		case "redact": //в случае редакирования - принимаем данные из GET и используем их дальше
 			$action = $_GET['action'];
+
 			$order_number = $_GET['order_number'];
 			 //получаем строку заказа (сам заказ)
 				$order_redact_sql = "SELECT * FROM `order` WHERE ((`order_number`='$order_number'))";
@@ -46,6 +47,7 @@
 				$contragent_redact_array = mysql_query($contragent_redact_sql);
 				$contragent_redact_data = mysql_fetch_array($contragent_redact_array);
 			$contragent_id = $contragent_redact_data['id'];
+			
 			break;
 	
 	}
@@ -65,7 +67,8 @@
 <form action="_new_order_processor.php" method="POST" id="mainform">
 <div class="orderrow" style="width: 1300px;">
 	<input type="hidden" name="action" value="<? echo $action; ?>">
-	<input type="text" name="order_manager" readonly value="<? echo $order_manager; ?>" style="width:25px; ">-<input name="nomer_blanka" readonly type="text" value="<? echo $order_number; ?>" style="width:50px;"> 
+	<input type="hidden" name="qr_status" value="<? echo $order_redact_data['qr_status']; ?>">
+	<input type="text" name="order_manager" readonly value="<? echo $order_manager; ?>" style="width:25px; ">-<input name="nomer_blanka" readonly type="text" value="<? echo $order_number; ?>" style="width:50px;">
 	<input type="text" name="order_description" placeholder="описние заказа" style="width: 745px; margin-top: 10px;" value="<?
 echo $order_redact_data['order_description']; ?>"><br>
 	<div style="display: inline; margin-left: 85px;">Сдача :</div><input type="date" style="margin-top: 5px; margin-left: 5px;" name="datetoend" value="<? echo $plan_date; ?>"><input class="timeselect" autocomplete="off" type="text"  name="timetoend" value="<? echo $plan_time; ?>">
@@ -90,7 +93,8 @@ echo $order_redact_data['order_description']; ?>"><br>
     <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
         WA -> <? 	echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
         ?>
-         <a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end" style="line-height:20px;">Открыть Whatsapp</a>
+         <a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end" style="line-height:20px;">открыть Whatsapp</a>
+		 <a class="a_orderrow" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage" style="line-height:20px;">заказ оформлен</a>
     </div>
 
 
@@ -101,7 +105,8 @@ echo $order_redact_data['order_description']; ?>"><br>
 </div>
 
 
-<div class="addition_status_block" style="margin: 0px auto; float: left;padding: 5px; margin-left: 5px;">Заметки к заказу<textarea  name="order_message" style="resize: none; height: 35px; font-size: 14px; width: 98%"></textarea>
+<div class="addition_status_block" style="margin: 0px auto; float: left;padding: 5px; margin-left: 5px;">
+Заметки к заказу<textarea  name="order_message" style="resize: none; height: 35px; font-size: 14px; width: 98%"></textarea>
 <input type="submit" value="добавить" style="padding: 0px; height: 25px; font-size: 14px; margin-top: 5px;">
 <div style="padding: 5px; border: 1px solid #E5E5E5; border-radius: 3px;  background-color: white; display: block; width: 250px; height: 200px;margin-top: 10px; overflow-y: scroll;"><? include "./_order_message_read.php"; ?></div>
 </div>
@@ -121,8 +126,8 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 
 <br><select name="preprint" style="<? if ((($order_redact_data['preprint'] >1) or ($order_redact_data['preprint'] == 'Нет')) and ($action == "redact")) {echo("background-color:#D0FBC7");} ?>" onchange="if (this.selectedIndex) this.form.submit ()">
 		<option style="display: none">Допечать готова</option>
-		<option value="Аня" <? if (($order_redact_data['preprinter'] == 'Аня') or ($action == "new")) {echo("selected");} ?>>Допечать Аня</option>
-		<option value="Алиса" <? if (($order_redact_data['preprinter'] == 'Алиса')) {echo("selected");} ?>>Допечать Алиса</option>
+		<option value="Алиса" <? if (($order_redact_data['preprinter'] == 'Алиса') or ($action == "new")) {echo("selected");} ?>>Допечать Алиса</option>
+		<option value="Аня" <? if (($order_redact_data['preprinter'] == 'Аня')) {echo("selected");} ?>>Допечать Аня</option>
 		<option value="Катя" <? if (($order_redact_data['preprinter'] == 'Катя')) {echo("selected");} ?>>Допечать Катя</option>
 		<option value="Нет" <? if ($order_redact_data['preprinter'] == 'Нет') {echo("selected");} ?>>Не требуется</option>
 		<!--<option value="set_ok" <?// if ($order_redact_data['preprint'] >1) {echo("selected");} ?>>Допечать готова</option> !-->
@@ -388,11 +393,14 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 	<input type="submit" class="final blank_buttons" value="Оформить / обновить" >
 	<input type="submit" style="margin-left: 150px;" class="111 blank_buttons" name="doubleflag" value="Дублировать заказ">
 	<input type="submit" class="oldBlank blank_buttons" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк" <? if ($plan_time == '') {echo "disabled";} ?>>
-    <a target="_blank" class="a_orderrow blank_buttons" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank" >PDF</a>
+    <a target="_blank" class="a_orderrow blank_buttons" href="./?&myorder=1&noready=0&showlist=&delivery=1&clientstring=<? echo $contragent_id; ?>" target="_blank" >Карточка</a>
+	
+	<a target="_blank" class="a_orderrow blank_buttons" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank" >PDF</a>
     <!--<a target="_blank" class="a_orderrow printerButton" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
 	-->
 	<input class="blank_buttons" id="printBtn" type="button" onclick="printblank(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Печать" >
-	
+	<input class="blank_buttons" id="printBtnCopy" type="button" onclick="printCopyCheck(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Копия чека" >
+
 
 	<input type="submit" formaction="index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>" value="Удалить заказ">
 </div>

@@ -1,6 +1,7 @@
 <?php
 //формирование записай в базу данных о новом заказе, либо обновление строк по нему
 include "dbconnect.php";
+include "./inc/global_functions.php";
 session_start();
 
 //вывод массива POST
@@ -33,20 +34,26 @@ if ($_POST['doubleflag'] == "Дублировать заказ") {$action = "new
 
 
 
-$order_pre_check_sql = "SELECT * FROM `order` WHERE ((`order_number` = '$order_number')) LIMIT 0,1";
+$order_pre_check_sql = "SELECT * FROM `order` 
+						LEFT JOIN `contragents` ON contragents.id = order.contragent
+						WHERE ((`order_number` = '$order_number')) LIMIT 0,1";
 $order_pre_check_array = mysql_query($order_pre_check_sql);
 $order_pre_check_data = mysql_fetch_array($order_pre_check_array);
 
 	//перенос простых переменных (например,запрос счета)
 	//там может быть либо ничего, либо 12-значное число - дата
-	
-	$paystatus = $order_pre_check_data['paystatus'];
-	$price_change_flag = $order_pre_check_data['price_change_flag'];
-	$notification_status = $order_pre_check_data['notification_status'];
-	$notification_of_end_status = $order_pre_check_data['notification_of_end_status'];
-	$date_of_end = $order_pre_check_data['date_of_end'];
 
-	//УСЛОВИЯ УБИРАЮТ КОСЯК С ПЕРЕЗАПИСЬЮ ДАТЫ ГОТОВНОСТИ ЭТАПА НА ТЕКУЩУЮ ПРИ РЕДАКТИРОВАНИИ
+	$paystatus 					= $order_pre_check_data['paystatus'];
+	$price_change_flag 			= $order_pre_check_data['price_change_flag'];
+	$notification_status 		= $order_pre_check_data['notification_status'];
+	$notification_of_end_status = $order_pre_check_data['notification_of_end_status'];
+	$date_of_end 				= $order_pre_check_data['date_of_end'];
+	$order_has_digital 			= $order_pre_check_data['order_has_digital'];
+	$order_has_reorder 			= $order_pre_check_data['order_has_reorder'];
+	$order_ready_digital 		= $order_pre_check_data['order_ready_digital'];
+	$order_ready_reorder 		= $order_pre_check_data['order_ready_reorder'];
+
+//УСЛОВИЯ УБИРАЮТ КОСЯК С ПЕРЕЗАПИСЬЮ ДАТЫ ГОТОВНОСТИ ЭТАПА НА ТЕКУЩУЮ ПРИ РЕДАКТИРОВАНИИ
 	//проверка что было в согласовании (чтобы дата не перезаписывалась при каждом обновлении заказа!!!!! первое условие - перебор всех условий кроме даты)
 	$soglas	= $_POST['soglas'];
 	if ((($order_pre_check_data['soglas']==0)or($order_pre_check_data['soglas']==1))and($soglas == "set_ok")) { $soglas = date("YmdHi");$soglas_change_flag = 1;}
@@ -59,7 +66,7 @@ $order_pre_check_data = mysql_fetch_array($order_pre_check_array);
 	if (($preprint=='Алиса') or ($preprint=='Аня') or ($preprint=='Катя')) { $preprinter = $preprint;} else if ($preprint<>'set_ok') {$preprinter = $order_pre_check_data['preprinter'];}
 	if (($preprint=='Нет')) { $preprinter = 'Нет';}
 	if ((strlen($order_pre_check_data['preprint'])) == 12) { $preprint = $order_pre_check_data['preprint'];}
-	if (($preprint_button == "Подготовлено") and ((strlen($order_pre_check_data['preprint'])) <> 12)) { $preprint = date("YmdHi");}
+	if (($preprint_button == "Подготовлено") and ((strlen($order_pre_check_data['preprint'])) <> 12)) { $preprint = date("YmdHi"); $preprint_ready_flag = 1;}
 	if (($preprint_button == "Подготовлено") and ((strlen($order_pre_check_data['preprint'])) == 12)) { $preprint = $preprinter;}
 	
 	//if ((($order_pre_check_data['preprint']<>1)and($order_pre_check_data['preprint']<>0))and($preprint == "set_ok")) { $preprint = $order_pre_check_data['preprint'];}
@@ -118,6 +125,9 @@ $work_sheets	= $_POST['work_sheets'];
 $work_price		= $_POST['work_price'];
 $work_rashod	= $_POST['work_rashod'];
 $work_rashod_list	= $_POST['work_rashod_list'];
+$qr_status 			= $order_pre_check_data['qr_status'];
+if ($qr_status == '0') {$qr_status = '1';}
+if ($qr_status == '2') {$qr_status = '1';}
 
 
 //проверка есть-нет контрагент. новый - вставляем  нового, редактирование - сохраняем старую версию и перезаписываем новую
@@ -187,6 +197,7 @@ $contragent_id			= 	addslashes($refresh_contragent_data_row['id']);
 				$order_number = $order_check_data['order_number']+1;
 				//$num_of_rows = mysql_num_rows($order_check_array);
 				//$temp_order_number = $temp_order_number + 1;
+				
 			//}
 			//перенос комментариев при дублировании (там часто адреса доставки переменные - чтобы подтягивались за основным заказом)
 			if ($_POST['doubleflag'] == "Дублировать заказ") {
@@ -252,7 +263,7 @@ $contragent_id			= 	addslashes($refresh_contragent_data_row['id']);
 		
 //номерки поправлены, всё удалено, вставляем начисто строку с заказом
 //дата приема пищется один раз и не изменяется
-if ($action=="new") {$date_in = date("YmdHi");}
+if ($action=="new") {$date_in = date("YmdHi"); $qr_status = 1;}
 if ($action<>"new") {$date_in = $order_pre_check_data['date_in'];}
 $datetoend = $datetoend.$timetoend;
 $datetoend = str_replace(":","",$datetoend);
@@ -277,7 +288,12 @@ $order_sql = "INSERT INTO `order` (
 			notification_of_end_status,
 			date_of_end,
 			date_in,
-			price_change_flag)
+            order_has_digital,
+            order_has_reorder,
+            order_ready_digital,
+            order_ready_reorder,
+            price_change_flag,
+        	qr_status)
 			VALUES (
 			'$contragent_id',
 			'$order_description',
@@ -298,7 +314,12 @@ $order_sql = "INSERT INTO `order` (
 			'$notification_of_end_status',
 			'$date_of_end',
 			'$date_in',
-			'$price_change_flag')";
+			'$order_has_digital',
+            '$order_has_reorder',
+            '$order_ready_digital',
+            '$order_ready_reorder',
+            '$price_change_flag',
+			'$qr_status')";
 mysql_query($order_sql);
 
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\///
@@ -332,7 +353,7 @@ mysql_query($message_in_sql);}
 
 $work_delete = "DELETE FROM `works` WHERE ((`work_order_number` = '$order_number'))";
 mysql_query($work_delete);
-
+$works_summ = 0;
 $work_counter = count($work_name) - 1;
 for ($i = 0; $i <= $work_counter; $i++) 
 	{
@@ -378,11 +399,16 @@ $work_rashod_listi=$work_rashod_list[$i];
 $work_add_sql = "INSERT INTO `works` (work_order_manager,work_order_number,work_name,work_description,work_vis,work_shir,work_color,work_media,work_tech,work_price,work_count,work_sheets,work_postprint,work_rashod,work_rashod_list,work_rasklad) 
 VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$work_visi','$work_shiri','$work_colori','$work_mediai','$work_techi','$work_pricei','$work_counti','$work_sheetsi','$work_postprinti','$work_rashodi','$work_rashod_listi','$work_raskladi')";
 		mysql_query($work_add_sql);
+		$works_summ = $works_summ + $work_pricei*$work_counti;
 			}
 
 //////////////////////////////
 ////вставка работ окончена////
 //////////////////////////////
+
+//ИСТОРИЯ
+if ($action == "new") {hist_writer("order_add",$order_number,$contragent_id,$order_manager,$works_summ);} else {hist_writer("order_change",$order_number,$contragent_id,$order_manager,$works_summ);}
+
 
 //переустанавливаем признак изменения цены, если бланк возвращен в работу из ожидания (нужно для корректной работы вацап рассыльщика)
 if ($soglas_change_flag == 1) {
@@ -434,6 +460,7 @@ if ($_POST['ready_button'] == "Отпечатано") {
 											$readyquery = "UPDATE `order` SET `date_of_end` = '$curenttimerd' WHERE (`order_number` = '$order_number')";
 											mysql_query($readyquery);
 
+											if ($order_pre_check_data['notification_number'] == '') {$notofocation_of_end = '';}
 											$readyquery = "UPDATE `order` SET `notification_of_end_status` = '$notofocation_of_end' WHERE (`order_number` = '$order_number')";
 											mysql_query($readyquery);
 
@@ -486,6 +513,10 @@ if (((strlen($ready_checker_data['delivery'])==12) or (strlen($ready_checker_dat
 //сброс статуса order-checked
 mysql_query("UPDATE `order` SET `order_status-check`=0 WHERE `order_number` = '$order_number'");
 
+//отправка печатнику бланка если допечатка готова
+/*if ($preprint_ready_flag == 1) {
+//$aa = file_get_contents('http://192.168.1.221/_printengine.php?addtoquery=1&order_number='.$order_number);
+}*/
 //переадресация обратно
 	header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?double_contragent='.($doublecontragentcount*1).'&action=redact&order_number='.$order_number);
 

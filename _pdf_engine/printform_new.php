@@ -146,6 +146,9 @@ $works_query  = mysql_query($works_sql);
 ?>
 
 <table class="works">
+    <tr class="blank-logo" style="margin-bottom: 5px;">
+        <td><img src="admix_logo.png" width="100" height="40"></td>
+    </tr>
     <tr class="blank-header">
         <td class="blank-header__cell blank-header__cell--order-number">Заказ № <? echo $order_data['order_manager']; ?>-<? echo $order_data['order_number']; ?></td>
         <td class="blank-header__cell blank-header__cell--order-datein"><? echo(dig_to_d($datein)); ?>.<? echo(dig_to_m($datein)); ?>.<? echo(dig_to_y($datein)); ?> <? echo(dig_to_h($datein)); ?>:<? echo(dig_to_minute($datein)); ?></td>

@@ -11,10 +11,19 @@ if ($_GET['filter'] == 'startscreen') {  ?>
 		<a class="a_orderrow" href="_oborot.php">ОБОРОТЫ</a><br>
     <? } ?>
 		<a class="a_orderrow" href="?action=administrating&filter=add_demand">Выставить счет</a><br>
-		<a class="a_orderrow" href="?action=administrating&filter=demand_list_first">Список незакрытых счетов</a><br>
+        <!--<a class="a_orderrow" href="http://192.168.1.221/?&myorder=0&noready=0&showlist=&delivery=1&manager=<?/* echo $userdata*/?>"></a>-->
+		<a class="a_orderrow" href="http://192.168.1.221/?action=administrating&filter=demand_list_first">Список незакрытых счетов</a><br>
 		<!--<a class="a_orderrow" href="?action=administrating&filter=all_demands">Все счета</a><br><br>-->
 		<!--<a class="a_orderrow" href="?action=administrating&filter=new_all_demands">Новый список счетов</a><br><br>-->
         <a class="a_orderrow" href="?action=rashodka">Расходка общая</a><br>
+        <a class="a_orderrow" href="http://192.168.1.221/?&myorder=0&noready=0&showlist=&delivery=1&manager=Ю">Ю</a>
+        <a class="a_orderrow" href="http://192.168.1.221/?&myorder=0&noready=0&showlist=&delivery=1&manager=Н">Н</a>
+        <a class="a_orderrow" href="http://192.168.1.221/?&myorder=0&noready=0&showlist=&delivery=1&manager=Ч">Ч</a>
+        <a class="a_orderrow" href="http://192.168.1.221/?&myorder=0&noready=0&showlist=&delivery=1&manager=Е">Е</a>
+        <a class="a_orderrow" href="http://192.168.1.221/?&myorder=0&noready=0&showlist=&delivery=1&manager=П">П</a>
+
+
+    <br>
 	<? if ($_SESSION['supervisor'] == 1) { ?>	<a class="a_orderrow" href="?action=zarplata">Зарплатная таблица</a><br><br> <? } ?>
 
 <? } ?>
@@ -107,8 +116,15 @@ if ($_GET['filter'] == 'demand_count') {
 	echo '<b>Реквизиты:</b> <div style=width:400px;> '.$contragent_info_data['fullinfo'].'</div><br>';
 	echo '<b>Общая сумма:</b> '.$amount_demand_works.'<br>';
 	echo '<b>Номера заказов:</b> '.$searchstring.'<br>';
+	//поиск последнего счета для этого клиента (чтобы понять с какой организации был выставлен)
+	echo "<br><b>Оплаты по последним 10 бланкам:</b><br>";
+	$last_demand_sql = "SELECT * FROM `order` WHERE `contragent` = ".$contragent_info_data['id']." LIMIT 10";
+	$last_demand_array = mysql_query($last_demand_sql);
+	while ($last_demand_data = mysql_fetch_array($last_demand_array)) {
+		echo $last_demand_data['paymethod']."; ";
+	}
 	?>
-	<br>
+	<br><br>
 	<input type="text" name="paylist" placeholder="Номер счета">
 
 	<select name="paymethod">
@@ -235,8 +251,16 @@ if ($_GET['filter'] == 'complete_demand') {
 															");
 
 			}
-
-			echo ('Счет успешно добавлен!<br><a href=?action=administrating&filter=startscreen>Вернутсья в панель администрирования</a>');
+				$sucsess_ckeck_sql = "SELECT * FROM `order` WHERE order.paylist ='$paylist'";
+				$sucsess_ckeck_array = mysql_query($sucsess_ckeck_sql);
+				while ($sucsess_ckeck_data = mysql_fetch_array($sucsess_ckeck_array)) {
+					echo "счет № ".$paylist." добавлен в бланк ".$sucsess_ckeck_data['manager']."-".$sucsess_ckeck_data['order_number']."<br>";
+					$cur_manager = $sucsess_ckeck_data['order_manager'];
+					$cur_order = $sucsess_ckeck_data['order_number'];
+					add_history_message('manager','счет: выставлен',$cur_manager,$cur_order);
+				}
+			echo "если не перечислены бланки - значит счет не выставился<br>";
+			echo ('<br><a href=?action=administrating&filter=startscreen>Вернутсья в панель администрирования</a>');
 	/*$update_old_contragent_sql = "UPDATE `contragents` SET `name`='$contragent_name',`address`='$contragent_address',`fullinfo` ='$contragent_fullinfo',`contacts`='$contragent_contacts' WHERE (`id`='$contragent_id')";
 	*/
 }

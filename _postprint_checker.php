@@ -7,8 +7,24 @@ require_once  './inc/cfg.php';
 require_once  './inc/config_reader.php';
 if ($_GET['action'] == 'getready') {
     $current_order_number = $_GET['order_number'];
+    $current_order_manager = $_GET['order_manager'];
     $current_date = date("YmdHi");
     mysql_query("UPDATE `order` SET `order_ready_digital` = '$current_date' WHERE `order_number` = '$current_order_number'");
+/*    mysql_query("INSERT INTO `admix`.`action_history` (
+                                `history_type` ,
+                                `history_text` ,
+                                `history_order_manager` ,
+                                `history_order_number` ,
+                                `history_date`
+                                )
+                                VALUES (
+                                'manager', 
+                                'Цех: заказ готов', 
+                                '$current_order_manager', 
+                                '$current_order_number', 
+                                '$current_date'
+                                );");*/
+    add_history_message('manager','Цех: заказ готов',$current_order_manager,$current_order_number);
     header('Location: http://'.$_SERVER['SERVER_NAME'].'/_postprint_checker.php?action=showlist');
 }
 $action = $_GET['action']; 
@@ -62,7 +78,7 @@ $current_manager = $_SESSION['manager'];  ?>
 
 <?
 function render_postprint_list() {
-    $arr = mysql_query("SELECT *,LENGTH(order.preprint) as lenn FROM `order` WHERE ((order.order_has_digital = 1) and (order.order_ready_digital = 0) and (order.deleted <> 1) and (order.soglas <> 0)) ORDER BY order.order_number DESC");
+    $arr = mysql_query("SELECT *,LENGTH(order.preprint) as lenn FROM `order` WHERE ((order.order_has_digital >0) and (order.order_ready_digital = 0) and (order.deleted <> 1) and (order.soglas <> 0)) ORDER BY order.order_number DESC");
     while ($dat = mysql_fetch_array($arr)) { ?>
 
         <a href="_postprint_checker.php?action=showdetails&order_number=<? echo $dat['order_number'];?>">
@@ -101,11 +117,12 @@ function render_postprint_details($ordernumber) {
         
     $i++;
     $cur_order_number = $dat['order_number'];
+    $cur_order_manager = $dat['order_manager'];
 } 
 echo "<br>";
 echo "<a href=_postprint_checker.php?action=showlist class=bigbutton><<<назад</div>";
 
-echo "<a href=_postprint_checker.php?action=getready&order_number=".$cur_order_number." class=bigbutton style=margin-left:75px;>готов</div>";
+echo "<a href=_postprint_checker.php?action=getready&order_number=".$cur_order_number."&order_manager=".$cur_order_manager." class=bigbutton style=margin-left:75px;>готов</div>";
 
 } 
 
