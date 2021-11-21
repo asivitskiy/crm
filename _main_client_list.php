@@ -1,6 +1,6 @@
 <div class="clientblock"><h3>Список клиентов</h3> (долги/обороты обновляются раз в 30 минут)<br><br>
     <?
-    if (($_SESSION['manager'] == 'Марина')) {
+    if (($_SESSION['supervisor'] == '1')) {
 if (!isset($_GET['red_num'])) {
 
 $client_list_sql = "SELECT * FROM `contragents` ORDER by `contragent_dolg` DESC";
