@@ -93,8 +93,8 @@ echo $order_redact_data['order_description']; ?>"><br>
     <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
         WA -> <? 	echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
         ?>
-         <a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end" style="line-height:20px;">открыть Whatsapp</a>
-		 <a class="a_orderrow" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage" style="line-height:20px;">заказ оформлен</a>
+         <!--<a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end" style="line-height:20px;">открыть Whatsapp</a>
+		 <a class="a_orderrow" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage" style="line-height:20px;">заказ оформлен</a>-->
     </div>
 
 
@@ -105,10 +105,15 @@ echo $order_redact_data['order_description']; ?>"><br>
 </div>
 
 
-<div class="addition_status_block" style="margin: 0px auto; float: left;padding: 5px; margin-left: 5px;">
-Заметки к заказу<textarea  name="order_message" style="resize: none; height: 35px; font-size: 14px; width: 98%"></textarea>
-<input type="submit" value="добавить" style="padding: 0px; height: 25px; font-size: 14px; margin-top: 5px;">
-<div style="padding: 5px; border: 1px solid #E5E5E5; border-radius: 3px;  background-color: white; display: block; width: 250px; height: 200px;margin-top: 10px; overflow-y: scroll;"><? include "./_order_message_read.php"; ?></div>
+<div class="addition_status_block" style="margin: 0px auto; float: left; margin-left: 5px; width: 274px; height: 461px; padding: 5px;">
+Вацапошная
+<a class="a_orderrow" style="padding: 10px; width: 247px" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end">WA -> Открыть чат</a>
+<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;">WA -> Отправить QR</a><a class="a_orderrow button_status">*</a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage">WA -> заказ оформлен</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "OK";} else {echo "*";}  ?></a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href>WA -> заказ готов</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "*";} else {echo "*";}  ?></a>
+<!--<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;">Отправить QR</a>!-->
+<br>
+
 </div>
 
 
