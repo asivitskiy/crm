@@ -17,12 +17,12 @@ while($contragent_data = mysql_fetch_array($contragent_array)) {
     $allworks = 0;
     $allmoney = 0;
     /*echo 'asdasd'.$ssss;*/
-    $order_counter_sql = mysql_query("SELECT * FROM `order` WHERE `contragent` = '$ssss'");
+    $order_counter_sql = mysql_query("SELECT * FROM `order` WHERE ((`contragent` = '$ssss') and (LENGTH(`soglas`) = 12))");
 
     while ($order_data = mysql_fetch_array($order_counter_sql)) {
         $cur_order = $order_data['order_number'];/*echo '['.$cur_order.']';*/
 
-        if ($order_data['deleted'] == 0) {
+        if (($order_data['deleted'] == 0)) {
             $works_sql_dolg = "SELECT SUM(works.work_count*works.work_price) as summm FROM `works` WHERE ((`work_order_number` = '$cur_order')) LIMIT 1";
             $works_array_dolg = mysql_query($works_sql_dolg);
             $works_data_dolg = mysql_fetch_array($works_array_dolg);
@@ -51,6 +51,7 @@ while($contragent_data = mysql_fetch_array($contragent_array)) {
     mysql_query("UPDATE `contragents` SET `contragent_inwork` = '$inwork' WHERE `id` = '$ssss'");
     mysql_query("UPDATE `contragents` SET `contragent_amount` = '$allworks' WHERE `id` = '$ssss'");
     mysql_query("UPDATE `contragents` SET `contragent_dolg` = '$amount_dolg' WHERE `id` = '$ssss'");
+    mysql_query("UPDATE `contragents` SET `contragent_from_money_table` = '$allmoney' WHERE `id` = '$ssss'");
     if (($inwork == 0) and (abs($allmoney - $allworks)>0.1)) {
         //echo '<a href=index.php?action=showlist&filter=client&argument='.$ssss.'>(!) </a>';
     }

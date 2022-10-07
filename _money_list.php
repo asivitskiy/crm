@@ -4,6 +4,7 @@ $year_count = $_GET['year']*1;
 ?>
 <a class="a_orderrow" href="?action=zarplata&year=2020">2020</a>
 <a class="a_orderrow" href="?action=zarplata&year=2021">2021</a>
+<a class="a_orderrow" href="?action=zarplata&year=2022">2022</a>
 <Br>
 <?php
 
@@ -102,7 +103,7 @@ $imager_array = mysql_query($imager_sql);
 $managers_array[] = 'Ю';
 $managers_array[] = 'Н';
 $managers_array[] = 'А';
-$managers_array[] = 'Ч';
+$managers_array[] = 'Л';
 $managers_array[] = 'П';
 
 //начало перебора менеджеров	
@@ -322,12 +323,14 @@ $managerrrr = $managers_array[$i];
 			echo "<td style='border:1px solid black; padding:5px;'>";
 			$str = str_pad($im, 2, 0, STR_PAD_LEFT);
 			$strr = $str.'';$iyr = $iy.'';
+			if ($managerrrr == 'Ч') {$digital_coeff = 0.07;} else {$digital_coeff = 0.06;}
 			$zp[$managerrrr][$iyr][$strr] = 
 				$book_part_of_order[$managerrrr][$iyr][$strr]*0.05+
 				$own_design_part_of_order[$managerrrr][$iyr][$strr]*0.5+
 				$design_part_of_order[$managerrrr][$iyr][$strr]*0.1+
 				$reorder_part_of_order[$managerrrr][$iyr][$strr]*0.25+
-				$digital_part_of_order[$managerrrr][$iyr][$strr]*0.06;
+				
+				$digital_part_of_order[$managerrrr][$iyr][$strr]*$digital_coeff;
 				
 				
 			if ($managerrrr == 'А') {$dop = $preprinter_amount['Аня'][$iyr][$strr]*0.02 + $diz_counter['Аня'][$iyr][$strr]*0.5;}	

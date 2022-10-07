@@ -1,4 +1,122 @@
 <?
+function getWorkingDays($startDate,$endDate,$holidays){
+    $endDate = strtotime($endDate);
+    $startDate = strtotime($startDate);
+
+    $days = ($endDate - $startDate) / 86400 + 1;
+
+    $no_full_weeks = floor($days / 7);
+    $no_remaining_days = fmod($days, 7);
+
+    $the_first_day_of_week = date("N", $startDate);
+    $the_last_day_of_week = date("N", $endDate);
+
+    if ($the_first_day_of_week <= $the_last_day_of_week) {
+        if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
+        if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
+    }
+    else {
+        if ($the_first_day_of_week == 7) {
+            $no_remaining_days--;
+
+            if ($the_last_day_of_week == 6) {
+                $no_remaining_days--;
+            }
+        }
+        else {
+            $no_remaining_days -= 2;
+        }
+    }
+
+    $workingDays = $no_full_weeks * 5;
+    if ($no_remaining_days > 0 )
+    {
+        $workingDays += $no_remaining_days;
+    }
+
+    foreach($holidays as $holiday){
+        $time_stamp=strtotime($holiday);
+        if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 6 && date("N",$time_stamp) != 7)
+            $workingDays--;
+    }
+
+    return $workingDays;
+}
+
+function creataPathForApp ($number,$manager) {
+	$month_array[]="";
+	$month_array[]="Январь";
+	$month_array[]="Февраль";
+	$month_array[]="Март";
+	$month_array[]="Апрель";
+	$month_array[]="Май";
+	$month_array[]="Июнь";
+	$month_array[]="Июль";
+	$month_array[]="Август";
+	$month_array[]="Сентябрь";
+	$month_array[]="Октябрь";
+	$month_array[]="Ноябрь";
+	$month_array[]="Декабрь";
+	//$ip = "192.168.2.81";
+	$path_sql = "SELECT * FROM `order` WHERE order.order_number = '$number'";
+	$path_data = mysql_fetch_array(mysql_query($path_sql));
+	$order_date = $path_data['date_in'];
+	//http://192.168.2.81:8888/?open_folder=\\192.168.1.112\server_1\1 в печать\2022\01 Январь\24.01.2022\Ю-1111
+	$cur_date = $order_date;
+	$cur_day = dig_to_d($cur_date);
+	$cur_month = dig_to_m($cur_date);
+	$cur_year = dig_to_y($cur_date);
+	$inmonth_folder = $cur_day.".".$cur_month.".".$cur_year;
+	$inyear_folder = $cur_month." ".$month_array[$cur_month*1];
+	$text_dir = '\\\192.168.1.112\server_1\1 в печать\\'.$cur_year.'\\'.$inyear_folder.'\\'.$inmonth_folder.'\\'.$number.'-'.$manager;
+	$text_dih =  '\\192.168.1.112\server_1\1 в печать\\'.$cur_year.'\\'.$inyear_folder.'\\'.$inmonth_folder.'\\'.$number.'-'.$manager;
+	$text_drr = '\\\192.168.1.112\server_1\1 в печать\\'.$cur_year.'\\'.$inyear_folder.'\\'.$inmonth_folder;
+	
+	
+	//return iconv("UTF-8", "cp1251", addslashes($full_href));
+	//return $full_href;
+
+	if ( !is_dir( iconv("UTF-8", "cp1251", addslashes($text_dih)) ) ) {
+		return "http://127.0.0.1:8999/?open_folder=".$text_drr;       
+	} else {
+		return "http://127.0.0.1:8999/?open_folder=".$text_dir;
+	}
+	//echo $text_dir;
+	//$dir = iconv("UTF-8", "cp1251", addslashes($text_dir));
+
+	}
+
+function createOrderFolder ($number,$manager) {
+	$month_array[]="";
+	$month_array[]="Январь";
+	$month_array[]="Февраль";
+	$month_array[]="Март";
+	$month_array[]="Апрель";
+	$month_array[]="Май";
+	$month_array[]="Июнь";
+	$month_array[]="Июль";
+	$month_array[]="Август";
+	$month_array[]="Сентябрь";
+	$month_array[]="Октябрь";
+	$month_array[]="Ноябрь";
+	$month_array[]="Декабрь";
+	
+	
+	$cur_date = date("YmdHi");
+	$cur_day = dig_to_d($cur_date);
+	$cur_month = dig_to_m($cur_date);
+	$cur_year = dig_to_y($cur_date);
+	$inmonth_folder = $cur_day.".".$cur_month.".".$cur_year;
+	$inyear_folder = $cur_month." ".$month_array[$cur_month*1];
+	$text_dir = '\\192.168.1.112\server_1\1 в печать\\'.$cur_year.'\\'.$inyear_folder.'\\'.$inmonth_folder.'\\'.$number.'-'.$manager;
+	//echo $text_dir;
+	$dir = iconv("UTF-8", "cp1251", addslashes($text_dir));
+	if ( !is_dir( $dir ) ) {
+		mkdir( $dir , 0777, true);       
+	}
+	//echo $dir;
+	}
+	
 function hist_writer ($hist_type,$hist_order,$hist_contragent,$hist_manager,$hist_order_amount) {
 	$works_count_data =  mysql_fetch_array(mysql_query("SELECT COUNT(id) as `cid` FROM `works` WHERE `work_order_number` = '$hist_order'"));
 	$works_count = $works_count_data['cid'];
@@ -1830,4 +1948,13 @@ function month_name_short($month_number) {
     $names[12] = 'Дек';
     return $names[$month_number];
 }
+
+function sendWhatsappNocheck ($number_to,$message,$number_from) {
+    $config_array = mysql_query("SELECT * FROM `admix_config` WHERE `parameter`='whatsapp_token'");
+    $token = mysql_fetch_array($config_array);
+    $cur_msg = urlencode($message);
+    $cur_getpage = 'https://wamm.chat/api2/msg_to/'.$token['value'].'/?phone='. $number_to.'&text='.$cur_msg;
+    file_get_contents(($cur_getpage));
+}
+
 ?>

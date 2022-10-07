@@ -1,7 +1,7 @@
 <? $start = microtime(true); ?>
 <? include '../dbconnect.php'; ?>
 <? session_start(); ?>
-
+<? include '../inc/barcode.inc.php'; ?>
 <? include '../inc/global_functions.php'; ?>
 <? include '../inc/cfg.php'; ?>
 <? $action = $_GET['action']; ?>
@@ -64,6 +64,7 @@
         }
         .works__cell--media {
             width: 190px;
+            font-weight: bold;
         }
         .works__cell--postprint {
             text-align: left;
@@ -146,8 +147,12 @@ $works_query  = mysql_query($works_sql);
 ?>
 
 <table class="works">
-    <tr class="blank-logo" style="margin-bottom: 5px;">
+<tr class="blank-logo" style="margin-bottom: 5px;">
         <td><img src="admix_logo.png" width="100" height="40"></td>
+        <td></td>
+        <td style="text-align: right"><?
+            new barCodeGenrator($number,1,'./barcodes/'.$number.'.gif', 100, 50, 0);
+            ?><img src="./barcodes/<? echo $number;?>.gif" width="200" height="50"></td>
     </tr>
     <tr class="blank-header">
         <td class="blank-header__cell blank-header__cell--order-number">Заказ № <? echo $order_data['order_manager']; ?>-<? echo $order_data['order_number']; ?></td>
@@ -195,6 +200,11 @@ $works_query  = mysql_query($works_sql);
     <?
     $order_summ = 0;
     while ($works_data = mysql_fetch_array($works_query)) {
+        //вот тут достаём цвет для материала
+        $current_meda_type = $works_data['work_media'];
+        $media_color_sql = "SELECT * FROM `media_types` WHERE media_types.name = '$current_meda_type'";
+        $media_color_data = mysql_fetch_array(mysql_query($media_color_sql));
+        $media_color_background = $media_color_data['desc2'];
         //ищем синоним изготовления, чтобы не палить его в бланке<br>
         $ssss = $works_data['work_tech'];
         $work_type_alias_data = mysql_fetch_array(mysql_query("SELECT `outcontragent_alias` FROM `outcontragent` WHERE `outcontragent_fullname` = '$ssss'"));
@@ -214,7 +224,10 @@ $works_query  = mysql_query($works_sql);
             </td>
 
             <td rowspan="2" class="works__cell works__cell--size"      >
-                <? echo $works_data['work_shir']; ?>*<? echo $works_data['work_vis'].'<br>';
+                <? echo $works_data['work_shir']; ?>
+                <? if (($works_data['work_shir'] >450)or($works_data['work_shir']>450)) {echo "<br>";}?>
+                *
+                <? echo $works_data['work_vis'].'<br>';
                 if (stripos($works_data['work_rasklad'],"34320") === false) {
                     echo str_replace(' ', '', $works_data['work_rasklad']);
                 }
@@ -223,7 +236,7 @@ $works_query  = mysql_query($works_sql);
 
             <td class="works__cell works__cell--tech"      ><? echo $work_tech; ?></td>
             <td class="works__cell works__cell--color"     ><? echo $works_data['work_color']; ?></td>
-            <td class="works__cell works__cell--media"     ><? echo $works_data['work_media']; ?></td>
+            <td class="works__cell works__cell--media"     bgcolor="<? echo $media_color_background; ?>"><? echo $works_data['work_media']; ?></td>
             <td rowspan="2" class="works__cell works__cell--price"     ><? echo number_format(($works_data['work_price'])*1,2,',',''); ?></td>
             <td rowspan="2" class="works__cell works__cell--count"     ><? echo number_format(($works_data['work_count'])*1,0,',',''); ?></td>
             <td rowspan="2" class="works__cell works__cell--amount"    ><? echo number_format(($works_data['work_count']*$works_data['work_price']),2,',',''); ?></td>

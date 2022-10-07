@@ -1,12 +1,10 @@
 <br>
-<h2>Регистрация счета расхода от поставщика:</h2>
-<br>
-<a href="./_new_paydemands_red.php?outcontragentList">Редактирование списка</a>
-<br>
-<a href="./_new_paydemands_red.php?newOutcontragent">Добавить поставщика</a>
-<br>
+<a  class="a_orderrow" href="#"><b style="font-size: 20px;">Список незакрытых перезаказов</b></a>
 
-<br>
+<a class="a_orderrow" href="./_new_paydemands_red.php?outcontragentList"><b style="font-size: 20px;">Редактирование списка поставщиков</b></a>
+
+<a  class="a_orderrow" href="./_new_paydemands_red.php?newOutcontragent"><b style="font-size: 20px;">Добавить поставщика</b></a>
+<br><br>
 
 
 <div class="paydemand_col_wrapper">

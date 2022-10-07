@@ -5,7 +5,9 @@ $plan_time = date("H").":00";
 
 ?>
 <div class="cashbox_wrapper" style="overflow: visible;;">
-<br>
+<br><br>
+<a class="a_orderrow" href="?action=qr_checker">Учет и проверка QR кодов</a>
+<br><br>
 <form method="get" action="">
 Дата отчета:<br>
 <input type="hidden" name="action" value="cashbox">
@@ -22,6 +24,7 @@ $plan_time = date("H").":00";
 	 		<td>Нал()</td>
 	 		<td>Нал. чек</td>
 	 		<td>СБОЛ</td>
+			<td>QR</td>
 	 		<td>Потеряшка<br>(нет способа оплаты)</td>
 	 		<td>Пометки</td>
 	 		
@@ -56,7 +59,7 @@ $plan_time = date("H").":00";
 	 						<td><? if ($cashbox_data['pmm'] == 'Нал') {echo $cashbox_data['summ'];	$sum_nal=$sum_nal+$cashbox_data['summ'];}    	?></td>
 	 						<td><? if ($cashbox_data['pmm'] == 'Нал ЧЕК') {echo $cashbox_data['summ'];$sum_nal4ek=$sum_nal4ek+$cashbox_data['summ'];} ?></td>
 	 						<td><? if ($cashbox_data['pmm'] == 'СБОЛ') {echo $cashbox_data['summ'];	$sum_sbol=$sum_sbol+$cashbox_data['summ'];}  	?></td>
-	 						
+	 						<td><? if ($cashbox_data['pmm'] == 'QR') {echo $cashbox_data['summ'];	$sum_qr=$sum_qr+$cashbox_data['summ'];}  	?></td>
 	 						<td><? if ($cashbox_data['pmm'] == '') {echo $cashbox_data['summ'];$poteryashka = $poteryashka+$cashbox_data['summ'];}  ?></td>
 	 						<td>
 	 							<? $cashbox_order_number = $cashbox_data['parent_order_number'];
@@ -81,6 +84,7 @@ $plan_time = date("H").":00";
 							<td><? echo ($sum_nal); ?></td>
 							<td><? echo ($sum_nal4ek); ?></td>
 							<td><? echo ($sum_sbol); ?></td>
+							<td><? echo ($sum_qr); ?></td>
 							<td>ИТОГ -> </td>
 							<td><? echo ($sum_ooo+$sum_ip+$sum_term+$sum_nal+$sum_nal4ek+$sum_sbol+$poteryashka); ?></td>
 							

@@ -6,22 +6,32 @@
 <?
 //по id сообщения и токену возвращает текущий вацап статус (отправлено, доставлено и т.д.) плюс выводит резальтат работы ид-статус 
 function whatsapp_message_status($message_id,$token) {
-    $string = file_get_contents(("https://wamm.chat/api2/msg_state/".$token."/?msg_id=".$message_id));;
+    $string = file_get_contents(("https://wamm.chat/api2/msg_state/".$token."/?msg_id=".$message_id));
     $start_pos = strripos($string,'{');
     $end_pos = stripos($string,'}');
     $nobrackets = substr($string,$start_pos+1,$end_pos-$start_pos-1);
     $arr_main = explode(',',$nobrackets);
     $status = explode(':',$arr_main[2]);
     $message_status = str_replace('"',"",$status[1]);
-    echo $message_id."->".$message_status."<br>";
+    echo $message_id."-->".$message_status."<br>";
     return $message_status;
 }
 
 //проверяет все новые либо недоставленные сообщения
 function whataspp_message_status_checker($token) {
-    $sql = "SELECT * FROM `whatsapp_messages` WHERE ((`status_w` <> 'no info') and (`status_w` <> 'sent') and (`status_w` <> 'delivered') and (`status_w` <> 'viewed') and ((`status_w` <> 'NoAccount')))";
+    $sql = "SELECT * FROM `whatsapp_messages` WHERE (
+    (`status_w` <> 'no info') and 
+    (`status_w` <> 'sent') and 
+    (`status_w` <> 'delivered') and 
+    (`status_w` <> 'viewed') and 
+    (`status_w` <> 'NoAccount') and 
+    (`error_w` <> '\"no WhatsApp on the number\"')) and 
+    (`error_w` <> '\"acc not authorized\"')
+    
+    ";
     $arr = mysql_query($sql);
     while ($data = mysql_fetch_array($arr)) {
+        echo $data['message_id'].'<br>';
         $cur_id = $data['message_id'];
         $cur_status = whatsapp_message_status($cur_id,$token);
         mysql_query("UPDATE `whatsapp_messages` SET `status_w` = '$cur_status' WHERE `message_id` = '$cur_id'");
@@ -29,10 +39,10 @@ function whataspp_message_status_checker($token) {
 }
 
 function delete_noaccount_number($main_mail) {
-    $sql = "SELECT *,contragents.id as cid FROM `whatsapp_messages` 
+    $sql = "SELECT *,contragents.id as `cid` FROM `whatsapp_messages` 
             LEFT JOIN `order` ON order.order_number = whatsapp_messages.order_number_w
             LEFT JOIN `contragents` ON order.contragent = contragents.id
-            WHERE ((`status_w` = 'NoAccount') and (`wrong_number_status` <> 1))
+            WHERE (((`status_w` = 'NoAccount')or(`error_w` LIKE '%no WhatsApp on the number%')) and (`wrong_number_status` <> 1))
             GROUP BY whatsapp_messages.message_id";
     $arr = mysql_query($sql);
     while ($data = mysql_fetch_array($arr)) {
@@ -45,11 +55,13 @@ function delete_noaccount_number($main_mail) {
 ".$cur_contragent_contacts;
             mysql_query("UPDATE `contragents` SET `contacts` = '$new_contacts' WHERE `id` = '$cur_contragent'");
             mysql_query("UPDATE `contragents` SET `notification_number` = '' WHERE `id` = '$cur_contragent'");
-    $subject = "НЕТ ВАЦАПА (Бланк ".$order.")";
-    $message = "Удалён номер вацапа в бланке ".$order.".";
-    $headers  = "Content-type: text/html; charset=UTF-8 \r\n";
-    $headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
-    mail($main_mail, $subject, $message, $headers);
+
+    //$subject = "НЕТ ВАЦАПА (Бланк ".$order.")";
+    //$message = "Удалён номер вацапа в бланке ".$order.".";
+    //$headers  = "Content-type: text/html; charset=UTF-8 \r\n";
+    //$headers .= "From: AdmixCRM <admixcrm@gmail.com>\r\n";
+    //mail($main_mail, $subject, $message, $headers);
+
     mysql_query("UPDATE `whatsapp_messages` SET `wrong_number_status` = '1' WHERE `message_id` = '$cur_id'");
     }
 }

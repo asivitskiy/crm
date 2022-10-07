@@ -122,7 +122,7 @@
 			width: 260px;
 		}
 		.addition_status_block .a_orderrow {
-			width: 200px;
+			width: 195px;
 		}
 		.addition_status_block .button_status{
 			
@@ -208,3 +208,117 @@
 		.blank_buttons {
 			cursor: pointer;
 		}
+
+		/* noviy workrow */
+
+		.mainWrapper {
+            display: flex;
+            flex-direction: row;
+        }
+        .wrWrapper {
+            font-family: Tahoma;
+            width: 632px;
+            margin: 5px 0px 5px 5px;
+            display: flex;
+            padding: 2px;
+            background-color: gray;
+            flex-direction: column;
+            align-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .rowWrapper {
+            
+            display: flex;
+            flex-direction: row;
+        }
+        .rowElement {
+          
+           display: flex;
+        }
+        .rowElement * {
+            padding: 3px;
+            border-radius: 0px;
+            border:1px solid gray;
+        }
+        .rowElement *:focus{
+            box-shadow:0 0 10px #555;
+            background-color: #ffffef;
+            outline: 0px;
+        }
+        .workName textarea {
+            height: 30px;
+            resize: none;
+            width: 203px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+
+        .workFormat select{
+            height: 30px;
+            width: 39px;
+        }
+        .workWidth input{
+            width: 37px;
+            height: 30px;
+        }
+        .workHeight input{
+            width: 38px;
+            height: 30px;
+        }
+        .rowWrapper.spacer{
+            
+        }
+        .workColor select{
+            height: 30px;
+            width: 55px;
+            
+        }
+        .workTech select {
+            height: 30px;
+            width: 100px;
+        }
+        .workDescription textarea{
+            height: 39px;
+            width: 303px;
+        }
+        .workPostprint textarea{
+            height: 39px;
+            width: 275px;
+        }
+        .workMedia select {
+            height: 30px;
+            width: 160px;
+        }
+        .workRasklad textarea{
+            pointer-events: none;
+            width: 54px;
+            height: 39px;
+            resize: none;
+        }
+        .priceBlock {
+            margin-top: 5px;
+            padding-top: 2px;
+            padding-left: 0px;
+            margin-left: 0px;
+            height: 71px;
+            width: 182px;
+            background-color: gray;
+        }
+        .priceBlock_firstrow input {
+            width: 59px;
+            height: 30px;
+        }
+        .priceBlock_secondrow input {
+            width: 59px;
+            height: 39px;
+        }
+        .priceBlock_secondrow select {
+            width: 120px;
+            height: 39px;
+        }
+        .rowElement_priceblock {
+            float: left;
+            margin-right: 1px;
+        }

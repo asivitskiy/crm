@@ -22,7 +22,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
     
-    echo "<h1>PHP QR Code</h1><hr/>";
+    //echo "<h1>PHP QR Code</h1><hr/>";
     
     //set it to writable location, a place for temp generated PNG files
     $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'qr_store'.DIRECTORY_SEPARATOR;
@@ -38,13 +38,14 @@
 
 
     
-        //it's very important!
-        $data = "https://sberbank.ru/qr/?uuid=2000044976&amount=5.00";
+        //строка которая кодируется (в ней всё кроме суммы - постоянно)
+        //$data = "https://sberbank.ru/qr/?uuid=2000044976&amount=5.00";
+        $data = $_GET['string'];
+        //echo $data;
     
         // user data
-        $filename = $PNG_TEMP_DIR.date("YmdHi").'.png';
+        $png_file_name = date("YmdHi").rand(10000,99999).'.png';
+        $filename = $PNG_TEMP_DIR.$png_file_name;
         QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
-
-
-
-    
+        echo $png_file_name;
+?>   

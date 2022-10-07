@@ -1,0 +1,275 @@
+	
+<? $current_manager = $_SESSION['manager']; //взять из сессии//$current_manager = $_SESSION['manager']; 
+//echo $current_manager;?>
+	<? 
+	//проверяем последний оформленный бланк текущего менеджера
+	//свич переключает тип работы - нью для добавления, редакт для редактирования
+	switch ($_GET['action']) {
+		case "new": //в случае нового заказа - ищем последний у менеджера, ставим следующий номер
+			$action = $_GET['action'];
+			$query_cclist_2 = "SELECT `order_number` FROM `order` ORDER BY `order_number` DESC LIMIT 1";
+			$res_cclist_2 = mysql_query($query_cclist_2);
+			mysql_error();
+			$row_cclist_2 = mysql_fetch_array($res_cclist_2);
+			$order_manager = $current_manager;
+			$order_number = $row_cclist_2['order_number'] + 1;
+			$contragent_id = "new";
+				//получение планируемой даты сдачи (+1 день)
+			$plan_date = "";/*date("Y")."-".date("m")."-".(date("d"));*/
+			$plan_time = "";/*date("H").":00";*/
+			break;
+
+		case "redact": //в случае редакирования - принимаем данные из GET и используем их дальше
+			$action = $_GET['action'];
+
+			$order_number = $_GET['order_number'];
+			 //получаем строку заказа (сам заказ)
+				$order_redact_sql = "SELECT * FROM `order` WHERE ((`order_number`='$order_number'))";
+				$order_redact_array = mysql_query($order_redact_sql);
+				$order_redact_data = mysql_fetch_array($order_redact_array);
+				$order_manager = $order_redact_data['order_manager'];
+				
+			 //получаем массив работ этого заказа (сам заказ)
+				$works_order_redact_sql = "SELECT * FROM `works` WHERE ((`work_order_number`='$order_number'))";
+				$works_order_redact_array = mysql_query($works_order_redact_sql);
+				//подставляем дату уже вписанную в заказ в случа редактирования
+			$plan_date = dig_to_y($order_redact_data['datetoend'])."-".dig_to_m($order_redact_data['datetoend'])."-".dig_to_d($order_redact_data['datetoend']);
+			$plan_time = $order_redact_data['timetoend'];
+				//на выходе двумерный массив работ (распиливаться будет в процессе составления страницы)	
+			
+				$contragent_from_order_id = $order_redact_data['contragent'];
+				$contragent_redact_sql = "SELECT * FROM `contragents` WHERE `id`='$contragent_from_order_id'";
+				$contragent_redact_array = mysql_query($contragent_redact_sql);
+				$contragent_redact_data = mysql_fetch_array($contragent_redact_array);
+			$contragent_id = $contragent_redact_data['id'];
+			
+			break;
+	
+	}
+
+	?>
+
+	<? //РАСЧЕТ МАТЬ ЕГО ОБЩЕЙ СУММЫ ЗАКАЗА
+		$order_count_sql = "SELECT * FROM `works` WHERE ((`work_order_number`='$order_number'))";
+		$order_count_array = mysql_query($order_count_sql);
+		$order_summ = 0;
+		while ($order_count_data = mysql_fetch_array($order_count_array)) 
+			{$order_summ = number_format(($order_summ + $order_count_data['work_price']*$order_count_data['work_count']),2,'.','');}
+
+	?>
+<?  // подключение двух скриптов автодополнения для поля заказчик и для поля работ
+	//include("./blank_incs/autocomplete.php"); ?>
+<form action="_new_order_processor.php" method="POST" id="mainform">
+
+<div class="orderrow" style="width: 1300px;">
+	<input type="hidden" name="action" value="<? echo $action; ?>">
+	<input type="hidden" name="qr_status" value="<? echo $order_redact_data['qr_status']; ?>">
+	<input type="text" name="order_manager" readonly value="<? echo $order_manager; ?>" style="width:25px; ">-<input name="nomer_blanka" readonly type="text" value="<? echo $order_number; ?>" style="width:50px;">
+	<input type="text" name="order_description" placeholder="описние заказа" style="width: 745px; margin-top: 10px;" value="<?
+echo $order_redact_data['order_description']; ?>"><br>
+	<div style="display: inline; margin-left: 85px;">Сдача :</div><input type="date" style="margin-top: 5px; margin-left: 5px;" name="datetoend" value="<? echo $plan_date; ?>"><input class="timeselect" autocomplete="off" type="text"  name="timetoend" value="<? echo $plan_time; ?>">
+<br>
+ 
+<div class="contragent_block" style="float: left; margin: 0px auto; padding: 5px;"><!--Заказчик<br>-->
+  <div class="posRelative">
+	<input name="contragent_id" type="hidden" data-column="id" value="<? echo $contragent_id; ?>">
+	<input name="contragent_name" type="text" placeholder="Заказчик" style="width: 300px;" data-column="name" value='<? echo($contragent_redact_data['name']); ?>' autocomplete="disabled">
+  </div>
+	<div class="posRelative" style="margin-left: 30px;">
+		<input type="button" value="++" onclick="disp(document.getElementById('omnisearch'))" /><input type="text" id="omnisearch" style=" padding-left: 6px; display: none" placeholder="поиск клиента" onkeyup="searchClient(this, event)" autocomplete="off">
+		<div class="searchResults" style="display:none"></div>
+	</div>
+    <div style="display: block; width: 100%; height: 1px;"></div>
+    <!--<div style="height: 60px; padding: 0px; margin: 0px; display: block;">-->
+    <br>
+    <br>
+    <div class="posRelative">
+        <textarea  onchange="formattingNumbers( this )"  onkeyup="formattingNumbers( this )" name="notification_number" style="line-height: 35px; height: 35px; width: 170px; resize: none; margin-top: 5px; padding-left: 3px;" placeholder="whatsapp" data-column="notification_number" autocomplete="disabled"><? echo($contragent_redact_data['notification_number']); ?></textarea>
+    </div>
+    <div class="posRelative" style="margin-top: 5px; padding-left: 5px; line-height: 35px;">
+        WA -> <? 	echo dig_to_d($order_redact_data['notification_status']).'.'.dig_to_m($order_redact_data['notification_status']).' ('.dig_to_h($order_redact_data['notification_status']).':'.dig_to_minute($order_redact_data['notification_status']).')';
+        ?>
+         <!--<a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end" style="line-height:20px;">открыть Whatsapp</a>
+		 <a class="a_orderrow" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage" style="line-height:20px;">заказ оформлен</a>-->
+    </div>
+
+
+    <!--</div>-->
+    <textarea name="contragent_contacts" style="height: 130px; width: 99%; resize: none; margin-top: 5px;" placeholder="Контактные данные" data-column="contacts" autocomplete="disabled"><? echo($contragent_redact_data['contacts']); ?></textarea>
+	<textarea name="contragent_fullinfo" style="height: 130px; width: 99%; resize: none; margin-top: 5px;" placeholder="Реквизиты" data-column="fullinfo" autocomplete="disabled"><? echo($contragent_redact_data['fullinfo']); ?></textarea>
+	<textarea name="contragent_address" style="height: 80px; width: 99%; resize: none; margin-top: 5px;" placeholder="Адрес доставки" data-column="address" autocomplete="disabled"><? echo($contragent_redact_data['address']); ?></textarea>
+</div>
+
+<?
+$qr_check = mysql_num_rows(mysql_query("SELECT * FROM `qr_pay` WHERE `qr_pay_order_number` = '$order_number'"));
+if ($qr_check == 0) {$qr_mess = '*';} else {$qr_mess = 'OK';}
+?>
+
+<div class="addition_status_block" style="margin: 0px auto; float: left; margin-left: 5px; width: 274px; height: 461px; padding: 5px;">
+Вацапошная
+<a class="a_orderrow" style="padding: 10px; width: 242px" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end">WA -> Открыть чат</a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href="./sbbol_qr_generator.php?order_number=<? echo $order_number; ?>&summ=free">WA -> Предоплата QR</a><a class="a_orderrow button_status"><? echo $qr_mess; ?></a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href="./sbbol_qr_generator.php?order_number=<? echo $order_number; ?>&summ=forced">WA -> Вся сумма QR</a><a class="a_orderrow button_status"><? echo $qr_mess; ?></a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage">WA -> заказ оформлен</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "OK";} else {echo "*";}  ?></a>
+<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;" target="_blank" href>WA -> заказ готов</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "*";} else {echo "*";}  ?></a>
+<!--<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;">Отправить QR</a>!-->
+<br>
+
+</div>
+
+
+
+<div class="status_block" style="margin-top: -83px; float: left; margin-left: 5px;<?
+if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
+?>">
+<div class="blok-ramka">
+Статус
+<br><select name="soglas"  style="<? if ($order_redact_data['soglas'] >1) {echo("background-color:#D0FBC7");} ?>" onchange="if (this.selectedIndex) this.form.submit ()">
+		<option style="display: none">------------------------</option>
+		<option value="set_ok" style="border: 2px solid green;background:#E6FFE9" <? if ((!isset($order_redact_data['soglas'])) OR ($order_redact_data['soglas'] > 0)) {echo("selected");} ?> >В работе</option>
+		<option value="0" <? if (($order_redact_data['soglas'] == 0) AND (isset($order_redact_data['soglas']))) {echo("selected");} ?> style="border: 2px solid green;background:#F3B1B2">Ожидание</option>
+	</select>
+
+<br><select name="preprint" style="<? if ((($order_redact_data['preprint'] >1) or ($order_redact_data['preprint'] == 'Нет')) and ($action == "redact")) {echo("background-color:#D0FBC7");} ?>" onchange="if (this.selectedIndex) this.form.submit ()">
+		<option style="display: none">Допечать готова</option>
+		<option value="Алиса" <? if (($order_redact_data['preprinter'] == 'Алиса') or ($action == "new")) {echo("selected");} ?>>Допечать Алиса</option>
+		<option value="Аня" <? if (($order_redact_data['preprinter'] == 'Аня')) {echo("selected");} ?>>Допечать Аня</option>
+		<option value="Катя" <? if (($order_redact_data['preprinter'] == 'Катя')) {echo("selected");} ?>>Допечать Катя</option>
+		<option value="Нет" <? if ($order_redact_data['preprinter'] == 'Нет') {echo("selected");} ?>>Не требуется</option>
+		<!--<option value="set_ok" <?// if ($order_redact_data['preprint'] >1) {echo("selected");} ?>>Допечать готова</option> !-->
+	</select>  
+
+<br>
+
+
+	<input style="width: 142px; margin-top: 5px;<? if ((($order_redact_data['preprint'] >1) or ($order_redact_data['preprint'] == 'Нет')) and ($action == "redact")) {echo("background-color:#D0FBC7");} ?>" type="submit" name="preprint_button" value="Подготовлено">
+	
+	<input style="width: 142px; margin-top: 5px;<? if ((($order_redact_data['date_of_end'] >1) or ($order_redact_data['date_of_end'] == 'Нет')) and ($action == "redact")) {echo("background-color:#D0FBC7");} ?>" type="submit" name="ready_button" value="Отпечатано">
+
+	<br><input style="width: 142px; margin-top: 5px;<? if (($order_redact_data['paystatus'] >1) and ($action == "redact")) {echo("background-color:#D0FBC7");} ?>" type="submit" name="paystatus" value="Запросить счет">
+		<? if ((strlen($order_redact_data['paystatus']) == 12)) { ?><div style="color: forestgreen; display: inline-block;">Счет запрошен</div> <? } ?>
+		<? if ((strlen($order_redact_data['paystatus']) <> 12)) { ?><div style="color: orangered; display: inline-block;">Счет не запрошен</div> <? } ?>
+</div>
+
+<div class="blok-ramka" style="margin-top: 5px; width: 300px;">Оплата
+<br><select name="paymethod"  onchange="if (this.selectedIndex) this.form.submit ()">
+
+		<option style="display: none"></option>
+		<option value="ООО" <? if (($order_redact_data['paymethod'] == 'ООО')) {echo("selected");} ?>>ООО</option>
+		<option value="ИП" <? if (($order_redact_data['paymethod'] == 'ИП')) {echo("selected");} ?>>ИП</option>
+		<option value="Терм" <? if (($order_redact_data['paymethod'] == 'Терм')) {echo("selected");} ?>>Терм</option>
+		<option value="Нал ЧЕК" <? if (($order_redact_data['paymethod'] == 'Нал ЧЕК')) {echo("selected");} ?>>Нал ЧЕК</option>
+		<option value="Нал" <? if (($order_redact_data['paymethod'] == 'Нал')) {echo("selected");} ?>>Нал</option>
+		<option value="СБОЛ" <? if (($order_redact_data['paymethod'] == 'СБОЛ')) {echo("selected");} ?>>СБОЛ</option>
+		<option value="QR" <? if (($order_redact_data['paymethod'] == 'QR')) {echo("selected");} ?>>QR</option>
+	</select>
+
+		
+
+<br>
+<? if (($order_redact_data['paymethod'] == 'ООО') or (($order_redact_data['paymethod'] == 'ИП'))) { 
+	$beznal_flag = 1;
+?><br>
+Счет: 
+					<b>
+					<a style="white-space: normal" href="?searchstring=<? echo $order_redact_data['paylist'] ;?>&delivery=1&myorder=1&noready=&showlist="><? echo $order_redact_data['paylist'] ;?></a>
+					<? /*echo $order_redact_data['paylist'];*/?>
+					</b>
+
+<? if ($_SESSION['supervisor'] == 1) { ?><div style="float: right;">удалить <a href="">[х]</a></div><? } ?><br>		
+<? } ?>
+
+<? if ($beznal_flag == 1) {?>
+<textarea hidden readonly  type="text" name="paylist" placeholder="Номер счета/чека/дата" style="height: 60px; width: 288px; margin-top: 2px;" value=""><? echo $order_redact_data['paylist']; ?></textarea>
+						<? } ?>
+						
+						
+<? if ($beznal_flag <> 1) { ?>
+<textarea  type="text" name="paylist" placeholder="Номер счета/чека/дата" style="height: 60px; width: 288px; margin-top: 2px;" value=""><? echo $order_redact_data['paylist']; ?></textarea>
+
+
+
+
+<? } ?>
+<br><input name="vneseno" type="text" placeholder="сумм" autocomplete="disable" style="width: 150px; margin-top: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="submit" name="payment_confirm" value="записать" style="">
+
+<br>
+<div style="font-size: 18px; font-family:Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, 'sans-serif'; font-weight: 600; margin-top: 5px;"><?
+								$vnes_sum = 0;
+								$vnes_sum_array = mysql_query("SELECT `summ` FROM `money` WHERE `parent_order_number` = '$order_number'");
+								while ($vnes_sum_data = mysql_fetch_array($vnes_sum_array)) {$vnes_sum = $vnes_sum + $vnes_sum_data['summ'];} ?>
+<div align="left">Оплачено: <? echo $vnes_sum; ?></div>
+<div align="left">Общая сумма: <div id="txtSecond" style=" display: inline; color: black; font-size: 18px; font-weight: 700;"><? echo $order_summ; ?></div></div>
+<div align="left">Доплатить: <? 
+
+								echo ($order_summ - $vnes_sum); 
+								?></div>
+</div>
+<br><select name="delivery" style="<? if ($order_redact_data['delivery'] >1) {echo("background-color:#D0FBC7");} ?>" onchange="if (this.selectedIndex) this.form.submit ()">
+		<option style="display: none">------------------------</option>
+		<option value="0" <? if ($order_redact_data['delivery'] == 0) {echo("selected");} ?>>Самовывоз</option>
+		<option value="1" <? if ($order_redact_data['delivery'] == 1) {echo("selected");} ?>>Доставка</option>
+		<option value="set_ok" <? if ($order_redact_data['delivery'] >1) {echo("selected");} ?>>ДОСТАВЛЕНО!</option>
+	</select>
+<br><select name="handing" style="<? if (($order_redact_data['handing'] >1)) {echo("background-color:#D0FBC7");} ?>" onchange="if (this.selectedIndex) this.form.submit ()">
+		<option style="display: none">------------------------</option>
+		<option value="0" <? if ($order_redact_data['handing'] == 0) {echo("selected");} ?>>Не выдано</option>
+		<option value="1" <? if ($order_redact_data['handing'] == 1) {echo("selected");} ?>>Частично выдано</option>
+		<option value="set_ok" <? if ($order_redact_data['handing'] >1) {echo("selected");} ?>>ВЫДАНО</option>
+	</select>
+</div>
+</div>
+
+
+
+
+<? include './_workrow_workstable.php'; ?>
+
+<!--    <div class="ajax-buttons" style="border-left: 0px solid white">
+
+        <a target="_blank" class="a_orderrow" href = "?action=redact&order_number=<?/* echo $order_data_data['order_number']; */?>">редактировать</a>
+        <a target="_blank" class="a_orderrow" href = "index.php?action=delete&order_manager=<?/* echo $order_data_data['order_manager']; */?>&order_number=<?/* echo $order_data_data['order_number']; */?>">удалить заказ</a>
+        <a target="_blank" class="a_orderrow" href = "printform.php?manager=<?/* echo $order_data_data['order_manager'];; */?>&number=<?/* echo $order_data_data['order_number']; */?>">печатный бланк</a>
+        <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&clientstring=<?/* echo($order_data_data['id']); */?>">карточка клиента</a>
+        <a target="_blank" class="a_orderrow" href="_small_pdf_maker.php?order=<?/* echo $order_data_data['order_number']; */?>" target="_blank">PDF</a>
+    </div>-->
+<div>
+	<input type="submit" class="final blank_buttons" value="Оформить / обновить" >
+
+	<a target="_blank" class="a_orderrow" style="line-height: 25px; width:70px; margin-left:15px; padding-left:10px;" href = "<? echo creataPathForApp($order_number,$order_manager);?>">папка</a>
+	<input type="submit" style="margin-left: 150px;" class="111 blank_buttons" name="doubleflag" value="Дублировать заказ">
+	<input type="submit" class="oldBlank blank_buttons" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк" <? if ($plan_time == '') {echo "disabled";} ?>>
+    <a target="_blank" class="a_orderrow blank_buttons" href="./?&myorder=1&noready=0&showlist=&delivery=1&clientstring=<? echo $contragent_id; ?>" target="_blank" >Карточка</a>
+	
+	<a target="_blank" class="a_orderrow blank_buttons" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_number; ?>" target="_blank" >PDF</a>
+    <!--<a target="_blank" class="a_orderrow printerButton" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
+	-->
+	<input class="blank_buttons" id="printBtn" type="button" onclick="printblank(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Печать" >
+	<input class="blank_buttons" id="printBtnCopy" type="button" onclick="printCopyCheck(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Копия чека" >
+
+
+	<input type="submit" formaction="index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>" value="Удалить заказ">
+</div>
+<br>
+<br>
+<br>
+<br>
+</div>
+</form>
+<script>
+    var dateInput = document.querySelector('input[name="timetoend"]');
+    dateInput.addEventListener("change",unblockButton);
+    var dateInput = document.querySelector('input[name="datetoend"]');
+    dateInput.addEventListener("change",unblockButton);
+
+    function  unblockButton() {
+        var curButton = document.querySelector(".oldBlank");
+        curButton.removeAttribute("disabled");
+        var curPrint = document.querySelector(".printerButton");
+        curPrint.style.pointerEvents = "visible";
+        curPrint.style.color = "black";
+    }
+</script>
+<? include("_workrow_script.php"); ?>
+</div>

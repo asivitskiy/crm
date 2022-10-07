@@ -2,19 +2,11 @@
 	include 'dbconnect.php';
  	session_start();
  	include './inc/global_functions.php';
- 	include './inc/cfg.php'; 
-
+ 	include './inc/cfg.php';
+	include_once './inc/config_reader.php';
 $current_manager = $_SESSION['manager'];
 
-
-
-
-
-
 if (($_POST['new_chain']) <> '') {
-
-
-
 header('Location: http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/index.php?action=messages&step=new_chain');
 }
 
@@ -25,7 +17,11 @@ if (($_POST['add_new_chain']) <> '') {
 $m_date = date('YmdHis');
 $m_text = $_POST['message_text'];
 	if (isset($_POST['names'])) {
+
 			$m_responders = array_keys($_POST['names']);
+		foreach ($m_responders as $value) {
+			sendWhatsappNocheck($mng_phones_array[$value],'Добавлена новая цепочка в базе сообещений','');
+		}
 			$m_responders_ss = implode(',',$m_responders);
 	} else {$m_responders_ss = 'all';}
 	
@@ -100,6 +96,15 @@ VALUES (
 )");
 echo mysql_error();
 mysql_query("UPDATE `messages_chains` SET `date_of_chain_update`='$date_in' WHERE `id` = '$chain_in'");
+$wa_notify_sql = "SELECT * FROM `messages_chains` WHERE `id` = '$chain_in'";
+$wa_notify_data = mysql_fetch_array(mysql_query($wa_notify_sql));
+$responders_array = $wa_notify_data['responders'];
+	$responders_array_ss = explode(',',$responders_array);
+	//print_r($responders_array_ss);
+	foreach ($responders_array_ss as $value) {
+		//echo $mng_phones_array[$value];
+		sendWhatsappNocheck($mng_phones_array[$value],'Добавлено сообщение в существующей цепочке','');
+	}
 
 
 header('Location: http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/index.php?action=messages&step=start_page');

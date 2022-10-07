@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+    .row {
+        display: inline-block;
+        border: 1px solid gray;
+        border-radius: 3px;
+        margin: 5px 5px 5px auto;
+        padding: 5px;
+        height: 20px;
+        width: 75px;
+
+    }
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        Пробаёпт
+    </div>
+
+    <p class="unbroken">The United States (U.S. or US)—officially the United States of America (USA), commonly known as America—is a country primarily located in North America, consisting of 50 states, a federal district, five major self-governing territories, 326 reservations, and various possessions. At 3.8 million square miles (9.8 million square kilometers), it is the world's third- or fourth-largest country by total area. With a population of more than 328 million people, it is the third most populous country in the world. The national capital is Washington, D.C., and the most populous city is New York City.</p>
+    <p class="broken"></p>
+    <script>
+
+        function getRow(cur_order) {
+            c_ord = cur_order;
+            $.ajax({
+                method: "POST",
+                url: "_js_list_loader_processor.php",
+                data: {cur_order: cur_order}
+            })
+                .done(function (response) {
+                    if (response.includes('EndOfList')) {
+                        return;
+                    }
+                    numbStart = response.indexOf('curorderstart');
+                    numbEnd = response.indexOf('curorderend');
+                    curent_order = response.substring(numbStart+13,numbEnd);
+
+                    htmlText = response.substring(0 , numbStart);
+
+                    var newDiv = document.createElement("div");
+                    //newDiv.classList = "row";
+                    newDiv.innerHTML = htmlText;
+                    my_div = document.getElementById("wrapper");
+                    document.body.insertBefore(newDiv, my_div);
+
+                    console .log(response);
+                    responce='';
+                    if (curent_order == c_ord) {
+                        return;
+                    }
+                    getRow(curent_order);
+                });
+        }
+
+
+    </script>
+<button onclick="getRow()">Проба</button>
+</body>
+</html>

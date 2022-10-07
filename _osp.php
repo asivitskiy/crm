@@ -1,7 +1,9 @@
 <?php
-include './dbconnect.php';
-include './inc/global_functions.php';
-include './inc/config_reader.php';
+//include './dbconnect.php';
+//include './inc/global_functions.php';
+//include './inc/config_reader.php';
+
+
 //этот кусок синхронизирует имена контактов из базы в вацапом
 //$contragents_to_update_sql = "SELECT * FROM `contragents` WHERE `notification_number` <> '' LIMIT 400,50";
 //$contragents_to_update_array = mysql_query($contragents_to_update_sql);
@@ -40,31 +42,24 @@ include './inc/config_reader.php';
 //echo $amount_summ_inner; echo ' собственные заказы<br>';
 
 
-//phpinfo();
-$sql_array = mysql_query("SELECT * FROM `order` WHERE `order_number` IN ('1111','1112')");
-$new_array = array();
-$row = mysql_fetch_assoc($sql_array);
-//echo serialize($row);
-$try[] = $row;
-$try[] = $row;
-$try[] = $row;
-$try[] = $row;
-$try[] = $row;
-$try[] = $row;
-$try[] = $row;
+//phpinfo();?>
+<script>
+function openLinkList(linkList) {
+  for(var i = 0; i < linkList.length; i++) {
+    var a = document.createElement("a");
+    a.href = linkList[i];
+    a.target="_blank"
+    a.click();
+  }
+};
+ 
+var linkList = [
+  "https://www.cyberforum.ru/freelancers-offers/", 
+  "https://www.cyberforum.ru/order-diploma/", 
+  "https://www.cyberforum.ru/order-site-scripts/"
+];
+ 
 
-//print_r($try);
-$array_length = count($try);
-for ($i = 0;$i<=$array_length;$i++) {
-echo $try[$i]['order_number'];echo "<br>";
-}
+    </script>
+    <button onclick="openLinkList(linkList);">asdd</button>
 
-//function delete_noaccont_error() {
-    $sql = "SELECT * FROM `whatsapp_messages` WHERE `error_w` LIKE '%acc not autorized%'";
-    $arr = mysql_query($sql);
-    while ($data = mysql_fetch_array($arr)) {
-        $order_with_error = $data['order_number_w'];
-        
-    }
-//}
-?>

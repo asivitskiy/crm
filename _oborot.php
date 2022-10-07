@@ -18,7 +18,7 @@
 require_once './inc/global_functions.php';
 include 'inc/dbconnect.php';
 include '_oborot_functions.php';
-for ($yr=2021; $yr >= 2020; $yr--) {
+for ($yr=2022; $yr >= 2020; $yr--) {
     $year = $yr.'';
     echo '<table class="oborot-maintable table-bordered">';
     echo '<tr>';
@@ -129,9 +129,13 @@ for ($yr=2021; $yr >= 2020; $yr--) {
         echo '<td>';
         $cur_day = dig_to_d(date("YmdHi"));
         $cur_month = dig_to_m(date("YmdHi"));
+        $cur_year = dig_to_y(date("YmdHi"));
+        $working_days_complete = getWorkingDays($cur_year.$cur_month."01",$cur_year.$cur_month.$cur_day,array());
+        $working_days_amount = getWorkingDays($cur_year.$cur_month."01",$cur_year.$cur_month.date('t', time()),array());
+        //echo "<Br>".$working_days_amount." всего<br>";
         //средний оборот TODO
-        if ($i == $cur_month) {
-            $prognoz = 29 * $obsh_oborot[$i] / $cur_day;
+        if (($i == $cur_month) and ($yr == $cur_year)) {
+            $prognoz = $working_days_amount * $obsh_oborot[$i] / $working_days_complete;
             echo number_format($prognoz, 2, '.', ' ');
         } else echo 'n/a';
         echo '</td>';
@@ -156,6 +160,32 @@ for ($yr=2021; $yr >= 2020; $yr--) {
     }
     echo '</tr>';
     ob_flush();
+
+
+    echo '<tr>';
+
+    echo '<td>';
+    echo 'Роланд';
+    echo '</td>';
+
+    for ($i = 01; $i <= 12; $i++) {
+        echo '<td>';
+        $month_formatted_start = str_pad($i, 2, '0', STR_PAD_LEFT);
+        $month_formatted_end = str_pad($i + 1, 2, '0', STR_PAD_LEFT);
+        $period_start = $year . $month_formatted_start . '000000';
+        $period_end = $year . $month_formatted_end . '000000';
+        //echo $period_start."<br>".$period_end;
+
+        $obsh_roland[$i] = obsh_roland($period_start, $period_end);
+        echo number_format($obsh_roland[$i], 2, '.', ' ');
+        echo '</td>';
+    }
+    echo '</tr>';
+    ob_flush();
+
+
+
+
     echo '<tr>';
 
     echo '<td>';

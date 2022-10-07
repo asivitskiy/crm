@@ -107,4 +107,7 @@
     'italic' => DOMPDF_FONT_DIR . 'tahomabd_0',
     'bold_italic' => DOMPDF_FONT_DIR . 'tahomabd_0',
   ),
+  'arialrub' => array(
+    'normal' => DOMPDF_FONT_DIR . '7d2461b386272eeeab33c1b9ee77ff10',
+  ),
 ) ?>

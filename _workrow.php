@@ -104,13 +104,18 @@ echo $order_redact_data['order_description']; ?>"><br>
 	<textarea name="contragent_address" style="height: 80px; width: 99%; resize: none; margin-top: 5px;" placeholder="Адрес доставки" data-column="address" autocomplete="disabled"><? echo($contragent_redact_data['address']); ?></textarea>
 </div>
 
+<?
+$qr_check = mysql_num_rows(mysql_query("SELECT * FROM `qr_pay` WHERE `qr_pay_order_number` = '$order_number'"));
+if ($qr_check == 0) {$qr_mess = '*';} else {$qr_mess = 'OK';}
+?>
 
 <div class="addition_status_block" style="margin: 0px auto; float: left; margin-left: 5px; width: 274px; height: 461px; padding: 5px;">
 Вацапошная
-<a class="a_orderrow" style="padding: 10px; width: 247px" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end">WA -> Открыть чат</a>
-<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;">WA -> Отправить QR</a><a class="a_orderrow button_status">*</a>
+<a class="a_orderrow" style="padding: 10px; width: 242px" target="_blank" href="https://wamm.chat/home/to/<? echo $contragent_redact_data['notification_number'];?>#list-msg-end">WA -> Открыть чат</a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href="./sbbol_qr_generator.php?order_number=<? echo $order_number; ?>&summ=free">WA -> СБП QR (пустой)</a><a class="a_orderrow button_status"><? echo $qr_mess; ?></a>
+<a class="a_orderrow" style="padding: 10px;" target="_blank" href="./sbbol_qr_generator.php?order_number=<? echo $order_number; ?>&summ=forced">WA -> QR с суммой</a><a class="a_orderrow button_status"><? echo $qr_mess; ?></a>
 <a class="a_orderrow" style="padding: 10px;" target="_blank" href="./_printengine.php?order_number=<? echo $order_number; ?>&addtoquery=forceMessage">WA -> заказ оформлен</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "OK";} else {echo "*";}  ?></a>
-<a class="a_orderrow" style="padding: 10px;" target="_blank" href>WA -> заказ готов</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "*";} else {echo "*";}  ?></a>
+<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;" target="_blank" href>WA -> заказ готов</a><a class="a_orderrow button_status"><? if ($order_redact_data['notification_status'] <> '') {echo "*";} else {echo "*";}  ?></a>
 <!--<a class="a_orderrow" style="padding: 10px; pointer-events: none; color:gray;">Отправить QR</a>!-->
 <br>
 
@@ -160,6 +165,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 		<option value="Нал ЧЕК" <? if (($order_redact_data['paymethod'] == 'Нал ЧЕК')) {echo("selected");} ?>>Нал ЧЕК</option>
 		<option value="Нал" <? if (($order_redact_data['paymethod'] == 'Нал')) {echo("selected");} ?>>Нал</option>
 		<option value="СБОЛ" <? if (($order_redact_data['paymethod'] == 'СБОЛ')) {echo("selected");} ?>>СБОЛ</option>
+		<option value="QR" <? if (($order_redact_data['paymethod'] == 'QR')) {echo("selected");} ?>>QR</option>
 	</select>
 
 		
@@ -225,12 +231,14 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 <table style=" width: 1195px;">
 <?//начало цикла таблицы ?>
 
+
 <? 		$main_table_row = "SELECT * FROM `works` WHERE ((`work_order_manager`='$order_manager') AND (`work_order_number`='$order_number'))";
 		$main_table_array = mysql_query($main_table_row);
 		$workrowcount = mysql_num_rows($main_table_array);
 		while ($main_table_data = mysql_fetch_array($main_table_array) or $workrowcount==0) { $workrowcount = $workrowcount + 1; ?>
 <tr class="work_row" bordercolor="black" style="border: 2px solid gray;">
   <td>	
+	  
 	<table class="workrow" border="0" style="float: left; display:inline-block; width: 1195px; margin-top: 13px; ">
 	  <tbody style="border: 2px solid gray; display: inline-block; border-left-width: 15px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
 	  <tr>
@@ -270,13 +278,15 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
 	  	<td>
 			<select name="work_format[]" onChange="matchformat(this)">
 				<option value="none"></option>
+				<option value="А0">А0</option>
 				<option value="А1">А1</option>
 				<option value="А2">А2</option>
 				<option value="А3">А3</option>
 				<option value="А4">А4</option>
 				<option value="А5">А5</option>
 				<option value="А6">А6</option>
-				
+				<option value="А6">А7</option>
+
 				
 			</select>
 	  	</td>
@@ -310,6 +320,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
             			<td>
                             <input style="width: 80px; height: 35px; text-align: center; font-weight: 700"  type="text"  value="<? echo number_format($main_table_data['work_count']*$main_table_data['work_price'],2,'.',''); ?>" name="result[]" readonly>
                             <input type="hidden" name="work_sheets[]">
+                            <input type="hidden" name="work_roland_status[]" value="<? echo($main_table_data['work_roland_status']); ?>">
                         </td>
 
             					<td style="width: 37px;">
@@ -396,6 +407,8 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
     </div>-->
 <div>
 	<input type="submit" class="final blank_buttons" value="Оформить / обновить" >
+
+	<a target="_blank" class="a_orderrow" style="line-height: 25px; width:70px; margin-left:15px; padding-left:10px;" href = "<? echo creataPathForApp($order_number,$order_manager);?>">папка</a>
 	<input type="submit" style="margin-left: 150px;" class="111 blank_buttons" name="doubleflag" value="Дублировать заказ">
 	<input type="submit" class="oldBlank blank_buttons" formaction="printform.php?manager=<? echo $order_manager; ?>&number=<? echo $order_number; ?>" value="Старый бланк" <? if ($plan_time == '') {echo "disabled";} ?>>
     <a target="_blank" class="a_orderrow blank_buttons" href="./?&myorder=1&noready=0&showlist=&delivery=1&clientstring=<? echo $contragent_id; ?>" target="_blank" >Карточка</a>
@@ -404,7 +417,7 @@ if ($order_redact_data['deleted'] == 1) {echo "background-color:#D0FBC7;";}
     <!--<a target="_blank" class="a_orderrow printerButton" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> href="./_pdf_engine/?order_number=<? echo $order_number; ?>" target="_blank">Печать</a>
 	-->
 	<input class="blank_buttons" id="printBtn" type="button" onclick="printblank(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Печать" >
-	<input class="blank_buttons" id="printBtnCopy" type="button" onclick="printCopyCheck(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value="Копия чека" >
+	<input class="blank_buttons" id="printBtnCopy" type="button" onclick="printCopyCheck(<? echo $order_number; ?>)" <? if ($plan_time == '') {echo "style=pointer-events:none;color:gray";} ?> value=">ROLAND<" >
 
 
 	<input type="submit" formaction="index.php?action=delete&order_manager=<? echo $order_manager; ?>&order_number=<? echo $order_number; ?>" value="Удалить заказ">

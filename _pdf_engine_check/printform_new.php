@@ -140,7 +140,7 @@ $contragent_data = mysql_fetch_array($contragent_query);
 //                WHERE ((`work_order_number`='$number') and ((outcontragent.outcontragent_group='books')or(outcontragent.outcontragent_group='digital')))";
 $works_sql = "  SELECT * FROM `works` 
                 LEFT JOIN `outcontragent` ON outcontragent.outcontragent_fullname = works.work_tech
-                WHERE ((`work_order_number`='$number'))";
+                WHERE ((`work_order_number`='$number') and (`work_tech`) = 'ROLAND')";
 $works_query  = mysql_query($works_sql);
 
 ?><? $cur_date = date('YmdHi');
@@ -148,7 +148,7 @@ $works_query  = mysql_query($works_sql);
     ?>
 <div style="line-height:20px; width:100%;font-size:8px;"                       ><? echo $date; ?></div>
 <div style="line-height:20px; width:100%; background-color:0f0f0f" >||||||||||||||||||||||||||||||||||||||||||||</div>
-<div style="line-height:20px; width:100%; background-color:0f0f0f" ><font>||||||||||||| КОПИЯ ЧЕКА ||||||||||||||</font></div>
+<div style="line-height:20px; width:100%; background-color:0f0f0f" ><font>|||||||||||| ROLANDPRINT |||||||||||||</font></div>
 <div style="line-height:20px; width:100%; background-color:0f0f0f" >||||||||||||||||||||||||||||||||||||||||||||</div>
 
 
@@ -217,6 +217,18 @@ $works_query  = mysql_query($works_sql);
         <? if ($works_data['work_name'] <> '') {?>
         <tr class="works__row">
             <td class="works__cell works__cell--postprint" style=""  colspan="6"><b style="font-size: 12px"><? echo $works_data['work_description']; ?></b></td>
+
+        </tr>
+        <tr class="works__row">
+            <td class="works__cell works__cell--postprint" style=""  colspan="6"><b style="font-size: 12px"><? echo $works_data['work_media']; ?></b></td>
+
+        </tr>
+        <tr class="works__row">
+            <td class="works__cell works__cell--postprint" style=""  colspan="6"><b style="font-size: 12px">размер: <? echo $works_data['work_vis']; ?> * <? echo $works_data['work_shir']; ?></b></td>
+
+        </tr>
+        <tr class="works__row">
+            <td class="works__cell works__cell--postprint" style=""  colspan="6"><b style="font-size: 12px"><? echo $works_data['work_postprint']; ?></b></td>
 
         </tr>
         <? } ?>

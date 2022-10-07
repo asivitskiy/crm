@@ -19,8 +19,8 @@
 <SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></SCRIPT>
 <SCRIPT type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></SCRIPT>
 <link rel="stylesheet" href="jquery-ui.css">
-<link rel="stylesheet" href="_workrow.css">
-<link rel="stylesheet" type="text/css" href="truestyle.css?<? //echo rand();?>" />
+<link rel="stylesheet" href="_workrow.css?<? echo rand();?>">
+<link rel="stylesheet" type="text/css" href="truestyle.css?<? echo rand();?>" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./inc/jquery.timepicker.css" />
 <SCRIPT type="text/javascript" src="./inc/jquery.timepicker.js"></SCRIPT>
@@ -165,7 +165,7 @@ for	($i = 0; $i <= 8; $i++) {
 			/*include "page_sorter.php";*/
 			/*include "main_list.php";*/
 		   include "final_design/index.php";?>
-        <div class="history_block" style="" id="historyBlock" onmouseenter="handlerOver();" onmouseleave = "handlerOut();">
+        <!--<div class="history_block" style="" id="historyBlock" onmouseenter="handlerOver();" onmouseleave = "handlerOut();">!-->
             <?
 		} ?>
 		<? if ($action == 'administrating') { include "adminpanel.php"; } ?>
@@ -174,10 +174,14 @@ for	($i = 0; $i <= 8; $i++) {
 		<? if ($action == 'paydemands2') { include "paydemands.php"; } ?>
 		<? if ($action == 'paydemands') { include "_new_paydemands.php"; } ?>
 		<? if ($action == 'messages') { include "_message_list.php"; } ?>
+        <? if ($action == 'calc') { include "_calc.php"; } ?>
 		<? if ($action == 'cashbox') { include "cashbox.php"; } ?>
 		<? if ($action == 'client_list') { include "_main_client_list.php"; } ?>
 		<? if ($action == 'zarplata') { include "_money_list.php"; } ?>
-		<? if (($action == 'new') or ($action == 'redact')) { include "_workrow.php"; } ?>
+		<? if ((($action == 'new') or ($action == 'redact')) and !isset($_GET['wrtest'])) { include "_workrow.php"; } ?>
+        <? if ((($action == 'new') or ($action == 'redact')) and isset($_GET['wrtest'])) { include "_workrow_rebuild.php"; } ?>
+        <? if (($action == 'qr_checker')) { include "_qr_checker.php"; } ?>
+
 		<? //if ($page == 'main_list') { include "main_list.php"; } ?>
 		<? } ?>
 		<?// if ($_SESSION['type'] == 'printer') {include "print_workplace.php"; } ?>
@@ -266,5 +270,6 @@ setInterval(histLoader,2000);*/
 
 </script>
 !-->
+<? //echo creataPathForApp("13420","Ю",$_SERVER['REMOTE_ADDR']);?>
 </body>
 </html>

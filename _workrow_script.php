@@ -8,21 +8,22 @@
             var _price = $(_element).find('[name="work_vis[]"]').val();
 			_price *=1;
             var _col11 = Math.trunc(440/ (_counts + 2));
-			var _col12 = Math.trunc(312/ (_price + 2));
+			var _col12 = Math.trunc(310/ (_price + 2));
 			var _col21 = Math.trunc(440/ (_price + 2));
-			var _col22 = Math.trunc(312/ (_counts + 2));
+			var _col22 = Math.trunc(310/ (_counts + 2));
 			var _cnt1 = _col11*_col12;
 			var _cnt2 = _col21*_col22;
 			var _col = Math.max(_cnt1,_cnt2);
 			if (_cnt1>_cnt2) {_col=_cnt1; var _shirina = _col11; var _visota=_col12;} else {_col=_cnt2; var _shirina = _col21; var _visota=_col22;}
+			
 			//$(_element).find('[name="bezlam"]').val((_col));
          	//$(_element).find('[name="shirina"]').val((_shirina));
          	//$(_element).find('[name="visota"]').val((_visota));
          	
-			var _lam11 = Math.trunc(415/ (_counts + 3));
-			var _lam12 = Math.trunc(300/ (_price + 3));
-			var _lam21 = Math.trunc(415/ (_price + 3));
-			var _lam22 = Math.trunc(300/ (_counts + 3));
+			var _lam11 = Math.trunc(400/ (_counts + 3));
+			var _lam12 = Math.trunc(287/ (_price + 3));
+			var _lam21 = Math.trunc(400/ (_price + 3));
+			var _lam22 = Math.trunc(287/ (_counts + 3));
 			var _cntlam1 = _lam11*_lam12;
 			var _cntlam2 = _lam21*_lam22;
 			var _lamcol = Math.max(_cntlam1,_cntlam2);
@@ -30,8 +31,11 @@
 			//\n[" + _shirina +"x" +_visota + " / "+_shirinalam+"x"+_visotalam+"]
 			    var _textcol333 = "[" + _col + " / " +_lamcol + "]";
             /*Math.max(10, 20);*/
-			    var _textcol = "[" + Math.round(_col) + "]налист\n";
-			    var _textcol = _textcol  + "[" + Math.round(_kol/_col) + "]лст";
+			    var _textcol = "[" + Math.round(_col) + "]";
+				var _textcol = _textcol  + "[" + Math.round(_lamcol) + "]\n";
+			    if (_col!=0) {
+					var _textcol = _textcol  + "[" + Math.ceil(_kol/_col) + "]лст\n";
+                }
 			$(_element).find('[name="work_rasklad[]"]').val((_textcol));
 			$(_element).find('[name="work_sheets[]"]').val((_kol/_col));
 
@@ -51,7 +55,9 @@
 			if (_formatname == "А4") {var _shirina = "297";var _visota = "210";}
 			if (_formatname == "А5") {var _shirina = "210";var _visota = "148";}
 			if (_formatname == "А6") {var _shirina = "148";var _visota = "105";}
+			if (_formatname == "А7") {var _shirina = "105";var _visota = "74"; }
 			if (_formatname == "А1") {var _shirina = "841";var _visota = "594";}
+			if (_formatname == "А0") {var _shirina = "1189";var _visota = "841";}
 			if (_formatname == "А2") {var _shirina = "594";var _visota = "420";}
 			$(_element).find('[name="work_shir[]"]').val((_shirina));
 			$(_element).find('[name="work_vis[]"]').val((_visota));

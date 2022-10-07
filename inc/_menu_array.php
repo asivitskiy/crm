@@ -27,9 +27,9 @@
     // $hrefs[6][1] = "img/icons/database, server, storage, data center, hosting.png";
     // $hrefs[6][2] = "Весь архив";
 
-    $hrefs[5][0] = "/?action=templates";
+    $hrefs[5][0] = "/?action=calc";
     $hrefs[5][1] = "img/icons/code, coding, html, css, programming.png";
-    $hrefs[5][2] = "Шаблоны";
+    $hrefs[5][2] = "Калькуляторы";
 
     $hrefs[6][0] = "/?action=administrating&filter=startscreen";
     $hrefs[6][1] = "img/icons/bug, virus, insect, malware, pest.png";

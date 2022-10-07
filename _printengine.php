@@ -3,6 +3,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'].'/_pdf_engine/dompdf/dompdf_config.inc.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/inc/config_reader.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/inc/global_functions.php';
 
 //addtoquery = 1 => печать обычног обланка
 //addtoquery = 2 => печать копии чека
@@ -58,7 +59,7 @@ if ($_GET['addtoquery'] == '1') {
 
 if ($_GET['addtoquery'] == '2') {
     mysql_query("INSERT INTO `print_order` (`print_order_number`,`printed`,`printer_name`) VALUES ('$order_number','0','2')");
-
+    sendWhatsappNocheck($cfg['roland_worker_number'],"Заказ ".$order_number,'');
 }
 
 

@@ -151,8 +151,13 @@
                         case ($data_row_data['soglas'] == 0):
                             $add = "trafficlights-red";
                             break;
-                    } ?>
-                <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>">раб</div>
+                    }
+                    $cur_order = $data_row_data['order_number'];
+                    $isprinted_arr = mysql_fetch_array(mysql_query("SELECT COUNT(`id`) as `cntid` FROM `print_order` WHERE print_order.print_order_number = '$cur_order'"));
+                    $isprinted = $isprinted_arr['cntid'];
+                    if ($isprinted > 0) {$inworkstring = "<b style='font-weight: 1000;'>РАБ</b>";} else {$inworkstring = "<b style='font-weight: 100; font-size: 9px;'>РАБ</b>";};
+                    ?>
+                <div class="maintable-row-block trafficlights trafficlights-work trafficlights-green <? echo $add; ?>"><? echo $inworkstring; ?></div>
                 <div class="maintable-row-block trafficlights-spacer"></div>
                 
                 <? if ($cfg['whatsapp'] == 1) {

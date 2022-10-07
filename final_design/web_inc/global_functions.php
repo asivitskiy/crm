@@ -1,4 +1,5 @@
 <?
+
 function dig_to_y($digdig)
     {	if(!isset($digdig))
             return false;

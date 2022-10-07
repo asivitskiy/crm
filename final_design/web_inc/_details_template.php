@@ -1,6 +1,8 @@
 <?
 include("dbconnect.php");
 include ("../../inc/global_functions.php");
+session_start();
+$current_manager = $_SESSION['manager'];
 // Если запрос не AJAX или не передано действие, выходим
 if ($_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest' || empty($_REQUEST['action'])) {exit();}
 $action = $_REQUEST['action'];
@@ -28,13 +30,16 @@ $order_data_data = mysql_fetch_array(mysql_query($order_data_sql));
 
     <div class="details-ajax__header ajax-buttons">
 
-        <a target="_blank" class="a_orderrow" href = "?action=redact&order_number=<? echo $order_data_data['order_number']; ?>">редактировать</a>
+    <a target="_blank" class="a_orderrow" href = "?action=redact&order_number=<? echo $order_data_data['order_number']; ?>">редактировать</a>
+    <a target="_blank" class="a_orderrow" href = "<? echo creataPathForApp($order_data_data['order_number'],$order_data_data['order_manager']);?>">папка</a>
         <a target="_blank" class="a_orderrow" href = "index.php?action=delete&order_manager=<? echo $order_data_data['order_manager']; ?>&order_number=<? echo $order_data_data['order_number']; ?>">удалить заказ</a>
-        <a target="_blank" class="a_orderrow" href = "printform.php?manager=<? echo $order_data_data['order_manager']; ?>&number=<? echo $order_data_data['order_number']; ?>">Старый бланк</a>
+        <a class="a_orderrow"  id="setHandingBtn"  style="cursor: pointer;"  onclick="setHanding(<? echo $order_data_data['order_number']; ?>)" >Выдано</a>
         <a target="_blank" class="a_orderrow" href = "?&myorder=1&noready=0&showlist=&delivery=1&clientstring=<? echo($order_data_data['id']); ?>">карточка клиента</a>
         <a target="_blank" class="a_orderrow" href="./_pdf_engine/filemaker.php?order_number=<? echo $order_data_data['order_number']; ?>" target="_blank">PDF</a>
         <a class="a_orderrow"  id="printBtn"  style="cursor: pointer;"  onclick="printblank(<? echo $order_data_data['order_number']; ?>)" >Печать</a>
-        <a class="a_orderrow" id="printBtnCopy" style="cursor: pointer;" onclick="printCopyCheck(<? echo $order_number; ?>)" >Копия чека</a>
+        <!--<a class="a_orderrow" id="printBtnCopy" style="cursor: pointer;" onclick="printCopyCheck(<? //echo $order_number; ?>)" >Копия чека</a> --!>
+        <a class="a_orderrow"  id="setHandingBtn"  style="cursor: pointer;"  onclick="setHanding(<? echo $order_data_data['order_number']; ?>)" >Выдано</a>
+        <a class="a_orderrow"  id="errorToManagerBtn"  style="cursor: pointer;"  onclick="errorToManager(<? echo $order_data_data['order_number']; ?>,'<? echo $order_data_data['order_manager']; ?>','<? echo $current_manager; ?>')" >КОСЯК</a>
         <a target="_blank" class="a_orderrow" style="margin-left: 100px;" href="_new_order_statuscheck.php?order_number=<? echo $order_data_data['order_number']; ?>&paystatus=paystatuschange" target="_blank">Запросить счет</a>
         <a class="a_orderrow" target="_blank" href="https://wamm.chat/home/to/<? echo $order_data_data['notification_number'];?>#list-msg-end" style="line-height:20px;">Открыть Whatsapp</a>
         <? if (strlen($order_data_data['notification_status']) <> 12) {?>

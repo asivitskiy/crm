@@ -25,6 +25,7 @@ if ($_GET['filter'] == 'startscreen') {  ?>
 
     <br>
 	<? if ($_SESSION['supervisor'] == 1) { ?>	<a class="a_orderrow" href="?action=zarplata">Зарплатная таблица</a><br><br> <? } ?>
+	<? if ($_SESSION['supervisor'] == 1) { ?>	<a class="a_orderrow" href="_demander.php?menu">Операции с выставленными счетами</a><br><br> <? } ?>
 
 <? } ?>
 
@@ -87,7 +88,8 @@ if ($_GET['filter'] == 'add_demand') {
 //........................................................................
 if ($_GET['filter'] == 'demand_count') {
 	?>
-	<br><a class="a_orderrow" href="?action=administrating&filter=startscreen">Вернутсья в панель администрирования</a>;
+	<br><a class="a_orderrow" href="?action=administrating&filter=startscreen">Вернутсья в панель администрирования</a>
+	<br><a class="a_orderrow" target="_blank" href="http://127.0.0.1:8999/?open_folder=\\192.168.1.112\server_1\7 счета\договор">Папка с договорами</a>
 	<form method="post" action="?action=administrating&filter=complete_demand">
 	<?
 
@@ -112,13 +114,13 @@ if ($_GET['filter'] == 'demand_count') {
 		?><input type=hidden name=names[<? echo $main_data['work_order_number']; ?>] value="<? echo $main_data['work_order_number']; ?>"> <?
 	}
 	echo '<b>Заказчик:</b> '.$contragent_info_data['name'].'<br>';
-	echo '<b>Контакты:</b> <div style=width:400px;>'.$contragent_info_data['contacts'].'</div><br>';
-	echo '<b>Реквизиты:</b> <div style=width:400px;> '.$contragent_info_data['fullinfo'].'</div><br>';
+	echo '<b>Контакты:</b> <div style=width:800px;>'.$contragent_info_data['contacts'].'</div><br>';
+	echo '<b>Реквизиты:</b> <div style=width:800px;> '.$contragent_info_data['fullinfo'].'</div><br>';
 	echo '<b>Общая сумма:</b> '.$amount_demand_works.'<br>';
 	echo '<b>Номера заказов:</b> '.$searchstring.'<br>';
 	//поиск последнего счета для этого клиента (чтобы понять с какой организации был выставлен)
 	echo "<br><b>Оплаты по последним 10 бланкам:</b><br>";
-	$last_demand_sql = "SELECT * FROM `order` WHERE `contragent` = ".$contragent_info_data['id']." LIMIT 10";
+	$last_demand_sql = "SELECT * FROM `order` WHERE `contragent` = ".$contragent_info_data['id']."  ORDER BY `id` DESC LIMIT 10";
 	$last_demand_array = mysql_query($last_demand_sql);
 	while ($last_demand_data = mysql_fetch_array($last_demand_array)) {
 		echo $last_demand_data['paymethod']."; ";
@@ -137,6 +139,17 @@ if ($_GET['filter'] == 'demand_count') {
 	<input type="hidden" name="contragent_id" value="<? echo $contragent_info_data['id']; ?>">
 	</form>
 	<br>
+	<script>
+		var linkList=[];
+		<? $order_list = explode(',',$searchstring); 
+		foreach ($order_list as $ol_el) {?>
+	linkList.push(<? echo $ol_el?>);
+	<? } ?>
+	</script>
+
+
+    
+		<button onclick="openLinkList(linkList);">Все PDF</button><br>
 	Информация о заказах, включаемых в счет:
 	<table class="adminpanel_main_table">
 		<tr>
@@ -144,10 +157,12 @@ if ($_GET['filter'] == 'demand_count') {
 			<td>Изделие</td>
 			<td>Описание</td>
 			<td>Изготовитель</td>
-			<td>Расход</td>
+			
 			<td>Цена</td>
 			<td>Количество</td>
 			<td>Сумма</td>
+			<td>Расход</td>
+			<td>Счет расхода</td>
 		</tr>
 
 	<?
@@ -159,8 +174,8 @@ if ($_GET['filter'] == 'demand_count') {
 	?>
 
 		<tr style="background-color: #D3D3D3">
-			<td><? echo $info_order_number; ?></td>
-			<td colspan="7"><? echo $info_order_data['order_description'] ?></td>
+			<td><a target="_blank" href="http://192.168.1.221/?action=redact&order_number=<? echo $info_order_number ?>"><? echo $info_order_number;  ?></a></td>
+			<td colspan="8">	<? echo $info_order_data['order_description'] ?></td>
 
 		</tr>
 		<?
@@ -173,10 +188,12 @@ if ($_GET['filter'] == 'demand_count') {
 				<td><? echo $info_works_data['work_name']; ?></td>
 				<td><? echo $info_works_data['work_description']; ?></td>
 				<td><? echo $info_works_data['work_tech']; ?></td>
-				<td><? echo $info_works_data['work_rashod']; ?></td>
+			
 				<td><? echo $info_works_data['work_price']; ?></td>
 				<td><? echo $info_works_data['work_count']; ?></td>
 				<td><? echo (($info_works_data['work_price']*1)*($info_works_data['work_count']*1)); ?></td>
+				<td><? echo $info_works_data['work_rashod']; ?></td>
+				<td><a target="_blank" href="http://192.168.1.221/?&delivery=1&myorder=1&noready=0&showlist=&paylist_demand=<? echo $info_works_data['work_rashod_list']; ?>"><? echo $info_works_data['work_rashod_list']; ?></a></td>
 			</tr>
 		<?
 		}

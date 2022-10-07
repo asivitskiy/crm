@@ -85,13 +85,42 @@ function printblank(ordernumber) {
     $("#printBtn").css("outline" , "1px solid green");
     $("#printBtn").attr("onclick", "").unbind("click");
 }
+function setHanding(ordernumber) {
+    $.get('http://192.168.1.221/_button_processor.php?order_number=' + ordernumber + '&setHanding');
+    $("#setHandingBtn").text("...ок...");
+    $("#setHandingBtn").val("...ок...");
+    $("#setHandingBtn").css("outline" , "1px solid green");
+    $("#setHandingBtn").attr("onclick", "").unbind("click");
+}
+
+function errorToManager(orderNumber,orderManager,messFrom) {
+    stringtogo = 'http://192.168.1.221/_button_processor.php?order_number=' + orderNumber + '&order_manager=' + orderManager + '&author=' + messFrom + '&errorToManager';
+    console.log("string:" + stringtogo);
+    $.get(stringtogo);
+    $("#errorToManagerBtn").text("...ок...");
+    $("#errorToManagerBtn").val("...ок...");
+    $("#errorToManagerBtn").css("outline" , "1px solid green");
+    $("#errorToManagerBtn").attr("onclick", "").unbind("click");
+}
 
 function printCopyCheck(ordernumber) {
     $.get('http://192.168.1.221/_printengine.php?order_number=' + ordernumber + '&addtoquery=2');
     $("#printBtnCopy").text("...ок...");
     $("#printBtnCopy").val("...ок...");
     $("#printBtnCopy").css("outline" , "1px solid green");
-    $("#printBtn").attr("onclick", "").unbind("click");
+    $("#printBtnCopy").attr("onclick", "").unbind("click");
     
 }
+
+function openLinkList(linkList) {
+  for(var i = 0; i < linkList.length; i++) {
+    var a = document.createElement("a");
+    a.href = "http://<? echo $_SERVER['SERVER_ADDR'];?>/_pdf_engine/filemaker.php?order_number=" + linkList[i];
+    a.target="_blank";
+    
+    a.click();
+  }
+}
+
+
 </script>

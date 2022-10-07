@@ -1,3 +1,4 @@
+
 body {
 	/*font-family: 'Roboto', sans-serif;*/
 	font-family: Tahoma, Verdana, Arial, 'Sans Serif';
@@ -532,6 +533,8 @@ text-decoration: none;
 }
 .a_orderrow:hover {
 text-decoration: none;
+border-color: black;
+outline: 1px solid black;
 }
 
 .clientblock {
@@ -789,4 +792,7 @@ text-decoration: none;
 	border:1px solid #fa625c;
 	color: #fa625c;
 	font-weight: 600;
+}
+.qr_checker td {
+	padding: 4px;
 }

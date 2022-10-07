@@ -119,6 +119,7 @@ $work_vis		= $_POST['work_vis'];
 $work_media		= $_POST['work_media'];
 $work_postprint	= $_POST['work_postprint'];
 $work_rasklad	= $_POST['work_rasklad'];
+$work_roland_status = $_POST['work_roland_status'];
 
 $work_count		= $_POST['work_count'];
 $work_sheets	= $_POST['work_sheets'];
@@ -263,7 +264,9 @@ $contragent_id			= 	addslashes($refresh_contragent_data_row['id']);
 		
 //номерки поправлены, всё удалено, вставляем начисто строку с заказом
 //дата приема пищется один раз и не изменяется
-if ($action=="new") {$date_in = date("YmdHi"); $qr_status = 1;}
+if ($action=="new") {$date_in = date("YmdHi"); $qr_status = 1;
+	createOrderFolder($order_number,$order_manager);
+}
 if ($action<>"new") {$date_in = $order_pre_check_data['date_in'];}
 $datetoend = $datetoend.$timetoend;
 $datetoend = str_replace(":","",$datetoend);
@@ -369,6 +372,7 @@ $work_postprinti=$work_postprint[$i];
 $work_raskladi=$work_rasklad[$i];
 $work_counti=$work_count[$i];
 $work_sheetsi=round($work_sheets[$i]);
+$work_roland_statusi = $work_roland_status[$i];
 $work_pricei=str_replace(',','.',$work_price[$i]);
 $work_rashodi=str_replace(',','.',$work_rashod[$i])*1;$work_rashodi=number_format($work_rashodi,2,'.','');
 $work_rashod_listi=$work_rashod_list[$i];
@@ -396,8 +400,8 @@ $work_rashod_listi=$work_rashod_list[$i];
 					mysql_query($sq4);
 				}
 		
-$work_add_sql = "INSERT INTO `works` (work_order_manager,work_order_number,work_name,work_description,work_vis,work_shir,work_color,work_media,work_tech,work_price,work_count,work_sheets,work_postprint,work_rashod,work_rashod_list,work_rasklad) 
-VALUES ('$order_manager','$order_number','$work_namei','$work_descriptioni','$work_visi','$work_shiri','$work_colori','$work_mediai','$work_techi','$work_pricei','$work_counti','$work_sheetsi','$work_postprinti','$work_rashodi','$work_rashod_listi','$work_raskladi')";
+$work_add_sql = "INSERT INTO `works` (work_roland_status,work_order_manager,work_order_number,work_name,work_description,work_vis,work_shir,work_color,work_media,work_tech,work_price,work_count,work_sheets,work_postprint,work_rashod,work_rashod_list,work_rasklad) 
+VALUES ('$work_roland_statusi','$order_manager','$order_number','$work_namei','$work_descriptioni','$work_visi','$work_shiri','$work_colori','$work_mediai','$work_techi','$work_pricei','$work_counti','$work_sheetsi','$work_postprinti','$work_rashodi','$work_rashod_listi','$work_raskladi')";
 		mysql_query($work_add_sql);
 		$works_summ = $works_summ + $work_pricei*$work_counti;
 			}
